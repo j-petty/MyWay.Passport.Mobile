@@ -50,7 +50,7 @@
                         TextColor="Red" />
 
                     <Label
-                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
+                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0 c}'}"
                         HorizontalTextAlignment="Center"
                         TextColor="Gray"
                         IsVisible="True" />

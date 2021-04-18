@@ -40,8 +40,6 @@
                     Text="Date of Birth"
                     Style="{StaticResource FormFieldLabel}" />
 
-                <Label Text="{Binding CardDetails.DateOfBirth}" />
-
                 <DatePicker
                     Date="{Binding CardDetails.DateOfBirth}"
                     MaximumDate="{x:Static system:DateTime.Today}" />

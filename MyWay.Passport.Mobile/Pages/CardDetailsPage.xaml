@@ -3,10 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
-    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    Title="Card Details">
     <ContentPage.ToolbarItems>
         <ToolbarItem
-            Text="Save" />
+            Text="Clear"
+            Command="{Binding OnClearSelected}" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -18,7 +20,8 @@
 
                 <Entry
                     Text="{Binding CardDetails.CardNumber}"
-                    Placeholder="Card Number" />
+                    Placeholder="Card Number"
+                    Keyboard="Numeric" />
             </StackLayout>
 
              <StackLayout Style="{StaticResource FormFieldGroup}">

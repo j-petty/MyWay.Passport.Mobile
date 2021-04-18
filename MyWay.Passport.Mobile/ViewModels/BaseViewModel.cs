@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public abstract class BaseViewModel : INotifyPropertyChanged
     {
         #region Variables
         /// <summary>
@@ -31,6 +31,16 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             Navigation = navigation;
         }
+
+        /// <summary>
+        /// When overridden, called when View OnAppearing is called.
+        /// </summary>
+        public virtual void OnViewAppearing() { }
+
+        /// <summary>
+        /// When overridden, called when View OnDisappearing is called.
+        /// </summary>
+        public virtual void OnViewDisappearing() { }
 
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {

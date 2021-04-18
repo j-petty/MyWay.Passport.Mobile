@@ -9,7 +9,7 @@ namespace MyWay.Passport.Mobile.Models
     /// Base object to be inherited by other Models and Objects.
     /// </summary>
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy), ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

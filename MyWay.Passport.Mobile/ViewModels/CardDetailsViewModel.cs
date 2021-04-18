@@ -1,5 +1,6 @@
 ﻿using System;
 using MyWay.Passport.Mobile.Models;
+using MyWay.Passport.Mobile.Services;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -17,32 +18,30 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         #region Commands
         /// <summary>
-        /// Login button listener.
+        /// Clear button listener.
         /// </summary>
-        /*public Command OnLoginSelected
+        public Command OnClearSelected
         {
             get
             {
-                return new Command(async () =>
+                return new Command(() =>
                 {
-                    bool result = await LoginAsync();
-
-                    if (result)
-                    {
-                        await Navigation.PushModalAsync(new NavigationPage(new MainPage()));
-                    }
+                    CardDetails = new CardDetails();
+                    SettingsService.ClearLocalData();
                 });
             }
-        }*/
+        }
         #endregion
 
         // Default constructor
         public CardDetailsViewModel(INavigation navigation) : base(navigation)
         {
-            CardDetails = new CardDetails
-            {
-                CardNumber = Guid.NewGuid().ToString()
-            };
+            CardDetails = SettingsService.CardDetails ?? new CardDetails();
+        }
+
+        public override void OnViewDisappearing()
+        {
+            SettingsService.CardDetails = CardDetails;
         }
     }
 }

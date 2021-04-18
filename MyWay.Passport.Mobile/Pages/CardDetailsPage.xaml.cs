@@ -14,5 +14,17 @@ namespace MyWay.Passport.Mobile.Pages
             InitializeComponent();
             BindingContext = viewModel = new CardDetailsViewModel(Navigation);
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            viewModel.OnViewAppearing();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            viewModel.OnViewDisappearing();
+        }
     }
 }

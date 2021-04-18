@@ -30,6 +30,21 @@ namespace MyWay.Passport.Mobile.ViewModels
                 });
             }
         }
+
+        /// <summary>
+        /// Save listener.
+        /// </summary>
+        public Command OnSaveSelected
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    SettingsService.CardDetails = CardDetails;
+                    await Navigation.PopAsync();
+                }, () => CardDetails.CheckFilled());
+            }
+        }
         #endregion
 
         // Default constructor

@@ -25,6 +25,20 @@ namespace MyWay.Passport.Mobile.Models
             set { dateOfBirth = value; OnPropertyChanged(); }
         }
 
+        private DateTime? lastUpdated;
+        public DateTime? LastUpdated
+        {
+            get { return lastUpdated; }
+            set { lastUpdated = value; OnPropertyChanged(); }
+        }
+
+        private double lastBalance = 0.0;
+        public double LastBalance
+        {
+            get { return lastBalance; }
+            set { lastBalance = value; OnPropertyChanged(); }
+        }
+
         public CardDetails()
         {
             DateOfBirth = DateTime.Today;
@@ -36,7 +50,7 @@ namespace MyWay.Passport.Mobile.Models
         /// <returns>Returns whether required card details are provided.</returns>
         public bool CheckFilled()
         {
-            return !string.IsNullOrEmpty(CardNumber) && !string.IsNullOrEmpty(Password) && DateOfBirth != null;
+            return !string.IsNullOrEmpty(CardNumber) && !string.IsNullOrEmpty(Password) && DateOfBirth != null && DateOfBirth <= DateTime.Today;
         }
     }
 }

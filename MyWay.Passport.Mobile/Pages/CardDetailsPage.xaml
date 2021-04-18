@@ -44,6 +44,12 @@
                     Date="{Binding CardDetails.DateOfBirth}"
                     MaximumDate="{x:Static system:DateTime.Today}" />
             </StackLayout>
+
+            <Button
+                Text="Save"
+                Command="{Binding OnSaveSelected}"
+                BackgroundColor="LightGray"
+                TextColor="Black" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

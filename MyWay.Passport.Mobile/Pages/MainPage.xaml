@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.Pages.MainPage"
     IsBusy="{Binding IsBusy}"
     Title="Balance">
@@ -25,7 +26,23 @@
                     <Label
                         Text="{Binding CardDetails.LastBalance, StringFormat='${0:F2}'}"
                         FontSize="70"
-                        HorizontalTextAlignment="Center" />
+                        HorizontalTextAlignment="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Value="True">
+                                <DataTrigger.Binding>
+                                    <Binding
+                                        Path="CardDetails.LastBalance"
+                                        Converter="{StaticResource LessThanConverter}">
+                                        <Binding.ConverterParameter>
+                                            <sys:Double>0.0</sys:Double>
+                                        </Binding.ConverterParameter>
+                                    </Binding>
+                                </DataTrigger.Binding>
+
+                                <Setter Property="TextColor" Value="Red"/> 
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
 
                     <Label
                         Text="{Binding ErrorMessage}"
@@ -33,7 +50,7 @@
                         TextColor="Red" />
 
                     <Label
-                        Text="{Binding CardDetails.LastUpdated}"
+                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         TextColor="Gray"
                         IsVisible="True" />

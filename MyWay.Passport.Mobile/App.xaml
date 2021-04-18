@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyWay.Passport.Mobile.App">
+             x:Class="MyWay.Passport.Mobile.App"
+             xmlns:behaviors="clr-namespace:MyWay.Passport.Mobile.Behaviours">
     <Application.Resources>
+        <!-- Converters -->
+        <behaviors:LessThanConverter x:Key="LessThanConverter" />
+        <behaviors:TimeAgoDateConverter x:Key="TimeAgoDateConverter" />
+
         <!-- Styles -->
 
         <!-- Form Field Label -->

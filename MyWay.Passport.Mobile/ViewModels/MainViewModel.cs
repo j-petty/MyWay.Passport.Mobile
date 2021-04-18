@@ -70,11 +70,12 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 Console.WriteLine("Couldn't find card details");
 
+                // Open settings if card details haven't been provided
                 OpenSettingsSelected.Execute(null);
             }
-            else
+            else if (CardDetails.LastUpdated < DateTime.Now.AddHours(-1))
             {
-                // Retrieve latest balance
+                // Retrieve latest balance if haven't in the last hour
                 RefreshBalanceSelected.Execute(null);
             }
         }

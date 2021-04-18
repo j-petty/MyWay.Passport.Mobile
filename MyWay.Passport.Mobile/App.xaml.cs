@@ -1,6 +1,5 @@
-﻿using System;
+﻿using MyWay.Passport.Mobile.Pages;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MyWay.Passport.Mobile
 {
@@ -10,7 +9,7 @@ namespace MyWay.Passport.Mobile
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

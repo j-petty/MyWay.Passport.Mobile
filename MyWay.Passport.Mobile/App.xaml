@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyWay.Passport.Mobile.App">
     <Application.Resources>
+        <!-- Styles -->
 
+        <!-- Form Field Label -->
+        <Style x:Key="FormFieldLabel" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <!-- Form Field Group -->
+        <Style x:Key="FormFieldGroup" TargetType="StackLayout">
+            <Setter Property="Spacing" Value="10" />
+        </Style>
     </Application.Resources>
 </Application>

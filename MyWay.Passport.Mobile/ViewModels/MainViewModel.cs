@@ -68,12 +68,12 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             if (CardDetails == null || !CardDetails.CheckFilled())
             {
-                Console.WriteLine("Couldn't find card details");
+                CardDetails = new CardDetails();
 
-                // Open settings if card details haven't been provided
-                OpenSettingsSelected.Execute(null);
+                // Display error if card details haven't been provided
+                ErrorMessage = "Enter MyWay card details to view balance.";
             }
-            else if (CardDetails.LastUpdated < DateTime.Now.AddHours(-1))
+            else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1))
             {
                 // Retrieve latest balance if haven't in the last hour
                 RefreshBalanceSelected.Execute(null);

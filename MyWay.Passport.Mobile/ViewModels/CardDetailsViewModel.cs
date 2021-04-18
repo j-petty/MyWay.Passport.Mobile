@@ -40,9 +40,15 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
+                    // Reset last updated to force balance refresh if details changed
+                    CardDetails.LastUpdated = null;
+
+                    // Save CardDetails
                     SettingsService.CardDetails = CardDetails;
+
+                    // Return to previous page
                     await Navigation.PopAsync();
-                }, () => CardDetails.CheckFilled());
+                });
             }
         }
         #endregion
@@ -51,11 +57,6 @@ namespace MyWay.Passport.Mobile.ViewModels
         public CardDetailsViewModel(INavigation navigation) : base(navigation)
         {
             CardDetails = SettingsService.CardDetails ?? new CardDetails();
-        }
-
-        public override void OnViewDisappearing()
-        {
-            SettingsService.CardDetails = CardDetails;
         }
     }
 }

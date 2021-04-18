@@ -50,10 +50,16 @@
                         TextColor="Red" />
 
                     <Label
-                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0 c}'}"
+                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         TextColor="Gray"
-                        IsVisible="True" />
+                        IsVisible="True">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding CardDetails.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
+                                <Setter Property="IsVisible" Value="False"/> 
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </StackLayout>
             </ScrollView>
         </RefreshView>

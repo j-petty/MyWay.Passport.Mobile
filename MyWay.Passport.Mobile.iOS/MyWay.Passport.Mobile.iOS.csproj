@@ -70,6 +70,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\NavigationPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -134,5 +135,8 @@
       <Project>{F155870A-19D6-42A8-AEBC-75174DF5887B}</Project>
       <Name>MyWay.Passport.Mobile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Renderers\" />
   </ItemGroup>
 </Project>

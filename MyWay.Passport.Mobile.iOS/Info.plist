@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>MyWay&#x2007;Balance</string>
+	<string>Balance</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.jamespetty.mywaypassport</string>
 	<key>CFBundleVersion</key>

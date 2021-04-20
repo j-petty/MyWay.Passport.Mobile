@@ -7,14 +7,17 @@ namespace MyWay.Passport.Mobile
     public partial class App : Application
     {
         public static RequestService RequestService { get; private set; }
+        public static VendorService VendorService { get; private set; }
 
         public App()
         {
             InitializeComponent();
+            
+            // Register services
+            RequestService = new RequestService();
+            VendorService = new VendorService();
 
             MainPage = new NavigationPage(new MainPage());
-
-            RequestService = new RequestService();
         }
 
         protected override void OnStart()

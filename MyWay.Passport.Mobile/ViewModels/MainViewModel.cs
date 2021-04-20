@@ -5,6 +5,7 @@ using HtmlAgilityPack;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
+using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -73,15 +74,17 @@ namespace MyWay.Passport.Mobile.ViewModels
                 // Display error if card details haven't been provided
                 ErrorMessage = "Enter MyWay card details to view balance.";
             }
-            else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1))
+            else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1) || CardDetails.LastBalance == 0.0)
             {
-                // Retrieve latest balance if haven't in the last hour
+                // Retrieve latest balance if haven't in the last hour or the balance is 0
                 RefreshBalanceSelected.Execute(null);
             }
+
+            CrossLocalNotifications.Current.Show("Test title", "Test local notificaiton body");
         }
 
         /// <summary>
-        /// Get's the latest balance data from TransportAct.
+        /// Get's the latest balance data from vendor API.
         /// </summary>
         public async Task GetBalanceAsync()
         {
@@ -89,93 +92,19 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             try
             {
-                var response = await App.RequestService.SendRequest(
-                    Constants.BalanceCheckApiUrl,
-                    new Dictionary<string, string>
-                    {
-                        {"srno", CardDetails?.CardNumber},
-                        {"day", CardDetails?.DateOfBirth?.Day.ToString("D2")},
-                        {"month", CardDetails?.DateOfBirth?.Month.ToString("D2")},
-                        {"year", CardDetails?.DateOfBirth?.Year.ToString()},
-                        {"pwrd", CardDetails?.Password}
-                    });
+                CardDetails = await App.VendorService.GetBalanceAsync(CardDetails);
 
-                var content = await response.Content.ReadAsStringAsync();
-
-                if (response.IsSuccessStatusCode)
-                {
-                    // Parse html to get card balance
-                    CardDetails.LastBalance = GetBalanceHtml(content);
-
-                    // Set LastUpdated date to now
-                    CardDetails.LastUpdated = DateTime.Now;
-
-                    // Save updated CardDetails
-                    SettingsService.CardDetails = CardDetails;
-
-                    // Reset error on successful balance update
-                    ErrorMessage = null;
-                }
-                else
-                {
-                    throw new InvalidOperationException("HTTP request failure response");
-                }
+                // Reset error on successful balance update
+                ErrorMessage = null;
             }
-            catch (Exception e)
+            catch
             {
-                // TODO: handle misc errors
-                Console.WriteLine($"[{nameof(MainViewModel)}]: " + e);
-
+                // Display error if refresh failed
                 ErrorMessage = "Failed to retrieve balance. Check your card details.";
-
-                // Reset card balance if error occured
-                CardDetails.LastBalance = 0.0;
-                SettingsService.CardDetails = CardDetails;
             }
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        private double GetBalanceHtml(string html)
-        {
-            try
-            {
-                // Load html document
-                var htmlDoc = new HtmlDocument();
-                htmlDoc.LoadHtml(html);
-
-                // Navigate to the correct html block
-                var mainBlock = htmlDoc.GetElementbyId("main");
-                var tableRows = mainBlock.SelectNodes("//table[contains(@class,'smartCardTable type3')]//tr");
-
-                // Loop through table rows
-                foreach (var row in tableRows)
-                {
-                    var head = row.SelectSingleNode("th");
-
-                    // Check if this is the correct table row
-                    if (head.InnerText == "Card Balance")
-                    {
-                        // Retrieve correct data node
-                        var value = row.SelectSingleNode("td").InnerText;
-
-                        // Remove $ and space from start of value
-                        value = value.Substring(2, value.Length - 2);
-
-                        // Return value as double
-                        return double.Parse(value);
-                    }
-                }
-
-                return 0.0;
-            }
-            catch
-            {
-                Console.WriteLine("Failed to parse response HTML");
-
-                throw;
             }
         }
     }

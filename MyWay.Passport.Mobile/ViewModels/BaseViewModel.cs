@@ -35,12 +35,29 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// <summary>
         /// When overridden, called when View OnAppearing is called.
         /// </summary>
-        public virtual void OnViewAppearing() { }
+        public virtual void OnViewAppearing()
+        {
+            // Subscribe to App OnResume event
+            MessagingCenter.Subscribe<App>(App.Current, Constants.EventNames.OnResume, (sender) =>
+            {
+                // Call when resuming from background
+                OnViewResuming();
+            });
+        }
+
+        /// <summary>
+        /// When overridden, called when OnResume is called (application returns from background).
+        /// </summary>
+        public virtual void OnViewResuming() { }
 
         /// <summary>
         /// When overridden, called when View OnDisappearing is called.
         /// </summary>
-        public virtual void OnViewDisappearing() { }
+        public virtual void OnViewDisappearing()
+        {
+            // Unsubscribe from event
+            MessagingCenter.Unsubscribe<App>(App.Current, Constants.EventNames.OnResume);
+        }
 
         protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {

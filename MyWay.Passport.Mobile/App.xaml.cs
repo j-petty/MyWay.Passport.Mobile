@@ -1,4 +1,6 @@
-﻿using MyWay.Passport.Mobile.Pages;
+﻿using System;
+using Matcha.BackgroundService;
+using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
 using Xamarin.Forms;
 
@@ -22,6 +24,11 @@ namespace MyWay.Passport.Mobile
 
         protected override void OnStart()
         {
+            // Register background fetch service
+            BackgroundAggregatorService.Add(() => new RefreshScheduler());
+
+            // Start background service
+            BackgroundAggregatorService.StartBackgroundService();
         }
 
         protected override void OnSleep()
@@ -30,6 +37,8 @@ namespace MyWay.Passport.Mobile
 
         protected override void OnResume()
         {
+            // Publish event for ViewModels to handle returning from background
+            MessagingCenter.Send(this, Constants.EventNames.OnResume);
         }
     }
 }

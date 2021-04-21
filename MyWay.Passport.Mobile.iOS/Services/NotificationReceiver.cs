@@ -8,7 +8,10 @@ namespace MyWay.Passport.Mobile.iOS.Services
     /// </summary>
     public class NotificationReceiver : UNUserNotificationCenterDelegate
     {
-        public override void WillPresentNotification(UNUserNotificationCenter center, UNNotification notification, Action<UNNotificationPresentationOptions> completionHandler)
+        public override void WillPresentNotification(
+            UNUserNotificationCenter center,
+            UNNotification notification,
+            Action<UNNotificationPresentationOptions> completionHandler)
         {
             // Tell system to display the notification anyway
             completionHandler(UNNotificationPresentationOptions.Banner);

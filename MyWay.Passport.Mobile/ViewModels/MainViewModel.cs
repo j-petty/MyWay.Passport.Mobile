@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
-using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -72,6 +69,23 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         public override void OnViewAppearing()
         {
+            base.OnViewAppearing();
+
+            TryRefreshBalance();
+        }
+
+        public override void OnViewResuming()
+        {
+            base.OnViewAppearing();
+
+            TryRefreshBalance();
+        }
+
+        /// <summary>
+        /// Checks if balance need to be refreshed and invokes Command to refresh.
+        /// </summary>
+        private void TryRefreshBalance()
+        {
             CardDetails = SettingsService.CardDetails;
 
             if (CardDetails == null || !CardDetails.CheckFilled())
@@ -86,14 +100,12 @@ namespace MyWay.Passport.Mobile.ViewModels
                 // Retrieve latest balance if haven't in the last hour or the balance is 0
                 RefreshBalanceSelected.Execute(null);
             }
-
-            CrossLocalNotifications.Current.Show("Test title", "Test local notificaiton body");
         }
 
         /// <summary>
         /// Get's the latest balance data from vendor API.
         /// </summary>
-        public async Task GetBalanceAsync()
+        private async Task GetBalanceAsync()
         {
             IsBusy = true;
 

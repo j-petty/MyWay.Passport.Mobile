@@ -1,8 +1,7 @@
 ﻿using System;
 using Foundation;
+using Matcha.BackgroundService.iOS;
 using MyWay.Passport.Mobile.iOS.Services;
-using MyWay.Passport.Mobile.Services;
-using Plugin.LocalNotifications;
 using UIKit;
 using UserNotifications;
 
@@ -16,54 +15,16 @@ namespace MyWay.Passport.Mobile.iOS
     {
         public override bool FinishedLaunching(UIApplication application, NSDictionary options)
         {
-            // TODO: enable request for permission and background refresh once Xamarin issue is fixed
-            // https://github.com/xamarin/xamarin-macios/issues/6849
-
             // Request required permissions
-            //RequestPermissions();
+            RequestPermissions();
 
-            global::Xamarin.Forms.Forms.Init();
+            // Init background fetch service
+            BackgroundAggregator.Init(this);
+
+            Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-            // Set backgrond App refresh frequency (seconds)
-            //UIApplication.SharedApplication.SetMinimumBackgroundFetchInterval(UIApplication.BackgroundFetchIntervalMinimum);
-
             return base.FinishedLaunching(application, options);
-        }
-
-        /// <summary>
-        /// Perform background fetch
-        /// </summary>
-        public override async void PerformFetch(UIApplication application, Action<UIBackgroundFetchResult> completionHandler)
-        {
-            try
-            {
-                // Try to fetch lastest balance details
-                var cardDetails = await App.VendorService.GetBalanceAsync(SettingsService.CardDetails);
-
-                Console.WriteLine("Successful background refresh");
-
-                // TODO: show notification if balance is low
-                CrossLocalNotifications.Current.Show(
-                    "Fetch Complete",
-                    "Testing refresh"
-                    /*$"Successfully refreshed balance: ${cardDetails?.LastBalance.ToString("F2")}"*/);
-
-                // Trigger success callback
-                completionHandler(UIBackgroundFetchResult.NewData);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed background refresh", ex);
-
-                // TODO: remove this
-                CrossLocalNotifications.Current.Show(
-                    "Failed to Fetch",
-                    "Testing refresh failed");
-
-                // Trigger failure callback
-                completionHandler(UIBackgroundFetchResult.Failed);
-            }
         }
 
         private void RequestPermissions()

@@ -28,10 +28,13 @@ namespace MyWay.Passport.Mobile.Services
 
                 Console.WriteLine("Successful background refresh");
 
-                // TODO: show notification only if balance is low
-                CrossLocalNotifications.Current.Show(
-                    "TODO: change this title",
-                    $"Successfully refreshed balance: ${cardDetails?.LastBalance.ToString("F2")}");
+                // Show notification if balance is low
+                if (cardDetails != null && cardDetails.LastBalance <= Constants.BalanceWarningLimit)
+                {
+                    CrossLocalNotifications.Current.Show(
+                        "MyWay Balance Low",
+                        $"Your MyWay balance is running low. ${cardDetails?.LastBalance.ToString("F2")}");
+                }
 
                 // Trigger success callback
                 return await Task.FromResult(shouldTriggerAgain);
@@ -39,11 +42,6 @@ namespace MyWay.Passport.Mobile.Services
             catch (Exception ex)
             {
                 Console.WriteLine("Failed background refresh", ex);
-
-                // TODO: remove this notification
-                CrossLocalNotifications.Current.Show(
-                    "Failed to Fetch",
-                    "Testing refresh failed. TODO: remove this notification");
 
                 // Trigger failure callback
                 return await Task.FromResult(shouldTriggerAgain);

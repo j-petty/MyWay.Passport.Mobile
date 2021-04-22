@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
+using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels

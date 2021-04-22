@@ -8,6 +8,9 @@
         // Background app refresh frequency (seconds). Minimum 15 minutes.
         public const double BackgroundRefreshFrequency = 1800;
 
+        // Balance to send out warning at
+        public const double BalanceWarningLimit = 5.0;
+
         public static class SettingNames
         {
             public const string CardDetails = "CardDetails";

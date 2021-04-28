@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
     xmlns:system="clr-namespace:System;assembly=mscorlib"
-    Title="Card Details">
+    Title="Card Details"
+    BackgroundColor="{StaticResource SecondaryBackgroundColor}">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Clear"
@@ -24,7 +25,7 @@
                     Keyboard="Numeric" />
             </StackLayout>
 
-             <StackLayout Style="{StaticResource FormFieldGroup}">
+            <StackLayout Style="{StaticResource FormFieldGroup}">
                 <Label
                     Text="Password"
                     Style="{StaticResource FormFieldLabel}" />

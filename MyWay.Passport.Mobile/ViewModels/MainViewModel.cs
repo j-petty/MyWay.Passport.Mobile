@@ -66,6 +66,7 @@ namespace MyWay.Passport.Mobile.ViewModels
                     // Don't load balance if card details aren't filled
                     if (CardDetails == null || !CardDetails.CheckFilled())
                     {
+                        IsBusy = false;
                         return;
                     }
 
@@ -108,6 +109,7 @@ namespace MyWay.Passport.Mobile.ViewModels
 
                 // Display error if card details haven't been provided
                 ErrorMessage = Constants.ErrorMessages.BalanceCheckMissingCardDetails;
+                IsBusy = false;
             }
             else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1) || CardDetails.LastBalance == 0.0)
             {

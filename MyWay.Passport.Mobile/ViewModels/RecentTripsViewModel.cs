@@ -39,7 +39,7 @@ namespace MyWay.Passport.Mobile.ViewModels
                     {
                         // Display error if card details haven't been provided
                         ErrorMessage = Constants.ErrorMessages.RecentTripsMissingCardDetails;
-
+                        IsBusy = false;
                         return;
                     }
 

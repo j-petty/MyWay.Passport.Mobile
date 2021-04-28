@@ -20,7 +20,8 @@ namespace MyWay.Passport.Mobile
 
             MainPage = new NavigationPage(new MainPage())
             {
-                BarBackgroundColor = (Color)App.Current.Resources["BackgroundColor"]
+                BarBackgroundColor = (Color)App.Current.Resources["BackgroundColor"],
+                BarTextColor = Color.Black
             };
         }
 

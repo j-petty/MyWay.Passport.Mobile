@@ -1,5 +1,4 @@
-﻿using System;
-using Matcha.BackgroundService;
+﻿using Matcha.BackgroundService;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
 using Xamarin.Forms;
@@ -19,7 +18,10 @@ namespace MyWay.Passport.Mobile
             RequestService = new RequestService();
             VendorService = new VendorService();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainPage())
+            {
+                BarBackgroundColor = (Color)App.Current.Resources["BackgroundColor"]
+            };
         }
 
         protected override void OnStart()

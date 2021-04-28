@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using Newtonsoft.Json;
 
 namespace MyWay.Passport.Mobile.Models
 {
@@ -32,8 +34,8 @@ namespace MyWay.Passport.Mobile.Models
             set { lastUpdated = value; OnPropertyChanged(); }
         }
 
-        private double lastBalance = 0.0;
-        public double LastBalance
+        private double? lastBalance = 0.0;
+        public double? LastBalance
         {
             get { return lastBalance; }
             set { lastBalance = value; OnPropertyChanged(); }

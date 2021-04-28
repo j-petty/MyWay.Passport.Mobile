@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using MyWay.Passport.Mobile.Models;
@@ -8,27 +9,22 @@ namespace MyWay.Passport.Mobile.Services
 {
     public class VendorService
     {
+        #region Public Methods
+
         public async Task<CardDetails> GetBalanceAsync(CardDetails cardDetails)
         {
             try
             {
                 var response = await App.RequestService.SendRequest(
                     Constants.BalanceCheckApiUrl,
-                    new Dictionary<string, string>
-                    {
-                        {"srno", cardDetails?.CardNumber},
-                        {"day", cardDetails?.DateOfBirth?.Day.ToString("D2")},
-                        {"month", cardDetails?.DateOfBirth?.Month.ToString("D2")},
-                        {"year", cardDetails?.DateOfBirth?.Year.ToString()},
-                        {"pwrd", cardDetails?.Password}
-                    });
+                    CreateRequestPayload(cardDetails));
 
                 var content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
                     // Parse html to get card balance
-                    cardDetails.LastBalance = GetBalanceHtml(content);
+                    cardDetails.LastBalance = GetBalance(content);
 
                     // Set LastUpdated date to now
                     cardDetails.LastUpdated = DateTime.Now;
@@ -56,7 +52,45 @@ namespace MyWay.Passport.Mobile.Services
             }
         }
 
-        private double GetBalanceHtml(string html)
+        public async Task<IEnumerable<RecentTrip>> GetRecentTripsAsync(CardDetails cardDetails)
+        {
+            try
+            {
+                var response = await App.RequestService.SendRequest(
+                    Constants.BalanceCheckApiUrl,
+                    CreateRequestPayload(cardDetails));
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse html to get recent trips
+                    return GetRecentTrips(content);
+                }
+                else
+                {
+                    throw new InvalidOperationException("HTTP request failure response");
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO: handle misc errors
+                Console.WriteLine($"[{nameof(VendorService)}]: " + e);
+
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region HTML Parsing Methods
+
+        /// <summary>
+        /// Parse HTML to get balance.
+        /// </summary>
+        /// <param name="html">Html to parse.</param>
+        /// <returns>Returns balance.</returns>
+        private double? GetBalance(string html)
         {
             try
             {
@@ -80,7 +114,7 @@ namespace MyWay.Passport.Mobile.Services
                         var value = row.SelectSingleNode("td").InnerText;
 
                         // Remove $ and space from start of value
-                        value = value.Substring(2, value.Length - 2);
+                        value = CleanString(value);
 
                         // Return value as double
                         return double.Parse(value);
@@ -96,5 +130,206 @@ namespace MyWay.Passport.Mobile.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// Parse HTML to get trip history.
+        /// </summary>
+        /// <param name="html">Html to parse.</param>
+        /// <returns>Returns recent trips.</returns>
+        private IEnumerable<RecentTrip> GetRecentTrips(string html)
+        {
+            try
+            {
+                // Load html document
+                var htmlDoc = new HtmlDocument();
+                htmlDoc.LoadHtml(html);
+
+                // Navigate to the correct html block
+                var mainBlock = htmlDoc.GetElementbyId("main");
+                var tableRows = mainBlock.SelectNodes("//table[contains(@class,'smartCardTable type2')]//tr");
+
+                var recentTrips = new List<RecentTrip>();
+
+                // Loop through table rows
+                foreach (var row in tableRows.Skip(1))
+                {
+                    var rowData = row.SelectNodes("td");
+
+                    // Get trip details from data
+                    var date = GetTripDate(rowData);
+                    var price = GetTripPrice(rowData);
+                    var route = GetTripRoute(rowData);
+                    var destination = GetTripLocation(rowData);
+
+                    // Don't return trips which were transfers or card deposits
+                    if (price == null || price > 0.0 || date == null || string.IsNullOrEmpty(route))
+                    {
+                        continue;
+                    }
+
+                    // Initiate the trip
+                    var thisTrip = new RecentTrip
+                    {
+                        To = destination,
+                        Route = route,
+                        Price = price,
+                        Date = date
+                    };
+
+                    // Get trip departure (comes as seperate row in data)
+;                    thisTrip.From = GetTripDepartureLocation(tableRows, thisTrip);
+
+                    // Add trip to list
+                    recentTrips.Add(thisTrip);
+                }
+
+                return recentTrips;
+            }
+            catch
+            {
+                Console.WriteLine("Failed to parse response HTML");
+
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region Common Helper Methods
+
+        /// <summary>
+        /// Create request payload.
+        /// </summary>
+        /// <param name="cardDetails">Card details to populate in request.</param>
+        /// <returns>Returns populated request payload.</returns>
+        private Dictionary<string, string> CreateRequestPayload(CardDetails cardDetails)
+        {
+            return new Dictionary<string, string>
+            {
+                {"srno", cardDetails?.CardNumber},
+                {"day", cardDetails?.DateOfBirth?.Day.ToString("D2")},
+                {"month", cardDetails?.DateOfBirth?.Month.ToString("D2")},
+                {"year", cardDetails?.DateOfBirth?.Year.ToString()},
+                {"pwrd", cardDetails?.Password}
+            };
+        }
+
+        #endregion
+
+        #region RecentTrips Helper Methods
+
+        /// <summary>
+        /// Gets the trips Price.
+        /// </summary>
+        /// <param name="rowData">Data to retrieve trip Price from.</param>
+        /// <returns>Returns Price if it exists.</returns>
+        private double? GetTripPrice(HtmlNodeCollection rowData)
+        {
+            var priceStr = CleanString(rowData.ElementAtOrDefault(5)?.InnerText);
+
+            if (string.IsNullOrEmpty(priceStr))
+            {
+                return null;
+            }
+            return double.Parse(priceStr);
+        }
+
+        /// <summary>
+        /// Gets the trips Date.
+        /// </summary>
+        /// <param name="rowData">Data to retrieve trip Date from.</param>
+        /// <returns>Returns Date if it exists.</returns>
+        private DateTime? GetTripDate(HtmlNodeCollection rowData)
+        {
+            var tripDateStr = CleanString(rowData.ElementAtOrDefault(0)?.InnerText);
+
+            if (string.IsNullOrEmpty(tripDateStr))
+            {
+                return null;
+            }
+            return DateTime.Parse(tripDateStr);
+        }
+
+        /// <summary>
+        /// Gets the trips Route.
+        /// </summary>
+        /// <param name="rowData">Data to retrieve trip Route from.</param>
+        /// <returns>Returns Route if it exists.</returns>
+        private string GetTripRoute(HtmlNodeCollection rowData)
+        {
+            return CleanString(rowData.ElementAtOrDefault(3)?.InnerText);
+        }
+
+        /// <summary>
+        /// Gets the trips Location (destination).
+        /// </summary>
+        /// <param name="rowData">Data to retrieve trip Location from.</param>
+        /// <returns>Returns Location if it exists.</returns>
+        private string GetTripLocation(HtmlNodeCollection rowData)
+        {
+            return CleanString(rowData.ElementAtOrDefault(4)?.InnerText);
+        }
+
+        /// <summary>
+        /// Remove unwanted spaces or characters.
+        /// </summary>
+        /// <param name="inputString">String to clean.</param>
+        /// <returns>Clean version of inputString.</returns>
+        private string CleanString(string inputString)
+        {
+            if (inputString == null)
+            {
+                return inputString;
+            }
+
+            // Remove space HTML entity from string
+            inputString = inputString.Replace("&nbsp;", string.Empty);
+
+            // Remove $ from start
+            if (inputString.StartsWith("$"))
+            {
+                inputString = inputString.Remove(0, 1);
+            }
+
+            // Return trimmed string
+            return inputString.Trim();
+        }
+
+        /// <summary>
+        /// Finds a departure location for a corresponding trip. This is based on route, price and time.
+        /// </summary>
+        /// <param name="tableRows">Rows to look in.</param>
+        /// <param name="trip">Trip to get departure location for.</param>
+        /// <returns>Returns departure location name.</returns>
+        private string GetTripDepartureLocation(HtmlNodeCollection tableRows, RecentTrip trip)
+        {
+            foreach (var row in tableRows)
+            {
+                var rowData = row.SelectNodes("td");
+
+                if (rowData == null)
+                {
+                    continue;
+                }
+
+                var date = GetTripDate(rowData);
+                var price = GetTripPrice(rowData);
+                var route = GetTripRoute(rowData);
+                var location = GetTripLocation(rowData);
+
+                // Find trip which is the same route, same day and where the price is null (price is only set on tap off)
+                if (string.IsNullOrEmpty(route) || route != trip.Route ||
+                    date == null || price != null ||
+                    date?.Date != trip?.Date?.Date)
+                {
+                    continue;
+                }
+
+                return location;
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

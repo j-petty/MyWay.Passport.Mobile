@@ -20,5 +20,14 @@
         {
             public const string OnResume = "OnResume";
         }
+
+        public static class ErrorMessages
+        {
+            public const string BalanceCheckFailure = "Failed to retrieve balance.\n\n\nCheck your card details.";
+            public const string BalanceCheckMissingCardDetails = "Enter MyWay card details to view balance.";
+
+            public const string RecentTripsFailure = "Failed to retrieve trip history.\n\n\nCheck your card details.";
+            public const string RecentTripsMissingCardDetails = "Enter MyWay card details to view recent trips.";
+        }
     }
 }

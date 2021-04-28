@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
-using Plugin.LocalNotifications;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -37,6 +36,20 @@ namespace MyWay.Passport.Mobile.ViewModels
                 return new Command(async () =>
                 {
                     await Navigation.PushAsync(new CardDetailsPage());
+                });
+            }
+        }
+
+        /// <summary>
+        /// Open Recent Trips listener.
+        /// </summary>
+        public Command OpenRecentTripsSelected
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Navigation.PushAsync(new RecentTripsPage());
                 });
             }
         }
@@ -94,7 +107,7 @@ namespace MyWay.Passport.Mobile.ViewModels
                 CardDetails = new CardDetails();
 
                 // Display error if card details haven't been provided
-                ErrorMessage = "Enter MyWay card details to view balance.";
+                ErrorMessage = Constants.ErrorMessages.BalanceCheckMissingCardDetails;
             }
             else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1) || CardDetails.LastBalance == 0.0)
             {
@@ -120,7 +133,7 @@ namespace MyWay.Passport.Mobile.ViewModels
             catch
             {
                 // Display error if refresh failed
-                ErrorMessage = "Failed to retrieve balance. Check your card details.";
+                ErrorMessage = Constants.ErrorMessages.BalanceCheckFailure;
             }
             finally
             {

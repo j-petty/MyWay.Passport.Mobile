@@ -15,8 +15,9 @@
     <ContentPage.Content>
         <RefreshView
             IsRefreshing="{Binding IsBusy}"
-            Command="{Binding RefreshBalanceSelected}">
-            <ScrollView>
+            Command="{Binding RefreshBalanceSelected}"
+            BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+            <ScrollView BackgroundColor="{StaticResource BackgroundColor}">
                 <StackLayout
                     Margin="20"
                     Spacing="40"
@@ -25,8 +26,9 @@
                     HorizontalOptions="Fill">
                     <Label
                         Text="{Binding CardDetails.LastBalance, StringFormat='${0:F2}'}"
-                        FontSize="70"
-                        HorizontalTextAlignment="Center">
+                        FontSize="80"
+                        HorizontalTextAlignment="Center"
+                        TextColor="{StaticResource TextColor}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Value="True">
                                 <DataTrigger.Binding>
@@ -39,7 +41,7 @@
                                     </Binding>
                                 </DataTrigger.Binding>
 
-                                <Setter Property="TextColor" Value="Red"/> 
+                                <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}"/> 
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
@@ -47,12 +49,12 @@
                     <Label
                         Text="{Binding ErrorMessage}"
                         HorizontalTextAlignment="Center"
-                        TextColor="Red" />
+                        TextColor="{StaticResource ErrorTextColor}" />
 
                     <Label
                         Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
-                        TextColor="Gray"
+                        TextColor="{StaticResource SecondaryTextColor}"
                         IsVisible="True">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding CardDetails.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
@@ -60,6 +62,11 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
+
+                    <Button
+                        Text="View Recent Trips"
+                        Command="{Binding OpenRecentTripsSelected}"
+                        VerticalOptions="EndAndExpand" />
                 </StackLayout>
             </ScrollView>
         </RefreshView>

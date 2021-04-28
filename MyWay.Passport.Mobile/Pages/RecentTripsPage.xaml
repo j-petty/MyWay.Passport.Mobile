@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MyWay.Passport.Mobile.Pages.RecentTripsPage"
+    IsBusy="{Binding IsBusy}"
+    Title="Recent Trips">
+    <ContentPage.Content>
+        <RefreshView
+            IsRefreshing="{Binding IsBusy}"
+            Command="{Binding RefreshHistorySelected}"
+            BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+            <CollectionView
+                ItemsSource="{Binding RecentTrips}"
+                SelectionMode="None"
+                BackgroundColor="{StaticResource BackgroundColor}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout
+                                Grid.Row="0"
+                                Padding="20"
+                                Orientation="Horizontal">
+                                <StackLayout
+                                    Orientation="Vertical"
+                                    HorizontalOptions="StartAndExpand">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label
+                                            Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                            FontAttributes="Bold" />
+
+                                        <Label
+                                            Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
+                                            TextColor="{StaticResource SecondaryTextColor}"/>
+                                    </StackLayout>
+
+                                    <Label
+                                        Text="{Binding To}"
+                                        LineBreakMode="TailTruncation" />
+
+                                    <Label
+                                        Text="{Binding From}"
+                                        TextColor="{StaticResource SecondaryTextColor}"
+                                        LineBreakMode="TailTruncation" />
+                                </StackLayout>
+
+                                <Label
+                                    Text="{Binding Price, StringFormat='${0:F2}'}"
+                                    FontAttributes="Bold"
+                                    FontSize="20"
+                                    Margin="10"
+                                    VerticalTextAlignment="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
+                                            <Setter Property="Text" Value="TRANSFER" />
+                                            <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                            <Setter Property="FontSize" Value="15" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
+
+                            <!-- Separator -->
+                            <BoxView
+                                HeightRequest="1"
+                                BackgroundColor="{StaticResource SecondaryTextColor}"
+                                Opacity="0.3"
+                                Grid.Row="1" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label
+                        Text="No recent trips found."
+                        TextColor="{StaticResource SecondaryTextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
+                                <Setter Property="Text" Value="{Binding ErrorMessage}" />
+                                <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

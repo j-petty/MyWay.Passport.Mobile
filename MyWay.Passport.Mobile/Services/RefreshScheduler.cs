@@ -33,7 +33,7 @@ namespace MyWay.Passport.Mobile.Services
                 {
                     CrossLocalNotifications.Current.Show(
                         "MyWay Balance Low",
-                        $"Your MyWay balance is running low. ${cardDetails?.LastBalance.ToString("F2")}");
+                        $"Your MyWay balance is running low. ${cardDetails?.LastBalance?.ToString("F2")}");
                 }
 
                 // Trigger success callback

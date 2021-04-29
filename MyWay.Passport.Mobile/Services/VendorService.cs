@@ -172,12 +172,13 @@ namespace MyWay.Passport.Mobile.Services
                     {
                         To = destination,
                         Route = route,
-                        Price = price,
+                        Price = -price,
                         Date = date
                     };
 
                     // Get trip departure (comes as seperate row in data)
-;                    thisTrip.From = GetTripDepartureLocation(tableRows, thisTrip);
+                    var indexOfTrip = tableRows.ToList().FindIndex(r => r == row);
+                    thisTrip.From = GetTripDepartureLocation(tableRows, thisTrip, indexOfTrip);
 
                     // Add trip to list
                     recentTrips.Add(thisTrip);
@@ -185,7 +186,7 @@ namespace MyWay.Passport.Mobile.Services
 
                 return recentTrips;
             }
-            catch
+            catch (Exception ex)
             {
                 Console.WriteLine("Failed to parse response HTML");
 
@@ -225,6 +226,11 @@ namespace MyWay.Passport.Mobile.Services
         /// <returns>Returns Price if it exists.</returns>
         private double? GetTripPrice(HtmlNodeCollection rowData)
         {
+            if (rowData == null)
+            {
+                return null;
+            }
+
             var priceStr = CleanString(rowData.ElementAtOrDefault(5)?.InnerText);
 
             if (string.IsNullOrEmpty(priceStr))
@@ -241,6 +247,11 @@ namespace MyWay.Passport.Mobile.Services
         /// <returns>Returns Date if it exists.</returns>
         private DateTime? GetTripDate(HtmlNodeCollection rowData)
         {
+            if (rowData == null)
+            {
+                return null;
+            }
+
             var tripDateStr = CleanString(rowData.ElementAtOrDefault(0)?.InnerText);
 
             if (string.IsNullOrEmpty(tripDateStr))
@@ -257,6 +268,10 @@ namespace MyWay.Passport.Mobile.Services
         /// <returns>Returns Route if it exists.</returns>
         private string GetTripRoute(HtmlNodeCollection rowData)
         {
+            if (rowData == null)
+            {
+                return null;
+            }
             return CleanString(rowData.ElementAtOrDefault(3)?.InnerText);
         }
 
@@ -267,6 +282,10 @@ namespace MyWay.Passport.Mobile.Services
         /// <returns>Returns Location if it exists.</returns>
         private string GetTripLocation(HtmlNodeCollection rowData)
         {
+            if (rowData == null)
+            {
+                return null;
+            }
             return CleanString(rowData.ElementAtOrDefault(4)?.InnerText);
         }
 
@@ -301,33 +320,29 @@ namespace MyWay.Passport.Mobile.Services
         /// <param name="tableRows">Rows to look in.</param>
         /// <param name="trip">Trip to get departure location for.</param>
         /// <returns>Returns departure location name.</returns>
-        private string GetTripDepartureLocation(HtmlNodeCollection tableRows, RecentTrip trip)
+        private string GetTripDepartureLocation(HtmlNodeCollection tableRows, RecentTrip trip, int tripIndex)
         {
-            foreach (var row in tableRows)
+            // Find previous table row
+            var previousRow = tableRows.ElementAtOrDefault(tripIndex + 1);
+            var rowData = previousRow?.SelectNodes("td");
+
+            if (rowData == null)
             {
-                var rowData = row.SelectNodes("td");
-
-                if (rowData == null)
-                {
-                    continue;
-                }
-
-                var date = GetTripDate(rowData);
-                var price = GetTripPrice(rowData);
-                var route = GetTripRoute(rowData);
-                var location = GetTripLocation(rowData);
-
-                // Find trip which is the same route, same day and where the price is null (price is only set on tap off)
-                if (string.IsNullOrEmpty(route) || route != trip.Route ||
-                    date == null || price != null ||
-                    date?.Date != trip?.Date?.Date)
-                {
-                    continue;
-                }
-
-                return location;
+                return null;
             }
-            return null;
+
+            var route = GetTripRoute(rowData);
+            var price = GetTripPrice(rowData);
+            var location = GetTripLocation(rowData);
+
+            // Confirm this is a departure record
+            if (string.IsNullOrEmpty(route) || route != trip.Route || price != null)
+            {
+                return null;
+            }
+
+            // Return location of departure
+            return location;
         }
 
         #endregion

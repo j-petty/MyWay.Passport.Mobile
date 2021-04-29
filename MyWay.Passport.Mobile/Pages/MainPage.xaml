@@ -5,7 +5,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.Pages.MainPage"
     IsBusy="{Binding IsBusy}"
-    Title="Balance">
+    Title="MyWay Balance">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Card"
@@ -14,7 +14,7 @@
 
     <ContentPage.Content>
         <RefreshView
-            IsRefreshing="{Binding IsBusy}"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshBalanceSelected}"
             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
             <ScrollView BackgroundColor="{StaticResource BackgroundColor}">

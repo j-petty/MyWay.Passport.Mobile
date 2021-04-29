@@ -10,6 +10,7 @@
         <Color x:Key="SecondaryBackgroundColor">#F4F4F4</Color>
         <Color x:Key="TextColor">Black</Color>
         <Color x:Key="SecondaryTextColor">Gray</Color>
+        <Color x:Key="LinkTextColor">Black</Color>
         <Color x:Key="ErrorTextColor">Red</Color>
 
         <!-- Converters -->

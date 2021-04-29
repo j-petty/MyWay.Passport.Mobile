@@ -67,7 +67,8 @@
                         Text="View Recent Trips"
                         Command="{Binding OpenRecentTripsSelected}"
                         VerticalOptions="EndAndExpand"
-                        BackgroundColor="Transparent" />
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource LinkTextColor}" />
                 </StackLayout>
             </ScrollView>
         </RefreshView>

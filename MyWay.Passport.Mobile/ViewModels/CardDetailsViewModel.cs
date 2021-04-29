@@ -1,5 +1,7 @@
-﻿using MyWay.Passport.Mobile.Models;
+﻿using System;
+using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -48,6 +50,20 @@ namespace MyWay.Passport.Mobile.ViewModels
 
                     // Return to previous page
                     await Navigation.PopAsync();
+                });
+            }
+        }
+
+        /// <summary>
+        /// Open register card listener.
+        /// </summary>
+        public Command OnRegisterSelected
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Launcher.OpenAsync(new Uri(Constants.RegisterCardUrl));
                 });
             }
         }

@@ -13,44 +13,64 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <StackLayout Margin="20" Spacing="30">
-            <StackLayout Style="{StaticResource FormFieldGroup}">
-                <Label
-                    Text="Card Number"
-                    Style="{StaticResource FormFieldLabel}" />
+        <ScrollView>
+            <StackLayout Margin="20" Spacing="30">
+                <Label Margin="0,0,0,20">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="You need to register your MyWay card at " />
+                            <Span
+                                Text="transport.act.gov.au"
+                                TextColor="Blue"
+                                TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" to view your balance." />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
 
-                <Entry
-                    Text="{Binding CardDetails.CardNumber}"
-                    Placeholder="Card Number"
-                    Keyboard="Numeric" />
+                <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <Label
+                        Text="Card Number"
+                        Style="{StaticResource FormFieldLabel}" />
+
+                    <Entry
+                        Text="{Binding CardDetails.CardNumber}"
+                        Placeholder="Card Number"
+                        Keyboard="Numeric" />
+                </StackLayout>
+
+                <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <Label
+                        Text="Password"
+                        Style="{StaticResource FormFieldLabel}" />
+
+                    <Entry
+                        Text="{Binding CardDetails.Password}"
+                        Placeholder="Password"
+                        IsPassword="true" />
+                </StackLayout>
+
+                <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <Label
+                        Text="Date of Birth"
+                        Style="{StaticResource FormFieldLabel}" />
+
+                    <DatePicker
+                        Date="{Binding CardDetails.DateOfBirth}"
+                        MaximumDate="{x:Static system:DateTime.Today}" />
+                </StackLayout>
+
+                <Button
+                    Text="Save"
+                    Command="{Binding OnSaveSelected}"
+                    BackgroundColor="LightGray"
+                    TextColor="{StaticResource TextColor}"
+                    Margin="0,20,0,0" />
             </StackLayout>
-
-            <StackLayout Style="{StaticResource FormFieldGroup}">
-                <Label
-                    Text="Password"
-                    Style="{StaticResource FormFieldLabel}" />
-
-                <Entry
-                    Text="{Binding CardDetails.Password}"
-                    Placeholder="Password"
-                    IsPassword="true" />
-            </StackLayout>
-
-            <StackLayout Style="{StaticResource FormFieldGroup}">
-                <Label
-                    Text="Date of Birth"
-                    Style="{StaticResource FormFieldLabel}" />
-
-                <DatePicker
-                    Date="{Binding CardDetails.DateOfBirth}"
-                    MaximumDate="{x:Static system:DateTime.Today}" />
-            </StackLayout>
-
-            <Button
-                Text="Save"
-                Command="{Binding OnSaveSelected}"
-                BackgroundColor="LightGray"
-                TextColor="Black" />
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

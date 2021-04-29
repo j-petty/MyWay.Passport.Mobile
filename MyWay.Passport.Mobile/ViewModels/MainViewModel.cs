@@ -123,6 +123,12 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// </summary>
         private async Task GetBalanceAsync()
         {
+            if (IsBusy)
+            {
+                // Exit early if request is already processing
+                return;
+            }
+
             IsBusy = true;
 
             try

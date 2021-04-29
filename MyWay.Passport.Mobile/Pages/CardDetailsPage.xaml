@@ -9,7 +9,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Clear"
-            Command="{Binding OnClearSelected}" />
+            Clicked="OnClearClicked" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

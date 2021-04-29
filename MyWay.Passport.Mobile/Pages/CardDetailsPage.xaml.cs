@@ -26,5 +26,17 @@ namespace MyWay.Passport.Mobile.Pages
             base.OnDisappearing();
             viewModel.OnViewDisappearing();
         }
+
+        private async void OnClearClicked(object sender, System.EventArgs e)
+        {
+            // Display confirmation dialog
+            var result = await DisplayAlert("Are you sure?", "This will delete your saved card details.", "Delete", "Cancel");
+
+            if (result)
+            {
+                // Invoke OnClearSelected if confirmed
+                viewModel.OnClearSelected.Execute(null);
+            }
+        }
     }
 }

@@ -17,8 +17,7 @@
         <behaviors:LessThanConverter x:Key="LessThanConverter" />
         <behaviors:TimeAgoDateConverter x:Key="TimeAgoDateConverter" />
         <behaviors:IsNullConverter x:Key="IsNullConverter" />
-
-        <!-- Styles -->
+        <behaviors:IsEmptyConverter x:Key="IsEmptyConverter" />
 
         <!-- Form Field Label -->
         <Style x:Key="FormFieldLabel" TargetType="Label">

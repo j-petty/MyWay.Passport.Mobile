@@ -6,79 +6,88 @@
     IsBusy="{Binding IsBusy}"
     Title="Recent Trips">
     <ContentPage.Content>
-        <ListView
-            ItemsSource="{Binding RecentTrips}"
-            SelectionMode="None"
-            SeparatorColor="{StaticResource SecondaryTextColor}"
-            BackgroundColor="{StaticResource SecondaryBackgroundColor}"
-            IsPullToRefreshEnabled="True"
+        <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-            RefreshCommand="{Binding RefreshHistorySelected}"
-            HasUnevenRows="False"
-            RowHeight="110">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell IsEnabled="False">
-                        <StackLayout
-                            Padding="20"
-                            Orientation="Horizontal"
-                            VerticalOptions="Fill"
-                            BackgroundColor="{StaticResource BackgroundColor}">
-                            <StackLayout
-                                Orientation="Vertical"
-                                HorizontalOptions="StartAndExpand">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label
-                                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
-                                        FontAttributes="Bold" />
+            Command="{Binding RefreshHistorySelected}"
+            BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+            <ScrollView>
+                <RelativeLayout BackgroundColor="{StaticResource BackgroundColor}">
+                    <ListView
+                        IsEnabled="False"
+                        ItemsSource="{Binding RecentTrips}"
+                        SelectionMode="None"
+                        SeparatorColor="{StaticResource SecondaryTextColor}"
+                        IsPullToRefreshEnabled="False"
+                        HasUnevenRows="False"
+                        RowHeight="110"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell IsEnabled="False">
+                                    <StackLayout
+                                        Padding="20"
+                                        Orientation="Horizontal"
+                                        VerticalOptions="Fill">
+                                        <StackLayout
+                                            Orientation="Vertical"
+                                            HorizontalOptions="StartAndExpand">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                                    FontAttributes="Bold" />
 
-                                    <Label
-                                        Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
-                                        TextColor="{StaticResource SecondaryTextColor}"/>
-                                </StackLayout>
+                                                <Label
+                                                    Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
+                                                    TextColor="{StaticResource SecondaryTextColor}"/>
+                                            </StackLayout>
 
-                                <Label
-                                    Text="{Binding To}"
-                                    LineBreakMode="TailTruncation" />
+                                            <Label
+                                                Text="{Binding To}"
+                                                LineBreakMode="TailTruncation" />
 
-                                <Label
-                                    Text="{Binding From}"
-                                    TextColor="{StaticResource SecondaryTextColor}"
-                                    LineBreakMode="TailTruncation" />
-                            </StackLayout>
+                                            <Label
+                                                Text="{Binding From}"
+                                                TextColor="{StaticResource SecondaryTextColor}"
+                                                LineBreakMode="TailTruncation" />
+                                        </StackLayout>
 
-                            <Label
-                                Text="{Binding Price, StringFormat='-${0:F2}'}"
-                                FontAttributes="Bold"
-                                FontSize="20"
-                                Margin="10"
-                                VerticalTextAlignment="Center">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
-                                        <Setter Property="Text" Value="TRANSFER" />
-                                        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
-                                        <Setter Property="FontSize" Value="15" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <!--<CollectionView.EmptyView>
-                <Label
-                    Text="No recent trips found."
-                    TextColor="{StaticResource SecondaryTextColor}"
-                    VerticalTextAlignment="Center"
-                    HorizontalTextAlignment="Center">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
-                            <Setter Property="Text" Value="{Binding ErrorMessage}" />
-                            <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}" />
-                        </DataTrigger>
-                    </Label.Triggers>
-                </Label>
-            </CollectionView.EmptyView>-->
-        </ListView>
+                                        <Label
+                                            Text="{Binding Price, StringFormat='-${0:F2}'}"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Margin="10"
+                                            VerticalTextAlignment="Center">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
+                                                    <Setter Property="Text" Value="TRANSFER" />
+                                                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                    <Setter Property="FontSize" Value="15" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Label
+                        Text="No recent trips found."
+                        TextColor="{StaticResource SecondaryTextColor}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsEmptyConverter}}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
+                                <Setter Property="Text" Value="{Binding ErrorMessage}" />
+                                <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </RelativeLayout>
+            </ScrollView>
+        </RefreshView>
     </ContentPage.Content>
 </ContentPage>

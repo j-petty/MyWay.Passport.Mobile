@@ -15,11 +15,7 @@ namespace MyWay.Passport.Mobile.Services
             get
             {
                 // Retrieve CardDetials from Preferences
-                var value = GetObject<CardDetails>(Constants.SettingNames.CardDetails);
-
-                Console.WriteLine("Retrieved Card Details: " + value?.CardNumber);
-
-                return value;
+                return GetObject<CardDetails>(Constants.SettingNames.CardDetails);
             }
             set
             {

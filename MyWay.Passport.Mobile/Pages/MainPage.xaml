@@ -12,6 +12,22 @@
             Command="{Binding OpenSettingsSelected}" />
     </ContentPage.ToolbarItems>
 
+    <NavigationPage.TitleView>
+        <StackLayout
+            Orientation="Horizontal"
+            VerticalOptions="Center"
+            Margin="10,0,0,0"
+            Spacing="0">
+            <Button
+                Text="History"
+                Command="{Binding OpenRecentTripsSelected}"
+                HorizontalOptions="Start"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource LinkTextColor}"
+                FontSize="17" />
+        </StackLayout>
+    </NavigationPage.TitleView>
+
     <ContentPage.Content>
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
@@ -19,10 +35,8 @@
             BackgroundColor="{StaticResource SecondaryBackgroundColor}">
             <ScrollView BackgroundColor="{StaticResource BackgroundColor}">
                 <StackLayout
-                    Margin="20"
-                    Spacing="40"
-                    Padding="0,0,0,50"
-                    VerticalOptions="CenterAndExpand"
+                    Spacing="70"
+                    VerticalOptions="Center"
                     HorizontalOptions="Fill">
                     <Label
                         Text="{Binding CardDetails.LastBalance, StringFormat='${0:F2}'}"
@@ -62,13 +76,6 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-
-                    <Button
-                        Text="View Recent Trips"
-                        Command="{Binding OpenRecentTripsSelected}"
-                        VerticalOptions="EndAndExpand"
-                        BackgroundColor="Transparent"
-                        TextColor="{StaticResource LinkTextColor}" />
                 </StackLayout>
             </ScrollView>
         </RefreshView>

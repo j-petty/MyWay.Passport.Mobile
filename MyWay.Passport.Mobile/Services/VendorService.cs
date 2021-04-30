@@ -323,23 +323,33 @@ namespace MyWay.Passport.Mobile.Services
         private string GetTripDepartureLocation(HtmlNodeCollection tableRows, RecentTrip trip, int tripIndex)
         {
             // Find previous table row
-            var previousRow = tableRows.ElementAtOrDefault(tripIndex + 1);
-            var rowData = previousRow?.SelectNodes("td");
+            var departureRow = tableRows.Skip(tripIndex + 1).FirstOrDefault(row =>
+            {
+                var rowData = row?.SelectNodes("td");
 
-            if (rowData == null)
+                if (rowData == null)
+                {
+                    return false;
+                }
+
+                var route = GetTripRoute(rowData);
+                var price = GetTripPrice(rowData);
+
+                // Confirm this is a departure record
+                if (string.IsNullOrEmpty(route) || route != trip.Route || price != null)
+                {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (departureRow == null)
             {
                 return null;
             }
 
-            var route = GetTripRoute(rowData);
-            var price = GetTripPrice(rowData);
-            var location = GetTripLocation(rowData);
-
-            // Confirm this is a departure record
-            if (string.IsNullOrEmpty(route) || route != trip.Route || price != null)
-            {
-                return null;
-            }
+            var location = GetTripLocation(departureRow.SelectNodes("td"));
 
             // Return location of departure
             return location;

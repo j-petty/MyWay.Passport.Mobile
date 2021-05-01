@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using Matcha.BackgroundService.Droid;
+using Plugin.CurrentActivity;
 
 namespace MyWay.Passport.Mobile.Droid
 {
@@ -13,6 +14,9 @@ namespace MyWay.Passport.Mobile.Droid
         {
             // Enable background fetch service
             BackgroundAggregator.Init(this);
+
+            // Setup CurrentActivity
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
 
             base.OnCreate(savedInstanceState);
 

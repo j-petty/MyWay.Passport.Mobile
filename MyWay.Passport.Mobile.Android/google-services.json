@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "145439119360",
+    "project_id": "myway-balance-app",
+    "storage_bucket": "myway-balance-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145439119360:android:a013a07e084b4e77ea20e5",
+        "android_client_info": {
+          "package_name": "com.jamespetty.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145439119360-2sratg46j5mk6mlqu4qihe6456aeosb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmjzKC81ERy2qqkDyJ9xi-7WvKRk6_No4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145439119360-2sratg46j5mk6mlqu4qihe6456aeosb5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "145439119360-l0roojghe21nf1le8lj1ql37oflhdsdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jamespetty.mywaypass"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145439119360:android:c0d711e97d9a7b77ea20e5",
+        "android_client_info": {
+          "package_name": "com.jamespetty.mywaypass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145439119360-2sratg46j5mk6mlqu4qihe6456aeosb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmjzKC81ERy2qqkDyJ9xi-7WvKRk6_No4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145439119360-2sratg46j5mk6mlqu4qihe6456aeosb5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "145439119360-l0roojghe21nf1le8lj1ql37oflhdsdu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jamespetty.mywaypass"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

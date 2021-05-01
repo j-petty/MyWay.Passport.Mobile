@@ -30,5 +30,14 @@
             public const string RecentTripsFailure = "Failed to retrieve trip history.\n\n\nCheck your card details.";
             public const string RecentTripsMissingCardDetails = "Enter MyWay card details to view recent trips.";
         }
+
+        public static class AnalyticsEvents
+        {
+            public const string BalanceRefershSuccess = "BalanceRefershSuccess";
+            public const string BalanceRefershFailure = "BalanceRefershFailure";
+
+            public const string RecentTripRefreshSuccess = "RecentTripRefreshSuccess";
+            public const string RecentTripRefreshFailure = "RecentTripRefreshFailure";
+        }
     }
 }

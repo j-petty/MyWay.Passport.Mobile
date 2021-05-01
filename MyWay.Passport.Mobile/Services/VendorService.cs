@@ -4,11 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using MyWay.Passport.Mobile.Models;
+using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.Services
 {
     public class VendorService
     {
+        private readonly IFirebaseAnalyticsService analyticsService;
+
+        public VendorService()
+        {
+            // Retrieve analytics service
+            analyticsService = DependencyService.Get<IFirebaseAnalyticsService>();
+        }
+
         #region Public Methods
 
         public async Task<CardDetails> GetBalanceAsync(CardDetails cardDetails)
@@ -32,6 +41,11 @@ namespace MyWay.Passport.Mobile.Services
                     // Save updated CardDetails
                     SettingsService.CardDetails = cardDetails;
 
+                    // Log successful refresh
+                    analyticsService.LogEvent(
+                        Constants.AnalyticsEvents.BalanceRefershSuccess,
+                        $"Balance refreshed successfully");
+
                     return cardDetails;
                 }
                 else
@@ -47,6 +61,15 @@ namespace MyWay.Passport.Mobile.Services
                 // Reset card balance if error occured
                 cardDetails.LastBalance = 0.0;
                 SettingsService.CardDetails = cardDetails;
+
+                // Log failed refresh
+                analyticsService.LogEvent(
+                    Constants.AnalyticsEvents.BalanceRefershFailure,
+                    new Dictionary<string, string>
+                    {
+                        { "message", "Balance could not be refreshed" },
+                        { "error", e.StackTrace }
+                    });
 
                 throw;
             }
@@ -65,7 +88,14 @@ namespace MyWay.Passport.Mobile.Services
                 if (response.IsSuccessStatusCode)
                 {
                     // Parse html to get recent trips
-                    return GetRecentTrips(content);
+                    var recentTrips = GetRecentTrips(content);
+
+                    // Log successful refresh
+                    analyticsService.LogEvent(
+                        Constants.AnalyticsEvents.RecentTripRefreshSuccess,
+                        $"Recent Trips refreshed successfully");
+
+                    return recentTrips;
                 }
                 else
                 {
@@ -76,6 +106,15 @@ namespace MyWay.Passport.Mobile.Services
             {
                 // TODO: handle misc errors
                 Console.WriteLine($"[{nameof(VendorService)}]: " + e);
+
+                // Log failed refresh
+                analyticsService.LogEvent(
+                    Constants.AnalyticsEvents.RecentTripRefreshFailure,
+                    new Dictionary<string, string>
+                    {
+                        { "message", "Recent Trips could not be refreshed" },
+                        { "error", e.StackTrace }
+                    });
 
                 throw;
             }
@@ -186,7 +225,7 @@ namespace MyWay.Passport.Mobile.Services
 
                 return recentTrips;
             }
-            catch (Exception ex)
+            catch
             {
                 Console.WriteLine("Failed to parse response HTML");
 

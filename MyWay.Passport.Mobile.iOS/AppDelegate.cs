@@ -24,10 +24,15 @@ namespace MyWay.Passport.Mobile.iOS
             Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
-            // Init Firebase Analytics
-            Firebase.Core.App.Configure();
-            // Required for Firebase. Remove this line after issue is resolved: https://github.com/xamarin/GoogleApisForiOSComponents/issues/443
-            var instance = Firebase.Installations.Installations.DefaultInstance;
+#pragma warning disable CS0162 // Unreachable code detected
+            if (Constants.EnableAnalytics)
+            {
+                // Init Firebase Analytics
+                Firebase.Core.App.Configure();
+                // Required for Firebase. Remove this line after issue is resolved: https://github.com/xamarin/GoogleApisForiOSComponents/issues/443
+                var instance = Firebase.Installations.Installations.DefaultInstance;
+            }
+#pragma warning restore CS0162 // Unreachable code detected
 
             return base.FinishedLaunching(application, options);
         }

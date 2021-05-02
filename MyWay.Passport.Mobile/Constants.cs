@@ -2,6 +2,13 @@
 {
     public static class Constants
     {
+        // Disable API on developer devices
+#if DEBUG
+        public const bool EnableAnalytics = false;
+#else
+        public const bool EnableAnalytics = true;
+#endif
+
         // TransportCanberra URLs
         public const string BalanceCheckApiUrl = "https://www.transport.act.gov.au/tickets-and-myway/check-myway-balance/check-your-balance?sq_content_src=%2BdXJsPWh0dHAlM0ElMkYlMkZmaWxlcy50cmFuc3BvcnQuYWN0Lmdvdi5hdSUyRkFSVFMlMkZ1c2VfRnVuY3MuYXNwJmFsbD0x";
         public const string RegisterCardUrl = "https://www.transport.act.gov.au/tickets-and-myway/register-myway";

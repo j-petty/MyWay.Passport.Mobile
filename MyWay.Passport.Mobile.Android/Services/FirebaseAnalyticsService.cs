@@ -36,11 +36,18 @@ namespace MyWay.Passport.Mobile.Droid.Services
 			fireBaseAnalytics.SetUserId(userId);
 		}
 
+#pragma warning disable CS0162 // Unreachable code detected
 		public void LogEvent(string eventId, IDictionary<string, string> parameters)
 		{
-			var fireBaseAnalytics = FirebaseAnalytics.GetInstance(CrossCurrentActivity.Current.AppContext);
+			// Don't trigger analytics event if disabled
+			if (!Constants.EnableAnalytics)
+			{
+				return;
+			}
 
-			if (parameters == null)
+            var fireBaseAnalytics = FirebaseAnalytics.GetInstance(CrossCurrentActivity.Current.AppContext);
+
+            if (parameters == null)
 			{
 				fireBaseAnalytics.LogEvent(eventId, null);
 				return;
@@ -55,5 +62,6 @@ namespace MyWay.Passport.Mobile.Droid.Services
 
 			fireBaseAnalytics.LogEvent(eventId, bundle);
 		}
+#pragma warning restore CS0162 // Unreachable code detected
 	}
 }

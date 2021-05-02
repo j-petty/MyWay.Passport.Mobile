@@ -33,8 +33,15 @@ namespace MyWay.Passport.Mobile.iOS.Services
             Analytics.SetUserId(userId);
         }
 
+#pragma warning disable CS0162 // Unreachable code detected
         public void LogEvent(string eventId, IDictionary<string, string> parameters)
         {
+            // Don't trigger analytics event if disabled
+            if (!Constants.EnableAnalytics)
+            {
+                return;
+            }
+
             if (parameters == null)
             {
                 Analytics.LogEvent(eventId, parameters: null);
@@ -52,5 +59,6 @@ namespace MyWay.Passport.Mobile.iOS.Services
             var parametersDictionary = NSDictionary<NSString, NSObject>.FromObjectsAndKeys(values.ToArray(), keys.ToArray(), keys.Count);
             Analytics.LogEvent(eventId, parametersDictionary);
         }
+#pragma warning restore CS0162 // Unreachable code detected
     }
 }

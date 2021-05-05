@@ -67,6 +67,20 @@ namespace MyWay.Passport.Mobile.ViewModels
                 });
             }
         }
+
+        /// <summary>
+        /// Open privacy policy listener.
+        /// </summary>
+        public Command OnPrivacyPolicySelected
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Launcher.OpenAsync(new Uri(Constants.PrivacyPolicyUrl));
+                });
+            }
+        }
         #endregion
 
         // Default constructor

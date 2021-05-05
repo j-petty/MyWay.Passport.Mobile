@@ -15,6 +15,9 @@
         public const string RegisterCardUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/register-myway";
         public const string PasswordHelpUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/check-myway-balance#Protect";
 
+        // Internal URLs
+        public const string PrivacyPolicyUrl = "https://www.jamespetty.com.au/privacy.html";
+
         // Background app refresh frequency (seconds). Minimum 15 minutes.
         public const double BackgroundRefreshFrequency = 1800;
 

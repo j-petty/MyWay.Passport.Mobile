@@ -2,8 +2,9 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:app="clr-namespace:MyWay.Passport.Mobile;assembly=MyWay.Passport.Mobile"
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
-    xmlns:system="clr-namespace:System;assembly=mscorlib"
     Title="Card Details"
     BackgroundColor="{StaticResource SecondaryBackgroundColor}">
     <ContentPage.ToolbarItems>
@@ -15,17 +16,14 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="20" Spacing="30">
-                <StackLayout
-                    Margin="0,0,0,10"
-                    Spacing="20">
+                <StackLayout Spacing="20">
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="You need to register your MyWay card at " />
                                 <Span
-                                    Text="transport.act.gov.au"
-                                    TextColor="Blue"
-                                    TextDecorations="Underline">
+                                    Text="{x:Static app:Constants.TransportCanberraDomain}"
+                                    Style="{StaticResource ClickableLink}">
                                     <Span.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
                                     </Span.GestureRecognizers>
@@ -79,15 +77,34 @@
 
                     <DatePicker
                         Date="{Binding CardDetails.DateOfBirth}"
-                        MaximumDate="{x:Static system:DateTime.Today}" />
+                        MaximumDate="{x:Static sys:DateTime.Today}" />
+                </StackLayout>
+
+                <StackLayout Spacing="20">
+                    <Label Text="Your card details will be stored security on your device and encrypted in transit." />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Read the " />
+                                <Span
+                                    Text="Privacy Policy"
+                                    Style="{StaticResource ClickableLink}">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OnPrivacyPolicySelected}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text=" for more information." />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </StackLayout>
 
                 <Button
                     Text="Save"
                     Command="{Binding OnSaveSelected}"
                     BackgroundColor="LightGray"
-                    TextColor="{StaticResource TextColor}"
-                    Margin="0,20,0,0" />
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource TextColor}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

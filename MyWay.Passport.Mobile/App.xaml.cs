@@ -13,7 +13,7 @@ namespace MyWay.Passport.Mobile
         public App()
         {
             InitializeComponent();
-            
+
             // Register services
             RequestService = new RequestService();
             VendorService = new VendorService();

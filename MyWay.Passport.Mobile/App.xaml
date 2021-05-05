@@ -14,10 +14,11 @@
         <Color x:Key="ErrorTextColor">Red</Color>
 
         <!-- Converters -->
-        <behaviors:LessThanConverter x:Key="LessThanConverter" />
+        <behaviors:IsLessThanConverter x:Key="IsLessThanConverter" />
         <behaviors:TimeAgoDateConverter x:Key="TimeAgoDateConverter" />
         <behaviors:IsNullConverter x:Key="IsNullConverter" />
         <behaviors:IsEmptyConverter x:Key="IsEmptyConverter" />
+        <behaviors:IsTodayConverter x:Key="IsTodayConverter" />
 
         <!-- Form Field Label -->
         <Style x:Key="FormFieldLabel" TargetType="Label">

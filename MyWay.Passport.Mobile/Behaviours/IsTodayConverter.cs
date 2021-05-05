@@ -5,32 +5,25 @@ using Xamarin.Forms;
 namespace MyWay.Passport.Mobile.Behaviours
 {
     /// <summary>
-    /// Returns true if the value is less than the double provided in the paramater.
+    /// Returns true if the date aspect of a DateTime value is today's date.
     /// </summary>
-    public class LessThanConverter : IValueConverter
+    public class IsTodayConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var cutoff = (double)parameter;
-
-            if (value.GetType() == typeof(double))
+            if (value != null && value.GetType() == typeof(DateTime))
             {
-                return (double)value < cutoff;
+                return ((DateTime)value).Date == DateTime.Today;
             }
             else
             {
-                throw new NotImplementedException("Value of type {value.GetType()} is not supported");
+                throw new InvalidOperationException($"Value of type {value.GetType()} is not supported");
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        private bool IsInteger (double number)
-        {
-            return number == Math.Round(number);
         }
     }
 }

@@ -57,7 +57,7 @@
                                 <DataTrigger.Binding>
                                     <Binding
                                         Path="CardDetails.LastBalance"
-                                        Converter="{StaticResource LessThanConverter}">
+                                        Converter="{StaticResource IsLessThanConverter}">
                                         <Binding.ConverterParameter>
                                             <sys:Double>0.0</sys:Double>
                                         </Binding.ConverterParameter>

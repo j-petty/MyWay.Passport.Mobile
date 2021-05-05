@@ -2,6 +2,7 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.Pages.RecentTripsPage"
     IsBusy="{Binding IsBusy}"
     Title="Recent Trips">
@@ -60,6 +61,12 @@
                                             <Label.Triggers>
                                                 <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
                                                     <Setter Property="Text" Value="TRANSFER" />
+                                                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                    <Setter Property="FontSize" Value="15" />
+                                                </DataTrigger>
+
+                                                <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
+                                                    <Setter Property="Text" Value="PENDING" />
                                                     <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
                                                     <Setter Property="FontSize" Value="15" />
                                                 </DataTrigger>

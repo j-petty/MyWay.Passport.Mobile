@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using MyWay.Passport.Mobile.Models;
@@ -53,9 +54,16 @@ namespace MyWay.Passport.Mobile.Services
                     throw new InvalidOperationException("HTTP request failure response");
                 }
             }
+            catch (HttpRequestException httpException)
+            {
+                Console.WriteLine($"[{nameof(VendorService)}] Network exception: " + httpException);
+
+                // Don't publsih Analytics event for network failures
+
+                throw;
+            }
             catch (Exception e)
             {
-                // TODO: handle misc errors
                 Console.WriteLine($"[{nameof(VendorService)}]: " + e);
 
                 // Reset card balance if error occured
@@ -101,6 +109,14 @@ namespace MyWay.Passport.Mobile.Services
                 {
                     throw new InvalidOperationException("HTTP request failure response");
                 }
+            }
+            catch (HttpRequestException httpException)
+            {
+                Console.WriteLine($"[{nameof(VendorService)}] Network exception: " + httpException);
+
+                // Don't publsih Analytics event for network failures
+
+                throw;
             }
             catch (Exception e)
             {

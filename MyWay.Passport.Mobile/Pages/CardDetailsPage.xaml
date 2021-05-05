@@ -40,18 +40,31 @@
                     <Entry
                         Text="{Binding CardDetails.CardNumber}"
                         Placeholder="Card Number"
-                        Keyboard="Numeric" />
+                        Keyboard="Numeric"
+                        ReturnType="Next" />
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
-                    <Label
-                        Text="Password"
-                        Style="{StaticResource FormFieldLabel}" />
+                    <StackLayout Orientation="Horizontal">                        
+                        <Label
+                            Text="Password"
+                            Style="{StaticResource FormFieldLabel}" />
 
+                        <Label
+                            Text="What's this?"
+                            TextDecorations="Underline"
+                            TextColor="{StaticResource SecondaryTextColor}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPasswordHelpClicked" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                       
                     <Entry
                         Text="{Binding CardDetails.Password}"
                         Placeholder="Password"
-                        IsPassword="true" />
+                        IsPassword="true"
+                        ReturnType="Next" />
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">

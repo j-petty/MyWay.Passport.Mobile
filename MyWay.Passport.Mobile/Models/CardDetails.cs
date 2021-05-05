@@ -43,7 +43,7 @@ namespace MyWay.Passport.Mobile.Models
 
         public CardDetails()
         {
-            DateOfBirth = DateTime.Today;
+            DateOfBirth = new DateTime(1990, 1, 1);
         }
 
         /// <summary>

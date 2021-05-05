@@ -10,8 +10,10 @@
 #endif
 
         // TransportCanberra URLs
-        public const string BalanceCheckApiUrl = "https://www.transport.act.gov.au/tickets-and-myway/check-myway-balance/check-your-balance?sq_content_src=%2BdXJsPWh0dHAlM0ElMkYlMkZmaWxlcy50cmFuc3BvcnQuYWN0Lmdvdi5hdSUyRkFSVFMlMkZ1c2VfRnVuY3MuYXNwJmFsbD0x";
-        public const string RegisterCardUrl = "https://www.transport.act.gov.au/tickets-and-myway/register-myway";
+        public const string TransportCanberraDomain = "www.transport.act.gov.au";
+        public const string BalanceCheckApiUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/check-myway-balance/check-your-balance?sq_content_src=%2BdXJsPWh0dHAlM0ElMkYlMkZmaWxlcy50cmFuc3BvcnQuYWN0Lmdvdi5hdSUyRkFSVFMlMkZ1c2VfRnVuY3MuYXNwJmFsbD0x";
+        public const string RegisterCardUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/register-myway";
+        public const string PasswordHelpUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/check-myway-balance#Protect";
 
         // Background app refresh frequency (seconds). Minimum 15 minutes.
         public const double BackgroundRefreshFrequency = 1800;

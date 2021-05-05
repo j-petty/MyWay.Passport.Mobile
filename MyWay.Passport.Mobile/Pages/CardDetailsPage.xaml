@@ -15,22 +15,28 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="20" Spacing="30">
-                <Label Margin="0,0,0,20">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="You need to register your MyWay card at " />
-                            <Span
-                                Text="transport.act.gov.au"
-                                TextColor="Blue"
-                                TextDecorations="Underline">
-                                <Span.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
-                                </Span.GestureRecognizers>
-                            </Span>
-                            <Span Text=" to view your balance." />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
+                <StackLayout
+                    Margin="0,0,0,10"
+                    Spacing="20">
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="You need to register your MyWay card at " />
+                                <Span
+                                    Text="transport.act.gov.au"
+                                    TextColor="Blue"
+                                    TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                                <Span Text=" to view your balance." />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label Text="It can take up to a few hours to activate your account after registration." />
+                </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
                     <Label
@@ -52,7 +58,6 @@
 
                         <Label
                             Text="What's this?"
-                            TextDecorations="Underline"
                             TextColor="{StaticResource SecondaryTextColor}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnPasswordHelpClicked" />

@@ -16,21 +16,23 @@
         <StackLayout
             Orientation="Horizontal"
             VerticalOptions="Center"
+            HorizontalOptions="Start"
             Spacing="0"
             Padding="0">
-            <Label
+            <Button
                 Text="History"
-                TextColor="{StaticResource LinkTextColor}">
-                <Label.Font>
+                Command="{Binding OpenRecentTripsSelected}"
+                TextColor="{StaticResource LinkTextColor}"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Margin="0">
+                <Button.Font>
                     <OnPlatform x:TypeArguments="Font" Android="Bold,14" iOS="18" />
-                </Label.Font>
-                <Label.TextTransform>
+                </Button.Font>
+                <Button.TextTransform>
                     <OnPlatform x:TypeArguments="TextTransform" Android="Uppercase" iOS="Default" />
-                </Label.TextTransform>
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding OpenRecentTripsSelected}" />
-                </Label.GestureRecognizers>
-            </Label>
+                </Button.TextTransform>
+            </Button>
             <StackLayout.Margin>
                 <OnPlatform x:TypeArguments="Thickness" Android="0,0,0,0" iOS="10,0,0,0" />
             </StackLayout.Margin>

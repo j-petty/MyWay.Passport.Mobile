@@ -22,7 +22,7 @@
             <Button
                 Text="History"
                 Command="{Binding OpenRecentTripsSelected}"
-                TextColor="{StaticResource LinkTextColor}"
+                TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}"
                 BackgroundColor="Transparent"
                 Padding="0"
                 Margin="0">
@@ -43,8 +43,8 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshBalanceSelected}"
-            BackgroundColor="{StaticResource SecondaryBackgroundColor}">
-            <ScrollView BackgroundColor="{StaticResource BackgroundColor}">
+            BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
+            <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                 <StackLayout
                     Spacing="70"
                     VerticalOptions="Center"
@@ -53,7 +53,7 @@
                         Text="{Binding CardDetails.LastBalance, StringFormat='${0:F2}'}"
                         FontSize="80"
                         HorizontalTextAlignment="Center"
-                        TextColor="{StaticResource TextColor}">
+                        TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Value="True">
                                 <DataTrigger.Binding>

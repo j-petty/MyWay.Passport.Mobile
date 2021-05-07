@@ -10,9 +10,9 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshHistorySelected}"
-            BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+            BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
             <ScrollView>
-                <RelativeLayout BackgroundColor="{StaticResource BackgroundColor}">
+                <RelativeLayout BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                     <ListView
                         IsEnabled="False"
                         ItemsSource="{Binding RecentTrips}"

@@ -10,6 +10,9 @@ namespace MyWay.Passport.Mobile
         public static RequestService RequestService { get; private set; }
         public static VendorService VendorService { get; private set; }
 
+        private Color _barBackgroundColor;
+        private Color _barTextColor;
+
         public App()
         {
             InitializeComponent();
@@ -18,10 +21,14 @@ namespace MyWay.Passport.Mobile
             RequestService = new RequestService();
             VendorService = new VendorService();
 
-            MainPage = new NavigationPage(new MainPage())
+            UpdateStatusBarColors();
+            InitializeMainPage();
+
+            // Update BarColor if theme changes
+            App.Current.RequestedThemeChanged += (s, a) =>
             {
-                BarBackgroundColor = (Color)App.Current.Resources["BackgroundColor"],
-                BarTextColor = (Color)App.Current.Resources["LinkTextColor"]
+                UpdateStatusBarColors();
+                InitializeMainPage();
             };
         }
 
@@ -42,6 +49,27 @@ namespace MyWay.Passport.Mobile
         {
             // Publish event for ViewModels to handle returning from background
             MessagingCenter.Send(this, Constants.EventNames.OnResume);
+        }
+
+        /// <summary>
+        /// Update StatusBar colours based on device theme.
+        /// </summary>
+        private void UpdateStatusBarColors()
+        {
+            _barBackgroundColor = App.Current.RequestedTheme == OSAppTheme.Dark ? (Color)App.Current.Resources["DBackgroundColor"] : (Color)App.Current.Resources["BackgroundColor"];
+            _barTextColor = App.Current.RequestedTheme == OSAppTheme.Dark ? (Color)App.Current.Resources["DTextColor"] : (Color)App.Current.Resources["TextColor"];
+        }
+
+        /// <summary>
+        /// Initialize the MainPage. Equivelant to restarting application.
+        /// </summary>
+        private void InitializeMainPage()
+        {
+            MainPage = new NavigationPage(new MainPage())
+            {
+                BarBackgroundColor = _barBackgroundColor,
+                BarTextColor = _barTextColor
+            };
         }
     }
 }

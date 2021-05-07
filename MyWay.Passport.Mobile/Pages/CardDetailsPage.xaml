@@ -6,7 +6,7 @@
     xmlns:app="clr-namespace:MyWay.Passport.Mobile;assembly=MyWay.Passport.Mobile"
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
     Title="Card Details"
-    BackgroundColor="{StaticResource SecondaryBackgroundColor}">
+    BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="Clear"

@@ -2,9 +2,12 @@
 <Application
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.App"
     xmlns:behaviors="clr-namespace:MyWay.Passport.Mobile.Behaviours">
     <Application.Resources>
+        <sys:Double x:Key="FontSize">18</sys:Double>
+
         <!-- Light Mode Colours -->
         <Color x:Key="BackgroundColor">White</Color>
         <Color x:Key="SecondaryBackgroundColor">#F4F4F4</Color>
@@ -22,7 +25,12 @@
         <behaviors:TimeAgoDateConverter x:Key="TimeAgoDateConverter" />
         <behaviors:IsNullConverter x:Key="IsNullConverter" />
         <behaviors:IsEmptyConverter x:Key="IsEmptyConverter" />
-        <behaviors:IsTodayConverter x:Key="IsTodayConverter" />
+        <behaviors:IsTodayConverter x:Key="IsTodayConverter" />        
+        <behaviors:NegateBoolConverter x:Key="NegateBoolConverter" />
+        <behaviors:ValueConverterGroup x:Key="IsNotEmptyConverter">
+            <behaviors:IsEmptyConverter />
+            <behaviors:NegateBoolConverter />
+        </behaviors:ValueConverterGroup>
 
         <!-- Form Field Label -->
         <Style x:Key="FormFieldLabel" TargetType="Label">

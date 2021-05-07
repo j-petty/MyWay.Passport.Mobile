@@ -4,6 +4,7 @@ using Android.Runtime;
 using Android.OS;
 using Matcha.BackgroundService.Droid;
 using Plugin.CurrentActivity;
+using Xamarin.Essentials;
 
 namespace MyWay.Passport.Mobile.Droid
 {
@@ -20,16 +21,34 @@ namespace MyWay.Passport.Mobile.Droid
 
             base.OnCreate(savedInstanceState);
 
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            // Init Xamarin Essentials
+            Platform.Init(this, savedInstanceState);
+
+            // Apply correct theme
+            ApplyTheme();
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        private void ApplyTheme()
+        {
+            switch (AppInfo.RequestedTheme)
+            {
+                case AppTheme.Dark:
+                    SetTheme(Resource.Style.MainThemeDark);
+                    break;
+                default:
+                    SetTheme(Resource.Style.MainTheme);
+                    break;
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace MyWay.Passport.Mobile
     public partial class App : Application
     {
         public static RequestService RequestService { get; private set; }
-        public static VendorService VendorService { get; private set; }
+        public static IVendorService VendorService { get; private set; }
 
         private Color _barBackgroundColor;
         private Color _barTextColor;

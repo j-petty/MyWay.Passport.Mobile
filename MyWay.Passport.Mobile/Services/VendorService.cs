@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.Services
 {
-    public class VendorService
+    public class VendorService : IVendorService
     {
         private readonly IFirebaseAnalyticsService analyticsService;
 

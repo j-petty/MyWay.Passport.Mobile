@@ -2,7 +2,6 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.Pages.RecentTripsPage"
     IsBusy="{Binding IsBusy}"
     Title="Recent Trips">
@@ -12,42 +11,48 @@
             Command="{Binding RefreshHistorySelected}"
             BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
             <ScrollView>
-                <RelativeLayout BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
+                <StackLayout
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                     <ListView
                         IsEnabled="False"
+                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsNotEmptyConverter}}"
                         ItemsSource="{Binding RecentTrips}"
                         SelectionMode="None"
                         SeparatorColor="{StaticResource SecondaryTextColor}"
                         IsPullToRefreshEnabled="False"
-                        HasUnevenRows="False"
-                        RowHeight="110"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}">
+                        RowHeight="115"
+                        HasUnevenRows="False">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell IsEnabled="False">
                                     <StackLayout
                                         Padding="20"
                                         Orientation="Horizontal"
-                                        VerticalOptions="Fill">
+                                        VerticalOptions="CenterAndExpand">
                                         <StackLayout
                                             Orientation="Vertical"
                                             HorizontalOptions="StartAndExpand">
                                             <StackLayout Orientation="Horizontal">
                                                 <Label
                                                     Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                                    FontSize="{StaticResource FontSize}"
                                                     FontAttributes="Bold" />
 
                                                 <Label
                                                     Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
+                                                    FontSize="{StaticResource FontSize}"
                                                     TextColor="{StaticResource SecondaryTextColor}"/>
                                             </StackLayout>
 
                                             <Label
                                                 Text="{Binding To}"
+                                                FontSize="{StaticResource FontSize}"
                                                 LineBreakMode="TailTruncation" />
 
                                             <Label
                                                 Text="{Binding From}"
+                                                FontSize="{StaticResource FontSize}"
                                                 TextColor="{StaticResource SecondaryTextColor}"
                                                 LineBreakMode="TailTruncation" />
                                         </StackLayout>
@@ -80,12 +85,12 @@
 
                     <Label
                         Text="No recent trips found."
+                        FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center"
-                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsEmptyConverter}}"
-                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+                        VerticalOptions="CenterAndExpand"
+                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsEmptyConverter}}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
                                 <Setter Property="Text" Value="{Binding ErrorMessage}" />
@@ -93,7 +98,7 @@
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-                </RelativeLayout>
+                </StackLayout>
             </ScrollView>
         </RefreshView>
     </ContentPage.Content>

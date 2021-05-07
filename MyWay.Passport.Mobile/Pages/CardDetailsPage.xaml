@@ -17,7 +17,7 @@
         <ScrollView>
             <StackLayout Margin="20" Spacing="30">
                 <StackLayout Spacing="20">
-                    <Label>
+                    <Label FontSize="{StaticResource FontSize}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="You need to register your MyWay card at " />
@@ -33,16 +33,20 @@
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Text="It can take up to a few hours to activate your account after registration." />
+                    <Label
+                        FontSize="{StaticResource FontSize}"
+                        Text="It can take up to a few hours to activate your account after registration." />
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
                     <Label
                         Text="Card Number"
+                        FontSize="{StaticResource FontSize}"
                         Style="{StaticResource FormFieldLabel}" />
 
                     <Entry
                         Text="{Binding CardDetails.CardNumber}"
+                        FontSize="{StaticResource FontSize}"
                         Placeholder="Card Number"
                         Keyboard="Numeric"
                         ReturnType="Next" />
@@ -52,10 +56,12 @@
                     <StackLayout Orientation="Horizontal">                        
                         <Label
                             Text="Password"
+                            FontSize="{StaticResource FontSize}"
                             Style="{StaticResource FormFieldLabel}" />
 
                         <Label
                             Text="What's this?"
+                            FontSize="{StaticResource FontSize}"
                             TextColor="{StaticResource SecondaryTextColor}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="OnPasswordHelpClicked" />
@@ -65,6 +71,7 @@
                        
                     <Entry
                         Text="{Binding CardDetails.Password}"
+                        FontSize="{StaticResource FontSize}"
                         Placeholder="Password"
                         IsPassword="true"
                         ReturnType="Next" />
@@ -73,6 +80,7 @@
                 <StackLayout Style="{StaticResource FormFieldGroup}">
                     <Label
                         Text="Date of Birth"
+                        FontSize="{StaticResource FontSize}"
                         Style="{StaticResource FormFieldLabel}" />
 
                     <DatePicker
@@ -81,8 +89,10 @@
                 </StackLayout>
 
                 <StackLayout Spacing="20">
-                    <Label Text="Your card details will be stored security on your device and encrypted in transit." />
-                    <Label>
+                    <Label
+                        FontSize="{StaticResource FontSize}"
+                        Text="Your card details will be stored security on your device and encrypted in transit." />
+                    <Label FontSize="{StaticResource FontSize}">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Read the " />
@@ -101,6 +111,7 @@
 
                 <Button
                     Text="Save"
+                    FontSize="{StaticResource FontSize}"
                     Command="{Binding OnSaveSelected}"
                     BackgroundColor="LightGray"
                     FontAttributes="Bold"

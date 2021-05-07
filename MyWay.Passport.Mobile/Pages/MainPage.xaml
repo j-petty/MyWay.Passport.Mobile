@@ -74,11 +74,13 @@
                     <Label
                         Text="{Binding ErrorMessage}"
                         HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource ErrorTextColor}" />
 
                     <Label
                         Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
                         IsVisible="True">
                         <Label.Triggers>

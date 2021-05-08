@@ -93,6 +93,10 @@
                         VerticalOptions="CenterAndExpand"
                         IsVisible="{Binding RecentTrips, Converter={StaticResource IsEmptyConverter}}">
                         <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding TripsLoaded}" Value="False">
+                                <Setter Property="Text" Value="Loading recent trips..." />
+                            </DataTrigger>
+
                             <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
                                 <Setter Property="Text" Value="{Binding ErrorMessage}" />
                                 <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}" />

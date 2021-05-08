@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Services;
@@ -14,6 +15,13 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             get { return recentTrips; }
             set { SetProperty(ref recentTrips, value); }
+        }
+
+        private bool tripsLoaded = false;
+        public bool TripsLoaded
+        {
+            get { return tripsLoaded; }
+            set { SetProperty(ref tripsLoaded, value); }
         }
 
         private string errorMessage;
@@ -96,6 +104,7 @@ namespace MyWay.Passport.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+                TripsLoaded = true;
             }
         }
     }

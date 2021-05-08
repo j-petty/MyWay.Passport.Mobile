@@ -5,8 +5,15 @@ using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile
 {
+#pragma warning disable CS0162 // Unreachable code detected
     public partial class App : Application
     {
+#if DEBUG
+        public const bool UseMockData = false;
+#else
+        public const bool UseMockData = false;
+#endif
+
         public static RequestService RequestService { get; private set; }
         public static IVendorService VendorService { get; private set; }
 
@@ -19,7 +26,15 @@ namespace MyWay.Passport.Mobile
 
             // Register services
             RequestService = new RequestService();
-            VendorService = new VendorService();
+
+            if (UseMockData)
+            {
+                VendorService = new MockVendorService();
+            }
+            else
+            {
+                VendorService = new VendorService();
+            }
 
             UpdateStatusBarColors();
             InitializeMainPage();
@@ -72,4 +87,5 @@ namespace MyWay.Passport.Mobile
             };
         }
     }
+#pragma warning restore CS0162 // Unreachable code detected
 }

@@ -18,8 +18,8 @@ namespace MyWay.Passport.Mobile.Pages
 
         protected override void OnAppearing()
         {
-            viewModel.OnViewAppearing();
             base.OnAppearing();
+            viewModel.OnViewAppearing();
         }
 
         protected override void OnDisappearing()

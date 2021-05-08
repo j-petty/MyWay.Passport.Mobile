@@ -5,37 +5,23 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     x:Class="MyWay.Passport.Mobile.Pages.MainPage"
     IsBusy="{Binding IsBusy}"
-    Title="MyWay Balance">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Text="Card"
-            Command="{Binding OpenSettingsSelected}" />
-    </ContentPage.ToolbarItems>
+    Title="MyWay Balance"
+    NavigationPage.BackButtonTitle="Back">
 
+    <!-- Use TitleView with buttons for best UI consistency -->
     <NavigationPage.TitleView>
-        <StackLayout
-            Orientation="Horizontal"
-            VerticalOptions="Center"
-            HorizontalOptions="Start"
-            Spacing="0"
-            Padding="0">
+        <StackLayout Style="{StaticResource MenuLayout}">
             <Button
                 Text="History"
                 Command="{Binding OpenRecentTripsSelected}"
-                TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}"
-                BackgroundColor="Transparent"
-                Padding="0"
-                Margin="0">
-                <Button.Font>
-                    <OnPlatform x:TypeArguments="Font" Android="Bold,14" iOS="18" />
-                </Button.Font>
-                <Button.TextTransform>
-                    <OnPlatform x:TypeArguments="TextTransform" Android="Uppercase" iOS="Default" />
-                </Button.TextTransform>
-            </Button>
-            <StackLayout.Margin>
-                <OnPlatform x:TypeArguments="Thickness" Android="0,0,0,0" iOS="10,0,0,0" />
-            </StackLayout.Margin>
+                Style="{StaticResource MenuButton}"
+                HorizontalOptions="Start" />
+
+            <Button
+                Text="Card"
+                Command="{Binding OpenSettingsSelected}"                
+                Style="{StaticResource MenuButton}"
+                HorizontalOptions="EndAndExpand" />
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -46,6 +32,7 @@
             BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
             <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                 <StackLayout
+                    Margin="{StaticResource PageMargin}"
                     Spacing="70"
                     VerticalOptions="Center"
                     HorizontalOptions="Fill">

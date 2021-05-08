@@ -7,116 +7,130 @@
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
     Title="Card Details"
     BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Text="Clear"
-            Clicked="OnClearClicked" />
-    </ContentPage.ToolbarItems>
+
+    <!-- Use TitleView with buttons for best UI consistency -->
+    <NavigationPage.TitleView>
+        <StackLayout Style="{StaticResource MenuLayout}">
+            <Button
+                Text="Clear"
+                Pressed="OnClearClicked"
+                Style="{StaticResource MenuButton}"
+                HorizontalOptions="EndAndExpand" />
+        </StackLayout>
+    </NavigationPage.TitleView>
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout Margin="20" Spacing="30">
-                <StackLayout Spacing="20">
-                    <Label FontSize="{StaticResource FontSize}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="You need to register your MyWay card at " />
-                                <Span
-                                    Text="{x:Static app:Constants.TransportCanberraDomain}"
-                                    Style="{StaticResource ClickableLink}">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
-                                    </Span.GestureRecognizers>
-                                </Span>
-                                <Span Text=" to view your balance." />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+        <StackLayout Spacing="0">
+            <ScrollView>
+                <StackLayout
+                    Margin="{StaticResource PageMargin}"
+                    Spacing="30">
+                    <StackLayout Spacing="20">
+                        <Label FontSize="{StaticResource FontSize}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="You need to register your MyWay card at " />
+                                    <Span
+                                        Text="{x:Static app:Constants.TransportCanberraDomain}"
+                                        Style="{StaticResource ClickableLink}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OnRegisterSelected}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text=" to view your balance." />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
-                    <Label
-                        FontSize="{StaticResource FontSize}"
-                        Text="It can take up to a few hours to activate your account after registration." />
-                </StackLayout>
-
-                <StackLayout Style="{StaticResource FormFieldGroup}">
-                    <Label
-                        Text="Card Number"
-                        FontSize="{StaticResource FontSize}"
-                        Style="{StaticResource FormFieldLabel}" />
-
-                    <Entry
-                        Text="{Binding CardDetails.CardNumber}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Card Number"
-                        Keyboard="Numeric"
-                        ReturnType="Next" />
-                </StackLayout>
-
-                <StackLayout Style="{StaticResource FormFieldGroup}">
-                    <StackLayout Orientation="Horizontal">                        
                         <Label
-                            Text="Password"
+                            FontSize="{StaticResource FontSize}"
+                            Text="It can take up to a few hours to activate your account after registration." />
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource FormFieldGroup}">
+                        <Label
+                            Text="Card Number"
                             FontSize="{StaticResource FontSize}"
                             Style="{StaticResource FormFieldLabel}" />
 
-                        <Label
-                            Text="What's this?"
+                        <Entry
+                            Text="{Binding CardDetails.CardNumber}"
                             FontSize="{StaticResource FontSize}"
-                            TextColor="{StaticResource SecondaryTextColor}">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnPasswordHelpClicked" />
-                            </Label.GestureRecognizers>
+                            Placeholder="Card Number"
+                            Keyboard="Numeric"
+                            ReturnType="Next" />
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource FormFieldGroup}">
+                        <StackLayout Orientation="Horizontal">                        
+                            <Label
+                                Text="Password"
+                                FontSize="{StaticResource FontSize}"
+                                Style="{StaticResource FormFieldLabel}" />
+
+                            <Label
+                                Text="What's this?"
+                                FontSize="{StaticResource FontSize}"
+                                TextColor="{StaticResource SecondaryTextColor}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPasswordHelpClicked" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
+                       
+                        <Entry
+                            Text="{Binding CardDetails.Password}"
+                            FontSize="{StaticResource FontSize}"
+                            Placeholder="Password"
+                            IsPassword="true"
+                            ReturnType="Next" />
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource FormFieldGroup}">
+                        <Label
+                            Text="Date of Birth"
+                            FontSize="{StaticResource FontSize}"
+                            Style="{StaticResource FormFieldLabel}" />
+
+                        <DatePicker
+                            Date="{Binding CardDetails.DateOfBirth}"
+                            MaximumDate="{x:Static sys:DateTime.Today}" />
+                    </StackLayout>
+
+                    <StackLayout Spacing="20">
+                        <Label
+                            FontSize="{StaticResource FontSize}"
+                            Text="Your card details will be stored security on your device and encrypted in transit." />
+
+                        <Label FontSize="{StaticResource FontSize}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Read the " />
+                                    <Span
+                                        Text="Privacy Policy"
+                                        Style="{StaticResource ClickableLink}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OnPrivacyPolicySelected}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text=" for more information." />
+                                </FormattedString>
+                            </Label.FormattedText>
+                            <Label.Margin>
+                                <OnPlatform x:TypeArguments="Thickness" Android="0,0,0,20" iOS="0" />
+                            </Label.Margin>
                         </Label>
                     </StackLayout>
-                       
-                    <Entry
-                        Text="{Binding CardDetails.Password}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Password"
-                        IsPassword="true"
-                        ReturnType="Next" />
                 </StackLayout>
-
-                <StackLayout Style="{StaticResource FormFieldGroup}">
-                    <Label
-                        Text="Date of Birth"
-                        FontSize="{StaticResource FontSize}"
-                        Style="{StaticResource FormFieldLabel}" />
-
-                    <DatePicker
-                        Date="{Binding CardDetails.DateOfBirth}"
-                        MaximumDate="{x:Static sys:DateTime.Today}" />
-                </StackLayout>
-
-                <StackLayout Spacing="20">
-                    <Label
-                        FontSize="{StaticResource FontSize}"
-                        Text="Your card details will be stored security on your device and encrypted in transit." />
-                    <Label FontSize="{StaticResource FontSize}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Read the " />
-                                <Span
-                                    Text="Privacy Policy"
-                                    Style="{StaticResource ClickableLink}">
-                                    <Span.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding OnPrivacyPolicySelected}" />
-                                    </Span.GestureRecognizers>
-                                </Span>
-                                <Span Text=" for more information." />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-
-                <Button
-                    Text="Save"
-                    FontSize="{StaticResource FontSize}"
-                    Command="{Binding OnSaveSelected}"
-                    BackgroundColor="LightGray"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource TextColor}" />
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+            
+            <Button
+                Text="Save"
+                FontSize="{StaticResource FontSize}"
+                Command="{Binding OnSaveSelected}"
+                BackgroundColor="LightGray"
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextColor}" />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

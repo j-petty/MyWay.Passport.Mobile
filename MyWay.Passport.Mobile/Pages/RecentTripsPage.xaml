@@ -85,6 +85,7 @@
 
                     <Label
                         Text="No recent trips found."
+                        Margin="{StaticResource PageMargin}"
                         FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
                         VerticalTextAlignment="Center"

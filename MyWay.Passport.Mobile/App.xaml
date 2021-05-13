@@ -74,5 +74,11 @@
                 <OnPlatform x:TypeArguments="TextTransform" Android="Uppercase" iOS="Default" />
             </Setter>
         </Style>
+
+        <!-- Seperator View -->
+        <Style x:Key="SeperatorView" TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="{StaticResource SecondaryTextColor}" />
+            <Setter Property="HeightRequest" Value="1" />
+        </Style>
     </Application.Resources>
 </Application>

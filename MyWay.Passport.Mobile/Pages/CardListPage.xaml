@@ -60,31 +60,35 @@
 
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout
-                            Padding="20,20,10,20"
-                            Orientation="Horizontal"
-                            BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
-                            <StackLayout VerticalOptions="Center">
-                                <Label
-                                    Text="Card Name"
-                                    TextTransform="Uppercase"
-                                    FontSize="{StaticResource FontSize}"
-                                    TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+                        <StackLayout Spacing="0">
+                            <StackLayout
+                                Padding="20,20,10,20"
+                                Orientation="Horizontal"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
+                                <StackLayout VerticalOptions="Center">
+                                    <Label
+                                        Text="Card Name"
+                                        TextTransform="Uppercase"
+                                        FontSize="{StaticResource FontSize}"
+                                        TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
 
-                                <Label
-                                    Text="{Binding CardNumber}"
-                                    FontSize="16"
-                                    TextColor="{StaticResource SecondaryTextColor}" />
-                            </StackLayout>
+                                    <Label
+                                        Text="{Binding CardNumber}"
+                                        FontSize="16"
+                                        TextColor="{StaticResource SecondaryTextColor}" />
+                                </StackLayout>
                             
-                            <syncfusion:DragIndicatorView
-                                ListView="{x:Reference listView}"
-                                VerticalOptions="Center"
-                                HorizontalOptions="EndAndExpand">
-                                <Image
-                                    HeightRequest="40"
-                                    Source="DragIcon" />
-                            </syncfusion:DragIndicatorView>
+                                <syncfusion:DragIndicatorView
+                                    ListView="{x:Reference listView}"
+                                    VerticalOptions="Center"
+                                    HorizontalOptions="EndAndExpand">
+                                    <Image
+                                        HeightRequest="40"
+                                        Source="DragIcon" />
+                                </syncfusion:DragIndicatorView>
+                            </StackLayout>
+
+                            <BoxView Style="{StaticResource SeperatorView}" />
                         </StackLayout>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>

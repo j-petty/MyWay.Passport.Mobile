@@ -22,61 +22,66 @@
                         SeparatorColor="{StaticResource SecondaryTextColor}"
                         IsPullToRefreshEnabled="False"
                         RowHeight="115"
-                        HasUnevenRows="False">
+                        HasUnevenRows="False"
+                        SeparatorVisibility="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell IsEnabled="False">
-                                    <StackLayout
-                                        Padding="20"
-                                        Orientation="Horizontal"
-                                        VerticalOptions="CenterAndExpand">
+                                    <StackLayout Spacing="0">
                                         <StackLayout
-                                            Orientation="Vertical"
-                                            HorizontalOptions="StartAndExpand">
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label
-                                                    Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
-                                                    FontSize="{StaticResource FontSize}"
-                                                    FontAttributes="Bold" />
+                                            Padding="20"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="CenterAndExpand">
+                                            <StackLayout
+                                                Orientation="Vertical"
+                                                HorizontalOptions="StartAndExpand">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label
+                                                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                                        FontSize="{StaticResource FontSize}"
+                                                        FontAttributes="Bold" />
+
+                                                    <Label
+                                                        Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
+                                                        FontSize="{StaticResource FontSize}"
+                                                        TextColor="{StaticResource SecondaryTextColor}"/>
+                                                </StackLayout>
 
                                                 <Label
-                                                    Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
+                                                    Text="{Binding To}"
                                                     FontSize="{StaticResource FontSize}"
-                                                    TextColor="{StaticResource SecondaryTextColor}"/>
+                                                    LineBreakMode="TailTruncation" />
+
+                                                <Label
+                                                    Text="{Binding From}"
+                                                    FontSize="{StaticResource FontSize}"
+                                                    TextColor="{StaticResource SecondaryTextColor}"
+                                                    LineBreakMode="TailTruncation" />
                                             </StackLayout>
 
                                             <Label
-                                                Text="{Binding To}"
-                                                FontSize="{StaticResource FontSize}"
-                                                LineBreakMode="TailTruncation" />
+                                                Text="{Binding Price, StringFormat='-${0:F2}'}"
+                                                FontAttributes="Bold"
+                                                FontSize="20"
+                                                Margin="10"
+                                                VerticalTextAlignment="Center">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
+                                                        <Setter Property="Text" Value="TRANSFER" />
+                                                        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                        <Setter Property="FontSize" Value="15" />
+                                                    </DataTrigger>
 
-                                            <Label
-                                                Text="{Binding From}"
-                                                FontSize="{StaticResource FontSize}"
-                                                TextColor="{StaticResource SecondaryTextColor}"
-                                                LineBreakMode="TailTruncation" />
+                                                    <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
+                                                        <Setter Property="Text" Value="PENDING" />
+                                                        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                        <Setter Property="FontSize" Value="15" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
                                         </StackLayout>
 
-                                        <Label
-                                            Text="{Binding Price, StringFormat='-${0:F2}'}"
-                                            FontAttributes="Bold"
-                                            FontSize="20"
-                                            Margin="10"
-                                            VerticalTextAlignment="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
-                                                    <Setter Property="Text" Value="TRANSFER" />
-                                                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
-                                                    <Setter Property="FontSize" Value="15" />
-                                                </DataTrigger>
-
-                                                <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
-                                                    <Setter Property="Text" Value="PENDING" />
-                                                    <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
-                                                    <Setter Property="FontSize" Value="15" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
+                                        <BoxView Style="{StaticResource SeperatorView}" />
                                     </StackLayout>
                                 </ViewCell>
                             </DataTemplate>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using Syncfusion.ListView.XForms;

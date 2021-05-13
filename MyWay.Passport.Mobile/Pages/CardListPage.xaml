@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:local="clr-namespace:MyWay.Passport.Mobile.Views;assembly=MyWay.Passport.Mobile"
     x:Class="MyWay.Passport.Mobile.Pages.CardListPage"
     x:Name="root"
     IsBusy="{Binding IsBusy}"
@@ -98,7 +99,7 @@
                         <StackLayout
                             Padding="20,20,10,20"
                             Orientation="Horizontal"
-                            BackgroundColor="#e5e5e5">
+                            BackgroundColor="#E5E5E5">
                             <StackLayout VerticalOptions="Center">
                                 <Label
                                     Text="Card Name"

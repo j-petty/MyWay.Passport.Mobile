@@ -22,6 +22,9 @@ namespace MyWay.Passport.Mobile
 
         public App()
         {
+            // Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SysfusionLicenceKey);
+
             InitializeComponent();
 
             // Register services

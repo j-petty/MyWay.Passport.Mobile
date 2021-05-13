@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -17,11 +19,32 @@ namespace MyWay.Passport.Mobile.ViewModels
             set { SetProperty(ref cardDetails, value); }
         }
 
+        private ObservableCollection<CardDetails> cards;
+        public ObservableCollection<CardDetails> Cards
+        {
+            get { return cards; }
+            set { SetProperty(ref cards, value); }
+        }
+
         private string errorMessage;
         public string ErrorMessage
         {
             get { return errorMessage; }
             set { SetProperty(ref errorMessage, value); }
+        }
+
+        private double cardWidth;
+        public double CardWidth
+        {
+            get { return cardWidth; }
+            set { SetProperty(ref cardWidth, value); }
+        }
+
+        private double cardHeight;
+        public double CardHeight
+        {
+            get { return cardHeight; }
+            set { SetProperty(ref cardHeight, value); }
         }
         #endregion
 
@@ -35,7 +58,8 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Navigation.PushAsync(new CardDetailsPage());
+                    //await Navigation.PushAsync(new CardDetailsPage());
+                    await Navigation.PushAsync(new CardListPage());
                 });
             }
         }
@@ -80,10 +104,29 @@ namespace MyWay.Passport.Mobile.ViewModels
         // Default constructor
         public MainViewModel(INavigation navigation) : base(navigation)
         {
+            Cards = new ObservableCollection<CardDetails>
+            {
+                new CardDetails
+                {
+                    CardNumber = "123456"
+                },
+                new CardDetails
+                {
+                    CardNumber = "789123"
+                },
+                new CardDetails
+                {
+                    CardNumber = "456789"
+                },
+            };
+
+            UpdateCardSize();
         }
 
         public override void OnViewAppearing()
         {
+            UpdateCardSize();
+
             base.OnViewAppearing();
 
             TryRefreshBalance();
@@ -147,6 +190,12 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void UpdateCardSize()
+        {
+            CardWidth = Math.Min(DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density, 500);
+            CardHeight = cardWidth * 0.63;
         }
     }
 }

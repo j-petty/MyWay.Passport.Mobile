@@ -6,7 +6,8 @@
     x:Class="MyWay.Passport.Mobile.Pages.MainPage"
     IsBusy="{Binding IsBusy}"
     Title="MyWay Balance"
-    NavigationPage.BackButtonTitle="Back">
+    NavigationPage.BackButtonTitle="Back"
+    x:Name="root">
 
     <!-- Use TitleView with buttons for best UI consistency -->
     <NavigationPage.TitleView>
@@ -32,44 +33,108 @@
             BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
             <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                 <StackLayout
-                    Margin="{StaticResource PageMargin}"
-                    Spacing="70"
+                    Spacing="30"
                     VerticalOptions="Center"
                     HorizontalOptions="Fill">
-                    <Label
-                        Text="{Binding CardDetails.LastBalance, StringFormat='${0:F2}'}"
-                        FontSize="80"
-                        HorizontalTextAlignment="Center"
-                        TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}">
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label" Value="True">
-                                <DataTrigger.Binding>
-                                    <Binding
-                                        Path="CardDetails.LastBalance"
-                                        Converter="{StaticResource IsLessThanConverter}">
-                                        <Binding.ConverterParameter>
-                                            <sys:Double>0.0</sys:Double>
-                                        </Binding.ConverterParameter>
-                                    </Binding>
-                                </DataTrigger.Binding>
+                    <StackLayout HorizontalOptions="Center">
+                        <!-- NOTE: using insets causes issues on larger screen sizes -->
+                        <!-- NOTE: there is a knowm XF bug with carousel view sizing: https://github.com/xamarin/Xamarin.Forms/issues/8640 -->
+                        <CarouselView
+                            PeekAreaInsets="0"
+                            Loop="False"
+                            IndicatorView="IndicatorView"
+                            ItemsSource="{Binding Cards}"
+                            HorizontalScrollBarVisibility="Never"
+                            HeightRequest="{Binding CardHeight}">
+                            <CarouselView.ItemsLayout>
+                                <LinearItemsLayout
+                                    Orientation="Horizontal"
+                                    SnapPointsAlignment="Center"
+                                    SnapPointsType="MandatorySingle"
+                                    ItemSpacing="0" />
+                            </CarouselView.ItemsLayout>
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnSpacing="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="{Binding BindingContext.CardWidth, Source={x:Reference root}}" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Frame
+                                            Grid.Column="1"
+                                            Margin="25"
+                                            HasShadow="True"
+                                            BackgroundColor="Red"
+                                            CornerRadius="15">
+                                            <AbsoluteLayout>
+                                                <Label
+                                                    Text="{Binding LastBalance, StringFormat='${0:F2}'}"
+                                                    FontSize="70"
+                                                    HorizontalTextAlignment="Center"
+                                                    VerticalTextAlignment="Center"
+                                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                                    AbsoluteLayout.LayoutFlags="All">
+                                                    <Label.Triggers>
+                                                        <DataTrigger TargetType="Label" Value="True">
+                                                            <DataTrigger.Binding>
+                                                                <Binding
+                                                                    Path="LastBalance"
+                                                                    Converter="{StaticResource IsLessThanConverter}">
+                                                                    <Binding.ConverterParameter>
+                                                                        <sys:Double>0.0</sys:Double>
+                                                                    </Binding.ConverterParameter>
+                                                                </Binding>
+                                                            </DataTrigger.Binding>
 
-                                <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}"/> 
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
+                                                            <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}"/> 
+                                                        </DataTrigger>
+                                                    </Label.Triggers>
+                                                </Label>
 
+                                                <StackLayout
+                                                    Spacing="3"
+                                                    AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                                    AbsoluteLayout.LayoutFlags="All">
+                                                    <Label
+                                                        Text="Card Name"
+                                                        FontSize="16"
+                                                        TextTransform="Uppercase"
+                                                        VerticalOptions="Start" />
+
+                                                    <Label
+                                                        Text="{Binding CardNumber}"
+                                                        FontSize="14"
+                                                        VerticalOptions="End" />
+                                                </StackLayout>
+                                            </AbsoluteLayout>
+                                        </Frame>
+                                    </Grid>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+
+                        <IndicatorView
+                            x:Name="IndicatorView"
+                            IndicatorColor="LightGray"
+                            SelectedIndicatorColor="DarkGray"
+                            HorizontalOptions="Center" />
+                    </StackLayout>
+                    
                     <Label
                         Text="{Binding ErrorMessage}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
-                        TextColor="{StaticResource ErrorTextColor}" />
+                        TextColor="{StaticResource ErrorTextColor}"
+                        Margin="{StaticResource PageMargin}" />
 
                     <Label
                         Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
-                        IsVisible="True">
+                        IsVisible="True"
+                        Margin="{StaticResource PageMargin}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding CardDetails.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
                                 <Setter Property="IsVisible" Value="False"/> 

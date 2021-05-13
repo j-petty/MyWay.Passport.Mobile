@@ -19,6 +19,7 @@
     <PackageReference Include="Humanizer.Core" Version="2.8.26" />
     <PackageReference Include="Xam.Plugins.Notifier" Version="3.0.1" />
     <PackageReference Include="Matcha.BackgroundService" Version="1.0.5478" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.59" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />

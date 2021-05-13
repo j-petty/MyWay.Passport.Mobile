@@ -2,6 +2,7 @@
 using Foundation;
 using Matcha.BackgroundService.iOS;
 using MyWay.Passport.Mobile.iOS.Services;
+using Syncfusion.ListView.XForms.iOS;
 using UIKit;
 using UserNotifications;
 
@@ -22,6 +23,10 @@ namespace MyWay.Passport.Mobile.iOS
             BackgroundAggregator.Init(this);
 
             Xamarin.Forms.Forms.Init();
+
+            // Init SFList View
+            SfListViewRenderer.Init();
+
             LoadApplication(new App());
 
 #pragma warning disable CS0162 // Unreachable code detected

@@ -19,21 +19,6 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         #region Commands
         /// <summary>
-        /// Clear button listener.
-        /// </summary>
-        public Command OnClearSelected
-        {
-            get
-            {
-                return new Command(() =>
-                {
-                    CardDetails = new CardDetails();
-                    SettingsService.ClearLocalData();
-                });
-            }
-        }
-
-        /// <summary>
         /// Save listener.
         /// </summary>
         public Command OnSaveSelected
@@ -64,6 +49,24 @@ namespace MyWay.Passport.Mobile.ViewModels
                 return new Command(async () =>
                 {
                     await Launcher.OpenAsync(new Uri(Constants.RegisterCardUrl));
+                });
+            }
+        }
+
+        /// <summary>
+        /// Open Password help listener.
+        /// </summary>
+        public Command OnPasswordHelpSelected
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    // Display information dialog
+                    await Application.Current.MainPage.DisplayAlert(
+                        string.Empty,
+                        $"Your password is the secret question you answered when you registered your MyWay card.\n\nVisit {Constants.TransportCanberraDomain} for more information.",
+                        "Done");
                 });
             }
         }

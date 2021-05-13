@@ -27,5 +27,20 @@ namespace MyWay.Passport.Mobile.Pages
             base.OnDisappearing();
             viewModel.OnViewDisappearing();
         }
+
+        private void CarouselViewContent_SizeChanged(object sender, System.EventArgs e)
+        {
+            var carouselView = (CarouselView)sender;
+
+            if (carouselView == null)
+            {
+                throw new InvalidOperationException("Sender cannot be null");
+            }
+
+            if (carouselView.Height > carouselView.HeightRequest)
+            {
+                //carouselView.HeightRequest = CardFrame.Height;
+            }
+        }
     }
 }

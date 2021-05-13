@@ -5,14 +5,14 @@ using Xamarin.Forms.Xaml;
 namespace MyWay.Passport.Mobile.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CardDetailsPage : ContentPage
+    public partial class CardListPage : ContentPage
     {
-        private CardDetailsViewModel viewModel;
+        private CardListViewModel viewModel;
 
-        public CardDetailsPage()
+        public CardListPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new CardDetailsViewModel(Navigation);
+            BindingContext = viewModel = new CardListViewModel(Navigation);
         }
 
         protected override void OnAppearing()

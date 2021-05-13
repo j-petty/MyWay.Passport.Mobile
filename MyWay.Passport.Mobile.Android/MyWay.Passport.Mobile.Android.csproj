@@ -68,6 +68,9 @@
     <PackageReference Include="Xamarin.Firebase.Analytics">
       <Version>118.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfListView">
+      <Version>19.1.0.59</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

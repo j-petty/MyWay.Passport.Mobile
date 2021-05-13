@@ -7,6 +7,7 @@
     xmlns:behaviors="clr-namespace:MyWay.Passport.Mobile.Behaviours">
     <Application.Resources>
         <sys:Double x:Key="FontSize">18</sys:Double>
+        <sys:Double x:Key="FontSizeSmall">16</sys:Double>
         <Thickness x:Key="PageMargin">20</Thickness>
 
         <!-- Light Mode Colours -->
@@ -26,7 +27,7 @@
         <behaviors:TimeAgoDateConverter x:Key="TimeAgoDateConverter" />
         <behaviors:IsNullConverter x:Key="IsNullConverter" />
         <behaviors:IsEmptyConverter x:Key="IsEmptyConverter" />
-        <behaviors:IsTodayConverter x:Key="IsTodayConverter" />        
+        <behaviors:IsTodayConverter x:Key="IsTodayConverter" />
         <behaviors:NegateBoolConverter x:Key="NegateBoolConverter" />
         <behaviors:ValueConverterGroup x:Key="IsNotEmptyConverter">
             <behaviors:IsEmptyConverter />

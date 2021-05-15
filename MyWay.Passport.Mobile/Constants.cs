@@ -43,10 +43,12 @@ namespace MyWay.Passport.Mobile
 
         public static class ErrorMessages
         {
-            public const string BalanceCheckFailure = "Failed to retrieve balance.\n\n\nCheck your card details.";
+            public const string GenericFailure = "Check your card details.\n\n\nIt can take up to a few hours to activate new accounts.";
+
+            public const string BalanceCheckFailure = "Failed to retrieve balance. " + GenericFailure;
             public const string BalanceCheckMissingCardDetails = "Enter MyWay card details to view balance.";
 
-            public const string RecentTripsFailure = "Failed to retrieve trip history.\n\n\nCheck your card details.";
+            public const string RecentTripsFailure = "Failed to retrieve trip history. " + GenericFailure;
             public const string RecentTripsMissingCardDetails = "Enter MyWay card details to view recent trips.";
         }
 

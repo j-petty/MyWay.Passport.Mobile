@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using Newtonsoft.Json;
 
 namespace MyWay.Passport.Mobile.Models
 {

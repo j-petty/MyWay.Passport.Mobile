@@ -1,4 +1,5 @@
-﻿using MyWay.Passport.Mobile.ViewModels;
+﻿using MyWay.Passport.Mobile.Models;
+using MyWay.Passport.Mobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,10 +10,10 @@ namespace MyWay.Passport.Mobile.Pages
     {
         private RecentTripsViewModel viewModel;
 
-        public RecentTripsPage()
+        public RecentTripsPage(CardDetails card)
         {
             InitializeComponent();
-            BindingContext = viewModel = new RecentTripsViewModel(Navigation);
+            BindingContext = viewModel = new RecentTripsViewModel(Navigation, card);
         }
 
         protected override void OnAppearing()

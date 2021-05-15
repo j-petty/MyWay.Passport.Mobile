@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Services;
 using Xamarin.Essentials;
@@ -30,8 +31,8 @@ namespace MyWay.Passport.Mobile.ViewModels
                     // Reset last updated to force balance refresh if details changed
                     CardDetails.LastUpdated = null;
 
-                    // Save CardDetails
-                    SettingsService.CardDetails = CardDetails;
+                    // Save Card to storage
+                    SettingsService.AddOrReplaceCard(CardDetails);
 
                     // Return to previous page
                     await Navigation.PopAsync();
@@ -86,10 +87,21 @@ namespace MyWay.Passport.Mobile.ViewModels
         }
         #endregion
 
-        // Default constructor
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public CardDetailsViewModel(INavigation navigation) : base(navigation)
         {
-            CardDetails = SettingsService.CardDetails ?? new CardDetails();
+            CardDetails = new CardDetails();
+        }
+
+        /// <summary>
+        /// Update CardDetails.
+        /// </summary>
+        /// <param name="existingCard">Existing card to update.</param>
+        public CardDetailsViewModel(INavigation navigation, CardDetails existingCard) : base(navigation)
+        {
+            CardDetails = existingCard ?? new CardDetails();
         }
     }
 }

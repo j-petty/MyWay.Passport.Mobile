@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
-using MyWay.Passport.Mobile.Services;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -10,6 +8,13 @@ namespace MyWay.Passport.Mobile.ViewModels
     public class RecentTripsViewModel : BaseViewModel
     {
         #region Variables
+        private CardDetails selectedCard;
+        public CardDetails SelectedCard
+        {
+            get { return selectedCard; }
+            set { SetProperty(ref selectedCard, value); }
+        }
+
         private ObservableCollection<RecentTrip> recentTrips;
         public ObservableCollection<RecentTrip> RecentTrips
         {
@@ -42,8 +47,8 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    // Don't load balance if card details aren't filled
-                    if (SettingsService.CardDetails == null || !SettingsService.CardDetails.CheckFilled())
+                    // Don't load balance if Card details aren't filled
+                    if (SelectedCard == null || !SelectedCard.CheckFilled())
                     {
                         // Display error if card details haven't been provided
                         ErrorMessage = Constants.ErrorMessages.RecentTripsMissingCardDetails;
@@ -58,9 +63,12 @@ namespace MyWay.Passport.Mobile.ViewModels
         }
         #endregion
 
-        // Default constructor
-        public RecentTripsViewModel(INavigation navigation) : base(navigation)
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public RecentTripsViewModel(INavigation navigation, CardDetails card) : base(navigation)
         {
+            SelectedCard = card;
             RecentTrips = new ObservableCollection<RecentTrip>();
         }
 
@@ -88,7 +96,8 @@ namespace MyWay.Passport.Mobile.ViewModels
             try
             {
                 // Retrieve recent trips
-                RecentTrips = new ObservableCollection<RecentTrip>(await App.VendorService.GetRecentTripsAsync(SettingsService.CardDetails));
+                RecentTrips = new ObservableCollection<RecentTrip>(
+                    await App.VendorService.GetRecentTripsAsync(SelectedCard));
 
                 // Reset error on successful history update
                 ErrorMessage = null;

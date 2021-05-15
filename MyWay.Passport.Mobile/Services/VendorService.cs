@@ -40,7 +40,8 @@ namespace MyWay.Passport.Mobile.Services
                     cardDetails.LastUpdated = DateTime.Now;
 
                     // Save updated CardDetails
-                    SettingsService.CardDetails = cardDetails;
+                    SettingsService.AddOrReplaceCard(cardDetails);
+                    //SettingsService.CardDetails = cardDetails;
 
                     // Log successful refresh
                     analyticsService.LogEvent(
@@ -56,7 +57,7 @@ namespace MyWay.Passport.Mobile.Services
             }
             catch (HttpRequestException httpException)
             {
-                Console.WriteLine($"[{nameof(VendorService)}] Network exception: " + httpException);
+                Console.WriteLine($"[{nameof(VendorService)}] Network exception", httpException);
 
                 // Don't publsih Analytics event for network failures
 
@@ -64,11 +65,12 @@ namespace MyWay.Passport.Mobile.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine($"[{nameof(VendorService)}]: " + e);
+                Console.WriteLine($"[{nameof(VendorService)}]: ", e);
 
                 // Reset card balance if error occured
                 cardDetails.LastBalance = 0.0;
-                SettingsService.CardDetails = cardDetails;
+                //SettingsService.CardDetails = cardDetails;
+                SettingsService.AddOrReplaceCard(cardDetails);
 
                 // Log failed refresh
                 analyticsService.LogEvent(
@@ -112,16 +114,15 @@ namespace MyWay.Passport.Mobile.Services
             }
             catch (HttpRequestException httpException)
             {
-                Console.WriteLine($"[{nameof(VendorService)}] Network exception: " + httpException);
+                Console.WriteLine($"[{nameof(VendorService)}] Network exception", httpException);
 
                 // Don't publsih Analytics event for network failures
-
                 throw;
             }
             catch (Exception e)
             {
                 // TODO: handle misc errors
-                Console.WriteLine($"[{nameof(VendorService)}]: " + e);
+                Console.WriteLine($"[{nameof(VendorService)}]", e);
 
                 // Log failed refresh
                 analyticsService.LogEvent(
@@ -181,7 +182,6 @@ namespace MyWay.Passport.Mobile.Services
             catch
             {
                 Console.WriteLine("Failed to parse response HTML");
-
                 throw;
             }
         }
@@ -244,7 +244,6 @@ namespace MyWay.Passport.Mobile.Services
             catch
             {
                 Console.WriteLine("Failed to parse response HTML");
-
                 throw;
             }
         }

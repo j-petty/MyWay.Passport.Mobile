@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using MyWay.Passport.Mobile.Models;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
@@ -8,8 +10,10 @@ namespace MyWay.Passport.Mobile.Services
     public static class SettingsService
     {
         /// <summary>
-        /// Used to verify identy with AWS Cognito.
+        /// Retrieves stored Card details.
+        /// NOTE: Cards are stored as part of a list now.
         /// </summary>
+        /*[Obsolete("CardDetails should not be used. Reger to CardList instead.")]
         public static CardDetails CardDetails
         {
             get
@@ -17,13 +21,69 @@ namespace MyWay.Passport.Mobile.Services
                 // Retrieve CardDetials from Preferences
                 return GetObject<CardDetails>(Constants.SettingNames.CardDetails);
             }
+        }*/
+
+        /// <summary>
+        /// Retrieves list of stored Cards.
+        /// </summary>
+        public static List<CardDetails> CardList
+        {
+            get
+            {
+                // Retrieve Cards from Preferences
+                var cardsList = GetObject<List<CardDetails>>(Constants.SettingNames.CardList);
+
+                if (cardsList == null)
+                {
+                    cardsList = new List<CardDetails>();
+                }
+
+                // Retrieve deprecated CardDetials from Preferences
+                // NOTE: this is for backwards compatability with versions before multi-card support
+                var existingCard = GetObject<CardDetails>(Constants.SettingNames.CardDetails);
+
+                if (existingCard != null && !cardsList.Any(card => card.CardNumber == existingCard.CardNumber))
+                {
+                    // Add existing Card to CardsList if it's not already there
+                    cardsList.Add(existingCard);
+                }
+
+                return cardsList;
+            }
             set
             {
                 // Serialise object into JsonString
-                StoreObject(Constants.SettingNames.CardDetails, value);
+                StoreObject(Constants.SettingNames.CardList, value);
 
-                Console.WriteLine("Saved Card Details: " + value?.CardNumber);
+                Console.WriteLine("Saved Cards: " + value?.Count);
             }
+        }
+
+        /// <summary>
+        /// Replaces a Card if it exists or adds a new one.
+        /// </summary>
+        /// <param name="card">Card to store.</param>
+        public static void AddOrReplaceCard(CardDetails card)
+        {
+            // Create local copy of CardList
+            var cardList = CardList;
+
+            // Check if Card already exists
+            var cardIndex = cardList.FindIndex(c => c.CardNumber == card.CardNumber);
+
+            if (cardIndex >= 0)
+            {
+                // Replace Card if it already exists
+                cardList[cardIndex] = card;
+            }
+            else
+            {
+                // Add new Card if it doesn't exist
+                cardList.Add(card);
+            }
+
+            // Update CardList
+            CardList = cardList;
         }
 
         /// <summary>
@@ -32,6 +92,15 @@ namespace MyWay.Passport.Mobile.Services
         public static void ClearLocalData()
         {
             Preferences.Clear();
+        }
+
+        /// <summary>
+        /// Deletes a particular setting.
+        /// </summary>
+        /// <param name="settingName">Name of the setting to delete.</param>
+        public static void RemoveSetting(string settingName)
+        {
+            Preferences.Remove(settingName);
         }
 
         private static void StoreObject<T>(string settingName, T value) where T : class

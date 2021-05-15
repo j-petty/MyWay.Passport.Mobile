@@ -43,6 +43,8 @@
                             PeekAreaInsets="0"
                             Loop="False"
                             IndicatorView="IndicatorView"
+                            CurrentItem="{Binding SelectedCard}"
+                            PositionChangedCommand="{Binding SelectedCardChanged}"
                             ItemsSource="{Binding Cards}"
                             HorizontalScrollBarVisibility="Never"
                             HeightRequest="{Binding CardHeight}">
@@ -129,14 +131,14 @@
                         Margin="{StaticResource PageMargin}" />
 
                     <Label
-                        Text="{Binding CardDetails.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
+                        Text="{Binding SelectedCard.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
                         IsVisible="True"
                         Margin="{StaticResource PageMargin}">
                         <Label.Triggers>
-                            <DataTrigger TargetType="Label" Binding="{Binding CardDetails.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
+                            <DataTrigger TargetType="Label" Binding="{Binding SelectedCard.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
                                 <Setter Property="IsVisible" Value="False"/> 
                             </DataTrigger>
                         </Label.Triggers>

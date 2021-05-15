@@ -1,4 +1,6 @@
-﻿namespace MyWay.Passport.Mobile
+﻿using System;
+
+namespace MyWay.Passport.Mobile
 {
     public static class Constants
     {
@@ -29,7 +31,9 @@
 
         public static class SettingNames
         {
-            public const string CardDetails = "CardDetails";
+            [Obsolete("CardDetails should not be used. Reger to CardList instead.")]
+            public const string CardDetails = nameof(CardDetails);
+            public const string CardList = nameof(CardList);
         }
 
         public static class EventNames
@@ -48,11 +52,11 @@
 
         public static class AnalyticsEvents
         {
-            public const string BalanceRefershSuccess = "BalanceRefershSuccess";
-            public const string BalanceRefershFailure = "BalanceRefershFailure";
+            public const string BalanceRefershSuccess = nameof(BalanceRefershSuccess);
+            public const string BalanceRefershFailure = nameof(BalanceRefershFailure);
 
-            public const string RecentTripRefreshSuccess = "RecentTripRefreshSuccess";
-            public const string RecentTripRefreshFailure = "RecentTripRefreshFailure";
+            public const string RecentTripRefreshSuccess = nameof(RecentTripRefreshSuccess);
+            public const string RecentTripRefreshFailure = nameof(RecentTripRefreshFailure);
         }
     }
 }

@@ -12,11 +12,11 @@ namespace MyWay.Passport.Mobile.ViewModels
     public class MainViewModel : BaseViewModel
     {
         #region Variables
-        private CardDetails cardDetails;
-        public CardDetails CardDetails
+        private CardDetails selectedCard;
+        public CardDetails SelectedCard
         {
-            get { return cardDetails; }
-            set { SetProperty(ref cardDetails, value); }
+            get { return selectedCard; }
+            set { SetProperty(ref selectedCard, value); }
         }
 
         private ObservableCollection<CardDetails> cards;
@@ -73,7 +73,7 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Navigation.PushAsync(new RecentTripsPage());
+                    await Navigation.PushAsync(new RecentTripsPage(SelectedCard));
                 });
             }
         }
@@ -88,7 +88,7 @@ namespace MyWay.Passport.Mobile.ViewModels
                 return new Command(async () =>
                 {
                     // Don't load balance if card details aren't filled
-                    if (CardDetails == null || !CardDetails.CheckFilled())
+                    if (SelectedCard == null || !SelectedCard.CheckFilled())
                     {
                         IsBusy = false;
                         return;
@@ -99,32 +99,35 @@ namespace MyWay.Passport.Mobile.ViewModels
                 });
             }
         }
+
+        /// <summary>
+        /// Selected card changed listener.
+        /// </summary>
+        public Command SelectedCardChanged
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    TryRefreshBalance();
+                });
+            }
+        }
         #endregion
 
-        // Default constructor
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public MainViewModel(INavigation navigation) : base(navigation)
         {
-            Cards = new ObservableCollection<CardDetails>
-            {
-                new CardDetails
-                {
-                    CardNumber = "123456"
-                },
-                new CardDetails
-                {
-                    CardNumber = "789123"
-                },
-                new CardDetails
-                {
-                    CardNumber = "456789"
-                },
-            };
-
             UpdateCardSize();
         }
 
         public override void OnViewAppearing()
         {
+            // Retrieve CardsList from storage
+            Cards = new ObservableCollection<CardDetails>(SettingsService.CardList);
+
             UpdateCardSize();
 
             base.OnViewAppearing();
@@ -144,20 +147,22 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// </summary>
         private void TryRefreshBalance()
         {
-            CardDetails = SettingsService.CardDetails;
-
-            if (CardDetails == null || !CardDetails.CheckFilled())
+            if (SelectedCard == null || !SelectedCard.CheckFilled())
             {
-                CardDetails = new CardDetails();
+                SelectedCard = new CardDetails();
 
                 // Display error if card details haven't been provided
                 ErrorMessage = Constants.ErrorMessages.BalanceCheckMissingCardDetails;
                 IsBusy = false;
             }
-            else if (CardDetails.LastUpdated == null || CardDetails.LastUpdated < DateTime.Now.AddHours(-1) || CardDetails.LastBalance == 0.0)
+            else if (SelectedCard.LastUpdated == null || SelectedCard.LastUpdated < DateTime.Now.AddHours(-1) || SelectedCard.LastBalance == 0.0)
             {
                 // Retrieve latest balance if haven't in the last hour or the balance is 0
                 RefreshBalanceSelected.Execute(null);
+            }
+            else
+            {
+                ErrorMessage = null;
             }
         }
 
@@ -176,7 +181,8 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             try
             {
-                CardDetails = await App.VendorService.GetBalanceAsync(CardDetails);
+                // Retrieve updated Card details
+                SelectedCard = await App.VendorService.GetBalanceAsync(SelectedCard);
 
                 // Reset error on successful balance update
                 ErrorMessage = null;
@@ -192,6 +198,9 @@ namespace MyWay.Passport.Mobile.ViewModels
             }
         }
 
+        /// <summary>
+        /// Update rendered CardSize based on screen.
+        /// </summary>
         private void UpdateCardSize()
         {
             CardWidth = Math.Min(DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density, 500);

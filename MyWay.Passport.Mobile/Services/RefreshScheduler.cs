@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Matcha.BackgroundService;
 using Plugin.LocalNotifications;
@@ -24,27 +25,31 @@ namespace MyWay.Passport.Mobile.Services
             try
             {
                 // Try to fetch lastest balance details
-                var cardDetails = await App.VendorService.GetBalanceAsync(SettingsService.CardDetails);
+                var cardTasks = SettingsService.CardList.Select(card => App.VendorService.GetBalanceAsync(card));
+
+                // Loop through each Card after all requests return
+                foreach (var card in await Task.WhenAll(cardTasks))
+                {
+                    // Show notification if balance is low
+                    if (card != null && card.LastBalance <= Constants.BalanceWarningLimit)
+                    {
+                        CrossLocalNotifications.Current.Show(
+                            "MyWay Balance Warning",
+                            $"Your MyWay card {card.CardNumber} is running low. ${card.LastBalance?.ToString("F2")}");
+                    }
+                }
 
                 Console.WriteLine("Successful background refresh");
 
-                // Show notification if balance is low
-                if (cardDetails != null && cardDetails.LastBalance <= Constants.BalanceWarningLimit)
-                {
-                    CrossLocalNotifications.Current.Show(
-                        "MyWay Balance Low",
-                        $"Your MyWay balance is running low. ${cardDetails?.LastBalance?.ToString("F2")}");
-                }
-
                 // Trigger success callback
-                return await Task.FromResult(shouldTriggerAgain);
+                return shouldTriggerAgain;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Failed background refresh", ex);
 
                 // Trigger failure callback
-                return await Task.FromResult(shouldTriggerAgain);
+                return shouldTriggerAgain;
             }
         }
     }

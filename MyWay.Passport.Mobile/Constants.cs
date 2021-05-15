@@ -29,6 +29,9 @@ namespace MyWay.Passport.Mobile
         // Balance to send out warning at
         public const double BalanceWarningLimit = 5.0;
 
+        // Maximum number of RecentTrips to show
+        public const int MaxRecentTrips = 25;
+
         public static class SettingNames
         {
             [Obsolete("CardDetails should not be used. Reger to CardList instead.")]

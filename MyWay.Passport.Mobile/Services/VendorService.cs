@@ -96,7 +96,8 @@ namespace MyWay.Passport.Mobile.Services
                 if (response.IsSuccessStatusCode)
                 {
                     // Parse html to get recent trips
-                    var recentTrips = GetRecentTrips(content);
+                    var recentTrips = GetRecentTrips(content)
+                        .Take(Constants.MaxRecentTrips);
 
                     // Log successful refresh
                     analyticsService.LogEvent(

@@ -3,7 +3,6 @@ using System.Linq;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
-using Syncfusion.ListView.XForms;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.ViewModels
@@ -16,6 +15,20 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             get { return cards; }
             set { SetProperty(ref cards, value); }
+        }
+
+        private CardDetails selectedCard;
+        public CardDetails SelectedCard
+        {
+            get { return selectedCard; }
+            set { SetProperty(ref selectedCard, value); }
+        }
+
+        private bool cardsLoaded = false;
+        public bool CardsLoaded
+        {
+            get { return cardsLoaded; }
+            set { SetProperty(ref cardsLoaded, value); }
         }
         #endregion
 
@@ -41,13 +54,10 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             get
             {
-                return new Command<SfListView>(async (listView) =>
+                return new Command(async () =>
                 {
-                    // Retrieive selected Card
-                    var selectedCard = (listView.SelectedItem as CardDetails);
-
                     // Send selected card to CardDetailsPage to be updated
-                    await Navigation.PushAsync(new CardDetailsPage(selectedCard));
+                    await Navigation.PushAsync(new CardDetailsPage(SelectedCard));
                 });
             }
         }
@@ -87,6 +97,9 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         public override void OnViewAppearing()
         {
+            // Reset SelectedCard
+            SelectedCard = null;
+
             // Retrieve CardsList from storage
             Cards = new ObservableCollection<CardDetails>(SettingsService.CardList);
 
@@ -94,6 +107,11 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 // Open AddCard if this is the first one
                 AddCardSelected.Execute(null);
+            }
+            else
+            {
+                // Set CardsLoaded
+                CardsLoaded = true;
             }
 
             base.OnViewAppearing();

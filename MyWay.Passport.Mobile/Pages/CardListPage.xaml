@@ -22,14 +22,14 @@
                 <syncfusion:SfListView
                     x:Name="listView"
                     ItemsSource="{Binding Cards}"
-                    SelectionMode="None"
+                    SelectedItem="{Binding SelectedCard, Mode=TwoWay}"
+                    SelectionMode="SingleDeselect"
                     DragStartMode="OnDragIndicator"
                     AllowSwiping="True"
                     AutoFitMode="Height"
                     SwipeOffset="120"
                     IsScrollingEnabled="False"
-                    TapCommand="{Binding ListItemSelected}"
-                    TapCommandParameter="{x:Reference listView}"
+                    SelectionChangedCommand="{Binding ListItemSelected}"
                     IsVisible="{Binding Cards, Converter={StaticResource IsNotEmptyConverter}}">
                     <syncfusion:SfListView.DragDropController>
                         <syncfusion:DragDropController UpdateSource="True" />
@@ -92,34 +92,75 @@
 
                     <syncfusion:SfListView.DragItemTemplate>
                         <DataTemplate>
-                            <StackLayout
-                                Padding="20,20,10,20"
-                                Orientation="Horizontal"
-                                BackgroundColor="#E5E5E5">
-                                <StackLayout VerticalOptions="Center">
-                                    <Label
-                                        Text="Card Name"
-                                        TextTransform="Uppercase"
-                                        FontSize="{StaticResource FontSize}"
-                                        TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+                            <StackLayout Spacing="0">
+                                <BoxView Style="{StaticResource SeperatorView}" />
 
-                                    <Label
-                                        Text="{Binding CardNumber}"
-                                        FontSize="16"
-                                        TextColor="{StaticResource SecondaryTextColor}" />
-                                </StackLayout>
+                                <StackLayout
+                                    BackgroundColor="#E5E5E5"
+                                    Padding="20,20,10,20"
+                                    Orientation="Horizontal">
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label
+                                            Text="Card Name"
+                                            TextTransform="Uppercase"
+                                            FontSize="{StaticResource FontSize}"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+
+                                        <Label
+                                            Text="{Binding CardNumber}"
+                                            FontSize="16"
+                                            TextColor="{StaticResource SecondaryTextColor}" />
+                                    </StackLayout>
                             
-                                <syncfusion:DragIndicatorView
-                                    ListView="{x:Reference listView}"
-                                    VerticalOptions="Center"
-                                    HorizontalOptions="EndAndExpand">
-                                    <Image
-                                        HeightRequest="40"
-                                        Source="DragIcon" />
-                                </syncfusion:DragIndicatorView>
+                                    <syncfusion:DragIndicatorView
+                                        ListView="{x:Reference listView}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="EndAndExpand">
+                                        <Image
+                                            HeightRequest="40"
+                                            Source="DragIcon" />
+                                    </syncfusion:DragIndicatorView>
+                                </StackLayout>
+
+                                <BoxView Style="{StaticResource SeperatorView}" />
                             </StackLayout>
                         </DataTemplate>
                     </syncfusion:SfListView.DragItemTemplate>
+
+                    <syncfusion:SfListView.SelectedItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Spacing="0">
+                                <StackLayout
+                                    BackgroundColor="#E5E5E5"
+                                    Padding="20,20,10,20"
+                                    Orientation="Horizontal">
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label
+                                            Text="Card Name"
+                                            TextTransform="Uppercase"
+                                            FontSize="{StaticResource FontSize}"
+                                            TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+
+                                        <Label
+                                            Text="{Binding CardNumber}"
+                                            FontSize="16"
+                                            TextColor="{StaticResource SecondaryTextColor}" />
+                                    </StackLayout>
+                            
+                                    <syncfusion:DragIndicatorView
+                                        ListView="{x:Reference listView}"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="EndAndExpand">
+                                        <Image
+                                            HeightRequest="40"
+                                            Source="DragIcon" />
+                                    </syncfusion:DragIndicatorView>
+                                </StackLayout>
+
+                                <BoxView Style="{StaticResource SeperatorView}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </syncfusion:SfListView.SelectedItemTemplate>
                 </syncfusion:SfListView>
 
                 <Label
@@ -130,7 +171,13 @@
                     VerticalTextAlignment="Center"
                     HorizontalTextAlignment="Center"
                     VerticalOptions="CenterAndExpand"
-                    IsVisible="{Binding Cards, Converter={StaticResource IsEmptyConverter}}" />
+                    IsVisible="{Binding Cards, Converter={StaticResource IsEmptyConverter}}">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label" Binding="{Binding CardsLoaded}" Value="False">
+                            <Setter Property="Text" Value="Loading cards..." />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

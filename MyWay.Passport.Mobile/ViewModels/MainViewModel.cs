@@ -188,11 +188,11 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             IsBusy = true;
 
+            // Retrieve SelectedItem
+            var selectedIndex = Cards.IndexOf(SelectedCard);
+
             try
             {
-                // Retrieve SelectedItem
-                var selectedIndex = Cards.IndexOf(SelectedCard);
-
                 // Retrieve updated Card details
                 Cards[selectedIndex] = await App.VendorService.GetBalanceAsync(SelectedCard);
 
@@ -201,6 +201,9 @@ namespace MyWay.Passport.Mobile.ViewModels
             }
             catch
             {
+                // Clear LastUpdated
+                Cards[selectedIndex].LastUpdated = null;
+
                 // Display error if refresh failed
                 ErrorMessage = Constants.ErrorMessages.BalanceCheckFailure;
             }

@@ -41,7 +41,6 @@ namespace MyWay.Passport.Mobile.Services
 
                     // Save updated CardDetails
                     SettingsService.AddOrReplaceCard(cardDetails);
-                    //SettingsService.CardDetails = cardDetails;
 
                     // Log successful refresh
                     analyticsService.LogEvent(
@@ -69,7 +68,6 @@ namespace MyWay.Passport.Mobile.Services
 
                 // Reset card balance if error occured
                 cardDetails.LastBalance = 0.0;
-                //SettingsService.CardDetails = cardDetails;
                 SettingsService.AddOrReplaceCard(cardDetails);
 
                 // Log failed refresh

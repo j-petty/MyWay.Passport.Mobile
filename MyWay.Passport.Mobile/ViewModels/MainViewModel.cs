@@ -58,7 +58,6 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
-                    //await Navigation.PushAsync(new CardDetailsPage());
                     await Navigation.PushAsync(new CardListPage());
                 });
             }
@@ -73,6 +72,12 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
+                    // Don't show history if card is null
+                    if (SelectedCard == null)
+                    {
+                        return;
+                    }
+
                     await Navigation.PushAsync(new RecentTripsPage(SelectedCard));
                 });
             }
@@ -149,7 +154,11 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             if (SelectedCard == null || !SelectedCard.CheckFilled())
             {
-                SelectedCard = new CardDetails();
+                if (SelectedCard == null)
+                {
+                    // Prepopulate an empty Card
+                    Cards.Add(new CardDetails());
+                }
 
                 // Display error if card details haven't been provided
                 ErrorMessage = Constants.ErrorMessages.BalanceCheckMissingCardDetails;
@@ -181,8 +190,11 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             try
             {
+                // Retrieve SelectedItem
+                var selectedIndex = Cards.IndexOf(SelectedCard);
+
                 // Retrieve updated Card details
-                SelectedCard = await App.VendorService.GetBalanceAsync(SelectedCard);
+                Cards[selectedIndex] = await App.VendorService.GetBalanceAsync(SelectedCard);
 
                 // Reset error on successful balance update
                 ErrorMessage = null;

@@ -33,6 +33,10 @@
             <behaviors:IsEmptyConverter />
             <behaviors:NegateBoolConverter />
         </behaviors:ValueConverterGroup>
+        <behaviors:ValueConverterGroup x:Key="IsNotNullConverter">
+            <behaviors:IsNullConverter />
+            <behaviors:NegateBoolConverter />
+        </behaviors:ValueConverterGroup>
 
         <!-- Form Field Label -->
         <Style x:Key="FormFieldLabel" TargetType="Label">

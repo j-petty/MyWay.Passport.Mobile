@@ -105,16 +105,12 @@
                                                         HorizontalOptions="EndAndExpand"
                                                         TextColor="White"
                                                         FontSize="16"
+                                                        IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}"
                                                         Style="{StaticResource ClickableLink}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer
                                                                 Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}" />
                                                         </Label.GestureRecognizers>
-                                                        <Label.Triggers>
-                                                        <DataTrigger TargetType="Label" Binding="{Binding LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
-                                                            <Setter Property="IsVisible" Value="False"/> 
-                                                        </DataTrigger>
-                                                    </Label.Triggers>
                                                     </Label>
                                                 </StackLayout>
                                             </AbsoluteLayout>

@@ -32,11 +32,11 @@
             Command="{Binding RefreshBalanceSelected}"
             BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
             <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
-                <StackLayout
-                    Spacing="30"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Fill">
-                    <StackLayout HorizontalOptions="Center">
+                <RelativeLayout>
+                    <StackLayout
+                        x:Name="CarouselViewContainer"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-250}">
                         <!-- NOTE: using insets causes issues on larger screen sizes -->
                         <!-- NOTE: there is a knowm XF bug with carousel view sizing: https://github.com/xamarin/Xamarin.Forms/issues/8640 -->
                         <CarouselView
@@ -122,28 +122,32 @@
                             SelectedIndicatorColor="DarkGray"
                             HorizontalOptions="Center" />
                     </StackLayout>
-                    
-                    <Label
-                        Text="{Binding ErrorMessage}"
-                        HorizontalTextAlignment="Center"
-                        FontSize="{StaticResource FontSize}"
-                        TextColor="{StaticResource ErrorTextColor}"
-                        Margin="{StaticResource PageMargin}" />
 
                     <Label
                         Text="{Binding SelectedCard.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
                         TextColor="{StaticResource SecondaryTextColor}"
-                        IsVisible="True"
-                        Margin="{StaticResource PageMargin}">
+                        Margin="{StaticResource PageMargin}"
+                        Opacity="1"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding SelectedCard.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
-                                <Setter Property="IsVisible" Value="False"/> 
+                                <Setter Property="Opacity" Value="0" /> 
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>
-                </StackLayout>
+
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        HorizontalTextAlignment="Center"
+                        FontSize="{StaticResource FontSize}"
+                        TextColor="{StaticResource ErrorTextColor}"
+                        Margin="{StaticResource PageMargin}"
+                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}" />
+                </RelativeLayout>
             </ScrollView>
         </RefreshView>
     </ContentPage.Content>

@@ -10,20 +10,6 @@ namespace MyWay.Passport.Mobile.Services
     public static class SettingsService
     {
         /// <summary>
-        /// Retrieves stored Card details.
-        /// NOTE: Cards are stored as part of a list now.
-        /// </summary>
-        /*[Obsolete("CardDetails should not be used. Reger to CardList instead.")]
-        public static CardDetails CardDetails
-        {
-            get
-            {
-                // Retrieve CardDetials from Preferences
-                return GetObject<CardDetails>(Constants.SettingNames.CardDetails);
-            }
-        }*/
-
-        /// <summary>
         /// Retrieves list of stored Cards.
         /// </summary>
         public static List<CardDetails> CardList

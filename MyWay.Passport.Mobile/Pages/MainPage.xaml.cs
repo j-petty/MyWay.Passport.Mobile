@@ -1,5 +1,4 @@
-﻿using System;
-using MyWay.Passport.Mobile.ViewModels;
+﻿using MyWay.Passport.Mobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

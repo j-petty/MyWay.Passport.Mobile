@@ -8,16 +8,11 @@
     Title="Card Details"
     BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
 
-    <!-- Use TitleView with buttons for best UI consistency -->
-    <NavigationPage.TitleView>
-        <StackLayout Style="{StaticResource MenuLayout}">
-            <Button
-                Text="Save"
-                Command="{Binding OnSaveSelected}"
-                Style="{StaticResource MenuButton}"
-                HorizontalOptions="EndAndExpand" />
-        </StackLayout>
-    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Save"
+            Command="{Binding OnSaveSelected}" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <ScrollView>

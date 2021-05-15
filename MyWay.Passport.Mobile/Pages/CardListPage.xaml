@@ -3,23 +3,17 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-    xmlns:local="clr-namespace:MyWay.Passport.Mobile.Views;assembly=MyWay.Passport.Mobile"
     x:Class="MyWay.Passport.Mobile.Pages.CardListPage"
     x:Name="root"
     IsBusy="{Binding IsBusy}"
     Title="Cards"
     BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
 
-    <!-- Use TitleView with buttons for best UI consistency -->
-    <NavigationPage.TitleView>
-        <StackLayout Style="{StaticResource MenuLayout}">
-            <Button
-                Text="Add"
-                Command="{Binding AddCardSelected}"
-                Style="{StaticResource MenuButton}"
-                HorizontalOptions="EndAndExpand" />
-        </StackLayout>
-    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Add"
+            Command="{Binding AddCardSelected}" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <ScrollView>

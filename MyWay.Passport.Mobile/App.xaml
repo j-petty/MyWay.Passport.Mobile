@@ -50,31 +50,6 @@
             <Setter Property="TextDecorations" Value="Underline" />
         </Style>
 
-        <!-- Custom Menu Layout -->
-        <Style x:Key="MenuLayout" TargetType="StackLayout">
-            <Setter Property="Orientation" Value="Horizontal" />
-            <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="Spacing" Value="0" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin">
-                <OnPlatform x:TypeArguments="Thickness" Android="0,0,0,0" iOS="10,0" />
-            </Setter>
-        </Style>
-
-        <!-- Custom Menu Button -->
-        <Style x:Key="MenuButton" TargetType="Button">
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
-            <Setter Property="BackgroundColor" Value="Transparent" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="Font">
-                <OnPlatform x:TypeArguments="Font" Android="Bold,14" iOS="18" />
-            </Setter>
-            <Setter Property="TextTransform">
-                <OnPlatform x:TypeArguments="TextTransform" Android="Uppercase" iOS="Default" />
-            </Setter>
-        </Style>
-
         <!-- Seperator View -->
         <Style x:Key="SeperatorView" TargetType="BoxView">
             <Setter Property="BackgroundColor" Value="{StaticResource SecondaryTextColor}" />

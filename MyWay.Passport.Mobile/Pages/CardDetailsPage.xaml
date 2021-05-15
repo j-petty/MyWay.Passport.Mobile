@@ -87,6 +87,7 @@
                         Style="{StaticResource FormFieldLabel}" />
 
                     <DatePicker
+                        Format="D"
                         Date="{Binding CardDetails.DateOfBirth}"
                         MaximumDate="{x:Static sys:DateTime.Today}" />
                 </StackLayout>

@@ -26,7 +26,9 @@
                     SelectionMode="SingleDeselect"
                     DragStartMode="OnDragIndicator"
                     AllowSwiping="True"
-                    AutoFitMode="Height"
+                    AutoFitMode="None"
+                    ItemSize="90"
+                    HeaderSize="1"
                     SwipeOffset="120"
                     IsScrollingEnabled="False"
                     SelectionChangedCommand="{Binding ListItemSelected}"
@@ -65,7 +67,8 @@
                         <DataTemplate>
                             <StackLayout Spacing="0">
                                 <StackLayout
-                                    Padding="20,20,10,20"
+                                    VerticalOptions="FillAndExpand"
+                                    Padding="20"
                                     Orientation="Horizontal"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
                                     <StackLayout
@@ -87,8 +90,8 @@
                                         VerticalOptions="Center"
                                         HorizontalOptions="EndAndExpand">
                                         <Image
-                                            HeightRequest="40"
-                                            Source="DragIcon" />
+                                            WidthRequest="35"
+                                            Source="ic_drag.png" />
                                     </syncfusion:DragIndicatorView>
                                 </StackLayout>
 
@@ -103,8 +106,9 @@
                                 <BoxView Style="{StaticResource SeperatorView}" />
 
                                 <StackLayout
+                                    VerticalOptions="FillAndExpand"
                                     BackgroundColor="#E5E5E5"
-                                    Padding="20,20,10,20"
+                                    Padding="20"
                                     Orientation="Horizontal">
                                     <StackLayout
                                         Spacing="5"
@@ -125,8 +129,8 @@
                                         VerticalOptions="Center"
                                         HorizontalOptions="EndAndExpand">
                                         <Image
-                                            HeightRequest="40"
-                                            Source="DragIcon" />
+                                            HeightRequest="35"
+                                            Source="ic_drag.png" />
                                     </syncfusion:DragIndicatorView>
                                 </StackLayout>
 
@@ -139,8 +143,9 @@
                         <DataTemplate>
                             <StackLayout Spacing="0">
                                 <StackLayout
+                                    VerticalOptions="FillAndExpand"
                                     BackgroundColor="#E5E5E5"
-                                    Padding="20,20,10,20"
+                                    Padding="20"
                                     Orientation="Horizontal">
                                     <StackLayout
                                         Spacing="5"
@@ -161,8 +166,8 @@
                                         VerticalOptions="Center"
                                         HorizontalOptions="EndAndExpand">
                                         <Image
-                                            HeightRequest="40"
-                                            Source="DragIcon" />
+                                            HeightRequest="35"
+                                            Source="ic_drag.png" />
                                     </syncfusion:DragIndicatorView>
                                 </StackLayout>
 

@@ -29,4 +29,10 @@
     <Folder Include="Behaviours\" />
     <Folder Include="Services\CrossPlatform\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\CardListPage.xaml.cs">
+      <DependentUpon>CardListPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

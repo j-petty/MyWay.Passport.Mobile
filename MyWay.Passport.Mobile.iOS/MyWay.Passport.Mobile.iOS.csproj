@@ -101,13 +101,10 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-76%402x-1.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\icon-83.5%402x-1.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\iTunesArtwork%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\ic_drag_vertical_w-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\ic_drag_vertical_w%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\ic_drag_vertical_w%403x-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\ic_drag_vertical_b-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\id_drag_vertical_b%402x-1.png" />
-    <ImageAsset Include="Assets.xcassets\DragIcon.imageset\id_drag_vertical_b%403x-1.png" />
+    <ImageAsset Include="Assets.xcassets\ic_drag.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_drag.imageset\ic_drag.png" />
+    <ImageAsset Include="Assets.xcassets\ic_drag.imageset\ic_drag%402x.png" />
+    <ImageAsset Include="Assets.xcassets\ic_drag.imageset\ic_drag%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -143,7 +140,7 @@
   <ItemGroup>
     <Folder Include="Renderers\" />
     <Folder Include="Services\" />
-    <Folder Include="Assets.xcassets\DragIcon.imageset\" />
+    <Folder Include="Assets.xcassets\ic_drag.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="GoogleService-Info.plist" />

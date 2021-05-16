@@ -62,17 +62,18 @@
                                     Padding="20,20,10,20"
                                     Orientation="Horizontal"
                                     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
-                                    <StackLayout VerticalOptions="Center">
+                                    <StackLayout
+                                        Spacing="5"
+                                        VerticalOptions="Center">
                                         <Label
-                                            Text="Card Name"
+                                            Text="{Binding CardName}"
                                             TextTransform="Uppercase"
-                                            FontSize="{StaticResource FontSize}"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+                                            Style="{StaticResource SecondaryText}"
+                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}"/>
 
                                         <Label
                                             Text="{Binding CardNumber}"
-                                            FontSize="16"
-                                            TextColor="{StaticResource SecondaryTextColor}" />
+                                            Style="{StaticResource PrimaryText}" />
                                     </StackLayout>
                             
                                     <syncfusion:DragIndicatorView
@@ -99,17 +100,18 @@
                                     BackgroundColor="#E5E5E5"
                                     Padding="20,20,10,20"
                                     Orientation="Horizontal">
-                                    <StackLayout VerticalOptions="Center">
+                                    <StackLayout
+                                        Spacing="5"
+                                        VerticalOptions="Center">
                                         <Label
-                                            Text="Card Name"
+                                            Text="{Binding CardName}"
                                             TextTransform="Uppercase"
-                                            FontSize="{StaticResource FontSize}"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+                                            Style="{StaticResource SecondaryText}"
+                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}" />
 
                                         <Label
                                             Text="{Binding CardNumber}"
-                                            FontSize="16"
-                                            TextColor="{StaticResource SecondaryTextColor}" />
+                                            Style="{StaticResource PrimaryText}" />
                                     </StackLayout>
                             
                                     <syncfusion:DragIndicatorView
@@ -134,17 +136,18 @@
                                     BackgroundColor="#E5E5E5"
                                     Padding="20,20,10,20"
                                     Orientation="Horizontal">
-                                    <StackLayout VerticalOptions="Center">
+                                    <StackLayout
+                                        Spacing="5"
+                                        VerticalOptions="Center">
                                         <Label
-                                            Text="Card Name"
+                                            Text="{Binding CardName}"
                                             TextTransform="Uppercase"
-                                            FontSize="{StaticResource FontSize}"
-                                            TextColor="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+                                            Style="{StaticResource SecondaryText}"
+                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}"/>
 
                                         <Label
                                             Text="{Binding CardNumber}"
-                                            FontSize="16"
-                                            TextColor="{StaticResource SecondaryTextColor}" />
+                                            Style="{StaticResource PrimaryText}" />
                                     </StackLayout>
                             
                                     <syncfusion:DragIndicatorView

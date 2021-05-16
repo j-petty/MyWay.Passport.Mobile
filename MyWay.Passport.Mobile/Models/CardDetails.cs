@@ -4,6 +4,13 @@ namespace MyWay.Passport.Mobile.Models
 {
     public class CardDetails : BaseModel
     {
+        private string cardName;
+        public string CardName
+        {
+            get { return cardName; }
+            set { cardName = value; OnPropertyChanged(); }
+        }
+
         private string cardNumber;
         public string CardNumber
         {

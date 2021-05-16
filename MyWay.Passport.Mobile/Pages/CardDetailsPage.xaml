@@ -42,6 +42,26 @@
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <StackLayout Orientation="Horizontal">  
+                        <Label
+                            Text="Card Name"
+                            FontSize="{StaticResource FontSize}"
+                            Style="{StaticResource FormFieldLabel}" />
+
+                        <Label
+                            Text="(optional)"
+                            FontSize="{StaticResource FontSize}"
+                            TextColor="{StaticResource SecondaryTextColor}" />
+                    </StackLayout>
+
+                    <Entry
+                        Text="{Binding CardDetails.CardName}"
+                        FontSize="{StaticResource FontSize}"
+                        Placeholder="Card Name"
+                        ReturnType="Next" />
+                </StackLayout>
+
+                <StackLayout Style="{StaticResource FormFieldGroup}">
                     <Label
                         Text="Card Number"
                         FontSize="{StaticResource FontSize}"

@@ -88,14 +88,15 @@
                                                     AbsoluteLayout.LayoutFlags="All">
                                                     <StackLayout Spacing="3">
                                                         <Label
-                                                            Text="Card Name"
-                                                            FontSize="16"
+                                                            Text="{Binding CardName}"
+                                                            FontSize="{StaticResource FontSizeSmall}"
                                                             TextTransform="Uppercase"
-                                                            VerticalOptions="Start" />
+                                                            VerticalOptions="Start"
+                                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}" />
 
                                                         <Label
                                                             Text="{Binding CardNumber}"
-                                                            FontSize="14"
+                                                            FontSize="{StaticResource FontSize}"
                                                             VerticalOptions="End" />
                                                     </StackLayout>
 
@@ -104,7 +105,7 @@
                                                         VerticalOptions="Start"
                                                         HorizontalOptions="EndAndExpand"
                                                         TextColor="White"
-                                                        FontSize="16"
+                                                        FontSize="{StaticResource FontSizeSmall}"
                                                         IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}"
                                                         Style="{StaticResource ClickableLink}">
                                                         <Label.GestureRecognizers>

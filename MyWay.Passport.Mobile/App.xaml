@@ -7,7 +7,8 @@
     xmlns:behaviors="clr-namespace:MyWay.Passport.Mobile.Behaviours">
     <Application.Resources>
         <sys:Double x:Key="FontSize">18</sys:Double>
-        <sys:Double x:Key="FontSizeSmall">16</sys:Double>
+        <sys:Double x:Key="FontSizeMedium">16</sys:Double>
+        <sys:Double x:Key="FontSizeSmall">14</sys:Double>
         <Thickness x:Key="PageMargin">20</Thickness>
 
         <!-- Light Mode Colours -->
@@ -58,6 +59,18 @@
         <Style x:Key="SeperatorView" TargetType="BoxView">
             <Setter Property="BackgroundColor" Value="{StaticResource SecondaryTextColor}" />
             <Setter Property="HeightRequest" Value="1" />
+        </Style>
+
+        <!-- Primary Text Style -->
+        <Style x:Key="PrimaryText" TargetType="Label">
+            <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+        </Style>
+
+        <!-- Secondary Text Style -->
+        <Style x:Key="SecondaryText" TargetType="Label">
+            <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+            <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
         </Style>
     </Application.Resources>
 </Application>

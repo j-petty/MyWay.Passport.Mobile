@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Services;
 using Xamarin.Essentials;
@@ -16,6 +15,27 @@ namespace MyWay.Passport.Mobile.ViewModels
             get { return cardDetails; }
             set { SetProperty(ref cardDetails, value); }
         }
+
+        private bool cardNumberValid = true;
+        public bool CardNumberValid
+        {
+            get { return cardNumberValid; }
+            set { SetProperty(ref cardNumberValid, value); }
+        }
+
+        private bool cardPasswordValid = true;
+        public bool CardPasswordValid
+        {
+            get { return cardPasswordValid; }
+            set { SetProperty(ref cardPasswordValid, value); }
+        }
+
+        private bool birthDateValid = true;
+        public bool BirthDateValid
+        {
+            get { return birthDateValid; }
+            set { SetProperty(ref birthDateValid, value); }
+        }
         #endregion
 
         #region Commands
@@ -28,6 +48,12 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(async () =>
                 {
+                    // Validate form fields
+                    if (!ValidateFields())
+                    {
+                        return;
+                    }
+
                     // Reset last updated to force balance refresh if details changed
                     CardDetails.LastUpdated = null;
 
@@ -102,6 +128,22 @@ namespace MyWay.Passport.Mobile.ViewModels
         public CardDetailsViewModel(INavigation navigation, CardDetails existingCard) : base(navigation)
         {
             CardDetails = existingCard ?? new CardDetails();
+        }
+
+        private bool ValidateFields()
+        {
+            // Validate CardNumber
+            CardNumberValid = !string.IsNullOrWhiteSpace(CardDetails.CardNumber);
+
+            // Validate Password
+            CardPasswordValid = !string.IsNullOrWhiteSpace(CardDetails.Password);
+
+            // Validate Date of Birth
+            BirthDateValid = CardDetails.DateOfBirth != null && CardDetails.DateOfBirth <= DateTime.Today;
+
+            return CardNumberValid &&
+                CardPasswordValid &&
+                BirthDateValid;
         }
     }
 }

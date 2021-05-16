@@ -58,7 +58,8 @@
                         Text="{Binding CardDetails.CardName}"
                         FontSize="{StaticResource FontSize}"
                         Placeholder="Card Name"
-                        ReturnType="Next" />
+                        ReturnType="Next"
+                        MaxLength="25" />
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
@@ -67,12 +68,21 @@
                         FontSize="{StaticResource FontSize}"
                         Style="{StaticResource FormFieldLabel}" />
 
-                    <Entry
-                        Text="{Binding CardDetails.CardNumber}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Card Number"
-                        Keyboard="Numeric"
-                        ReturnType="Next" />
+                    <Frame Style="{StaticResource EntryContainer}">
+                        <Entry
+                            Text="{Binding CardDetails.CardNumber}"
+                            FontSize="{StaticResource FontSize}"
+                            Placeholder="Card Number"
+                            Keyboard="Numeric"
+                            ReturnType="Next"
+                            MaxLength="25" />
+
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding CardNumberValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
+                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
@@ -91,13 +101,21 @@
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>
-                       
-                    <Entry
-                        Text="{Binding CardDetails.Password}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Password"
-                        IsPassword="true"
-                        ReturnType="Next" />
+
+                    <Frame Style="{StaticResource EntryContainer}">
+                        <Entry
+                            Text="{Binding CardDetails.Password}"
+                            FontSize="{StaticResource FontSize}"
+                            Placeholder="Password"
+                            IsPassword="true"
+                            ReturnType="Next" />
+
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding CardPasswordValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
+                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
@@ -106,16 +124,24 @@
                         FontSize="{StaticResource FontSize}"
                         Style="{StaticResource FormFieldLabel}" />
 
-                    <DatePicker
-                        Format="D"
-                        Date="{Binding CardDetails.DateOfBirth}"
-                        MaximumDate="{x:Static sys:DateTime.Today}" />
+                    <Frame Style="{StaticResource EntryContainer}">
+                        <DatePicker
+                            Format="D"
+                            Date="{Binding CardDetails.DateOfBirth}"
+                            MaximumDate="{x:Static sys:DateTime.Today}" />
+
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding BirthDateValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
+                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                            </DataTrigger>
+                        </Frame.Triggers>
+                    </Frame>
                 </StackLayout>
 
                 <StackLayout Spacing="20">
                     <Label
                         FontSize="{StaticResource FontSize}"
-                        Text="Your card details will be stored security on your device and encrypted in transit." />
+                        Text="Your card details will be stored security on your device." />
 
                     <Label FontSize="{StaticResource FontSize}">
                         <Label.FormattedText>

@@ -24,6 +24,9 @@
                         RowHeight="115"
                         HasUnevenRows="False"
                         SeparatorVisibility="None">
+                        <ListView.Header>
+                            <BoxView Style="{StaticResource SeperatorView}" />
+                        </ListView.Header>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell IsEnabled="False">

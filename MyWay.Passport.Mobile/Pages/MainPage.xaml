@@ -54,7 +54,7 @@
                                         <Frame
                                             Grid.Column="1"
                                             Margin="25"
-                                            HasShadow="True"
+                                            HasShadow="False"
                                             BackgroundColor="{Binding CardColour.BackgroundColour}"
                                             CornerRadius="15">
                                             <AbsoluteLayout>
@@ -153,8 +153,15 @@
                         FontSize="{StaticResource FontSize}"
                         TextColor="{DynamicResource ErrorTextColor}"
                         Margin="{StaticResource PageMargin}"
+                        Opacity="1"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}" />
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding SelectedCard.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="False">
+                                <Setter Property="Opacity" Value="0" /> 
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                 </RelativeLayout>
             </ScrollView>
         </RefreshView>

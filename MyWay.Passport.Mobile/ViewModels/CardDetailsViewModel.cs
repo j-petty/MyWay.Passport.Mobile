@@ -155,6 +155,8 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         private bool ValidateFields()
         {
+            // TODO: validate if card number already exists on another local card
+
             // Validate CardNumber
             CardNumberValid = !string.IsNullOrWhiteSpace(CardDetails.CardNumber);
 

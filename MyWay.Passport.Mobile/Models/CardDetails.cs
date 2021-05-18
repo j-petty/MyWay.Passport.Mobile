@@ -7,6 +7,14 @@ namespace MyWay.Passport.Mobile.Models
 {
     public class CardDetails : BaseModel
     {
+        // NOTE: this is used to track card uniqueness only
+        private string cardId = Guid.NewGuid().ToString();
+        public string CardId
+        {
+            get { return cardId; }
+            set { cardId = value; OnPropertyChanged(); }
+        }
+
         private string cardName;
         public string CardName
         {

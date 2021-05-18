@@ -32,6 +32,12 @@ namespace MyWay.Passport.Mobile.Services
                 {
                     // Add existing Card to CardsList if it's not already there
                     cardsList.Add(existingCard);
+
+                    // Store CardList with existing value
+                    CardList = cardsList;
+
+                    // Clear the deprecated setting
+                    RemoveSetting(Constants.SettingNames.CardDetails);
                 }
 
                 return cardsList;
@@ -55,7 +61,7 @@ namespace MyWay.Passport.Mobile.Services
             var cardList = CardList;
 
             // Check if Card already exists
-            var cardIndex = cardList.FindIndex(c => c.CardNumber == card.CardNumber);
+            var cardIndex = cardList.FindIndex(c => c.CardId == card.CardId);
 
             if (cardIndex >= 0)
             {

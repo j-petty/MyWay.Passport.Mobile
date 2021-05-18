@@ -114,6 +114,10 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 return new Command(() =>
                 {
+                    if (SelectedCard == null)
+                    {
+                        return;
+                    }
                     TryRefreshBalance();
                 });
             }
@@ -150,6 +154,7 @@ namespace MyWay.Passport.Mobile.ViewModels
         public override void OnViewDisappearing()
         {
             Cards = new ObservableCollection<CardDetails>();
+            ErrorMessage = null;
 
             base.OnViewDisappearing();
         }

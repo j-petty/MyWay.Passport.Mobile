@@ -147,6 +147,13 @@ namespace MyWay.Passport.Mobile.ViewModels
             TryRefreshBalance();
         }
 
+        public override void OnViewDisappearing()
+        {
+            Cards = new ObservableCollection<CardDetails>();
+
+            base.OnViewDisappearing();
+        }
+
         /// <summary>
         /// Checks if balance need to be refreshed and invokes Command to refresh.
         /// </summary>

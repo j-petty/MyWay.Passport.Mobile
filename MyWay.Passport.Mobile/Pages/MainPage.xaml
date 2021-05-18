@@ -103,19 +103,21 @@
                                                             TextColor="{Binding CardColour.TextColour}" />
                                                     </StackLayout>
 
-                                                    <Label
-                                                        Text="History"
+                                                    <ImageButton
+                                                        WidthRequest="24"
+                                                        HeightRequest="24"
+                                                        Padding="0"
                                                         VerticalOptions="Start"
                                                         HorizontalOptions="EndAndExpand"
-                                                        FontSize="{StaticResource FontSizeSmall}"
-                                                        IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}"
-                                                        Style="{StaticResource ClickableLink}"
-                                                        TextColor="{Binding CardColour.TextColour}">
-                                                        <Label.GestureRecognizers>
-                                                            <TapGestureRecognizer
-                                                                Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}" />
-                                                        </Label.GestureRecognizers>
-                                                    </Label>
+                                                        Source="ic_history_w.png"
+                                                        Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}"                                                        
+                                                        IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}">
+                                                        <ImageButton.Triggers>
+                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding CardColour.TextColour}" Value="Black">
+                                                                <Setter Property="Source" Value="ic_history_b.png"/> 
+                                                            </DataTrigger>
+                                                        </ImageButton.Triggers>
+                                                    </ImageButton>
                                                 </StackLayout>
                                             </AbsoluteLayout>
                                         </Frame>

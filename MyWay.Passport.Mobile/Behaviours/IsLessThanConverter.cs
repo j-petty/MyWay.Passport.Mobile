@@ -11,6 +11,11 @@ namespace MyWay.Passport.Mobile.Behaviours
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return false;
+            }
+
             var cutoff = (double)parameter;
 
             if (value.GetType() == typeof(double))
@@ -26,11 +31,6 @@ namespace MyWay.Passport.Mobile.Behaviours
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        private bool IsInteger (double number)
-        {
-            return number == Math.Round(number);
         }
     }
 }

@@ -4,9 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:app="clr-namespace:MyWay.Passport.Mobile;assembly=MyWay.Passport.Mobile"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
     x:Class="MyWay.Passport.Mobile.Pages.CardDetailsPage"
     Title="Card Details"
-    BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
+    BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -42,27 +43,6 @@
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
-                    <StackLayout Orientation="Horizontal">  
-                        <Label
-                            Text="Card Name"
-                            FontSize="{StaticResource FontSize}"
-                            Style="{StaticResource FormFieldLabel}" />
-
-                        <Label
-                            Text="(optional)"
-                            FontSize="{StaticResource FontSize}"
-                            TextColor="{StaticResource SecondaryTextColor}" />
-                    </StackLayout>
-
-                    <Entry
-                        Text="{Binding CardDetails.CardName}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Card Name"
-                        ReturnType="Next"
-                        MaxLength="25" />
-                </StackLayout>
-
-                <StackLayout Style="{StaticResource FormFieldGroup}">
                     <Label
                         Text="Card Number"
                         FontSize="{StaticResource FontSize}"
@@ -79,7 +59,7 @@
 
                         <Frame.Triggers>
                             <DataTrigger TargetType="Frame" Binding="{Binding CardNumberValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
-                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                                <Setter Property="BorderColor" Value="{DynamicResource ErrorTextColor}" /> 
                             </DataTrigger>
                         </Frame.Triggers>
                     </Frame>
@@ -95,7 +75,7 @@
                         <Label
                             Text="What's this?"
                             FontSize="{StaticResource FontSize}"
-                            TextColor="{StaticResource SecondaryTextColor}">
+                            TextColor="{DynamicResource SecondaryTextColor}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OnPasswordHelpSelected}" />
                             </Label.GestureRecognizers>
@@ -112,7 +92,7 @@
 
                         <Frame.Triggers>
                             <DataTrigger TargetType="Frame" Binding="{Binding CardPasswordValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
-                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                                <Setter Property="BorderColor" Value="{DynamicResource ErrorTextColor}" /> 
                             </DataTrigger>
                         </Frame.Triggers>
                     </Frame>
@@ -132,10 +112,90 @@
 
                         <Frame.Triggers>
                             <DataTrigger TargetType="Frame" Binding="{Binding BirthDateValid, Converter={StaticResource NegateBoolConverter}}" Value="True">
-                                <Setter Property="BorderColor" Value="{StaticResource ErrorTextColor}" /> 
+                                <Setter Property="BorderColor" Value="{DynamicResource ErrorTextColor}" /> 
                             </DataTrigger>
                         </Frame.Triggers>
                     </Frame>
+                </StackLayout>
+
+                <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <StackLayout Orientation="Horizontal">  
+                        <Label
+                            Text="Card Name"
+                            FontSize="{StaticResource FontSize}"
+                            Style="{StaticResource FormFieldLabel}" />
+
+                        <Label
+                            Text="(optional)"
+                            FontSize="{StaticResource FontSize}"
+                            TextColor="{DynamicResource SecondaryTextColor}" />
+                    </StackLayout>
+
+                    <Entry
+                        Text="{Binding CardDetails.CardName}"
+                        FontSize="{StaticResource FontSize}"
+                        Placeholder="Card Name"
+                        ReturnType="Next"
+                        MaxLength="25" />
+                </StackLayout>
+
+                <StackLayout Style="{StaticResource FormFieldGroup}">
+                    <StackLayout Orientation="Horizontal">  
+                        <Label
+                            Text="Card Colour"
+                            FontSize="{StaticResource FontSize}"
+                            Style="{StaticResource FormFieldLabel}" />
+
+                        <Label
+                            Text="(optional)"
+                            FontSize="{StaticResource FontSize}"
+                            TextColor="{DynamicResource SecondaryTextColor}" />
+                    </StackLayout>
+
+                    <buttons:SfChipGroup
+                        x:Name="ChipGroup"
+                        Type="Choice"
+                        ChoiceMode="SingleOrNone"
+                        ChipPadding="0,0,15,15"
+                        ItemsSource="{Binding CardColours}"
+                        SelectedItem="{Binding SelectedCardColour, Mode=TwoWay}"
+                        ChipBackgroundColor="{AppThemeBinding Light=White, Dark=Black}"
+                        SelectedChipBackgroundColor="{AppThemeBinding Light=Black, Dark=White}">
+                        <buttons:SfChipGroup.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout
+                                    Padding="5,3"
+                                    VerticalOptions="Center"
+                                    Orientation="Horizontal">
+                                    <AbsoluteLayout Padding="0">
+                                        <Frame
+                                            CornerRadius="5"
+                                            HasShadow="False"
+                                            BackgroundColor="{Binding BackgroundColour}"
+                                            AbsoluteLayout.LayoutBounds="0,0,20,20"
+                                            AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                    </AbsoluteLayout>
+
+                                    <Label
+                                        VerticalTextAlignment="Center"
+                                        Text="{Binding Name}"
+                                        FontSize="{StaticResource FontSize}"
+                                        TextColor="{DynamicResource SecondaryTextColor}" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </buttons:SfChipGroup.ItemTemplate>
+
+                        <buttons:SfChipGroup.ChipLayout>
+					        <FlexLayout
+						        HorizontalOptions="Start" 
+						        VerticalOptions="Center" 
+						        Direction="Row" 
+						        Wrap="Wrap"
+						        JustifyContent="Start"
+						        AlignContent="Start" 
+						        AlignItems="Start" />
+				        </buttons:SfChipGroup.ChipLayout>
+		            </buttons:SfChipGroup>
                 </StackLayout>
 
                 <StackLayout Spacing="20">

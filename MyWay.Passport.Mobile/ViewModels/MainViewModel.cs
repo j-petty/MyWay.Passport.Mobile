@@ -152,6 +152,8 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// </summary>
         private void TryRefreshBalance()
         {
+            ErrorMessage = null;
+
             if (SelectedCard == null || !SelectedCard.CheckFilled())
             {
                 if (SelectedCard == null)
@@ -168,10 +170,6 @@ namespace MyWay.Passport.Mobile.ViewModels
             {
                 // Retrieve latest balance if haven't in the last hour or the balance is 0
                 RefreshBalanceSelected.Execute(null);
-            }
-            else
-            {
-                ErrorMessage = null;
             }
         }
 

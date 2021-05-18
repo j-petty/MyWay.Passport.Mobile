@@ -1,6 +1,7 @@
 ﻿using Matcha.BackgroundService;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
+using MyWay.Passport.Mobile.Themes;
 using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile
@@ -39,13 +40,13 @@ namespace MyWay.Passport.Mobile
                 VendorService = new VendorService();
             }
 
-            UpdateStatusBarColors();
+            UpdateTheme();
             InitializeMainPage();
 
             // Update BarColor if theme changes
             App.Current.RequestedThemeChanged += (s, a) =>
             {
-                UpdateStatusBarColors();
+                UpdateTheme();
                 InitializeMainPage();
             };
         }
@@ -70,12 +71,33 @@ namespace MyWay.Passport.Mobile
         }
 
         /// <summary>
-        /// Update StatusBar colours based on device theme.
+        /// Update resources based on device theme.
         /// </summary>
-        private void UpdateStatusBarColors()
+        private void UpdateTheme()
         {
-            _barBackgroundColor = App.Current.RequestedTheme == OSAppTheme.Dark ? (Color)App.Current.Resources["DBackgroundColor"] : (Color)App.Current.Resources["BackgroundColor"];
-            _barTextColor = App.Current.RequestedTheme == OSAppTheme.Dark ? (Color)App.Current.Resources["DTextColor"] : (Color)App.Current.Resources["TextColor"];
+            var mergedDictionaries = App.Current.Resources.MergedDictionaries;
+
+            if (mergedDictionaries != null)
+            {
+                // Clear resources
+                mergedDictionaries.Clear();
+
+                // Update resources based on theme
+                switch (App.Current.RequestedTheme)
+                {
+                    case OSAppTheme.Dark:
+                        mergedDictionaries.Add(new DarkTheme());
+                        break;
+                    case OSAppTheme.Light:
+                    default:
+                        mergedDictionaries.Add(new LightTheme());
+                        break;
+                }
+            }
+
+            // Update status bar colours
+            _barBackgroundColor = (Color)App.Current.Resources["BackgroundColor"];
+            _barTextColor = (Color)App.Current.Resources["TextColor"];
         }
 
         /// <summary>

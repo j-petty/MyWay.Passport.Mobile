@@ -3,6 +3,7 @@ using Foundation;
 using Matcha.BackgroundService.iOS;
 using MyWay.Passport.Mobile.iOS.Services;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.XForms.iOS.Buttons;
 using UIKit;
 using UserNotifications;
 
@@ -24,8 +25,10 @@ namespace MyWay.Passport.Mobile.iOS
 
             Xamarin.Forms.Forms.Init();
 
-            // Init SFList View
+            // Init SF Views
             SfListViewRenderer.Init();
+            SfChipGroupRenderer.Init();
+            SfChipRenderer.Init();
 
             LoadApplication(new App());
 

@@ -6,22 +6,12 @@
     x:Class="MyWay.Passport.Mobile.App"
     xmlns:behaviors="clr-namespace:MyWay.Passport.Mobile.Behaviours">
     <Application.Resources>
+        <ResourceDictionary Source="Themes/LightTheme.xaml" />
+
         <sys:Double x:Key="FontSize">18</sys:Double>
         <sys:Double x:Key="FontSizeMedium">16</sys:Double>
         <sys:Double x:Key="FontSizeSmall">14</sys:Double>
         <Thickness x:Key="PageMargin">20</Thickness>
-
-        <!-- Light Mode Colours -->
-        <Color x:Key="BackgroundColor">White</Color>
-        <Color x:Key="SecondaryBackgroundColor">#F4F4F4</Color>
-        <Color x:Key="TextColor">Black</Color>
-        <Color x:Key="SecondaryTextColor">Gray</Color>
-        <Color x:Key="ErrorTextColor">Red</Color>
-
-        <!-- Dark Mode Colours -->
-        <Color x:Key="DBackgroundColor">Black</Color>
-        <Color x:Key="DSecondaryBackgroundColor">#0b0b0b</Color>
-        <Color x:Key="DTextColor">White</Color>
 
         <!-- Converters -->
         <behaviors:IsLessThanConverter x:Key="IsLessThanConverter" />
@@ -58,26 +48,26 @@
 
         <!-- Clickable Link -->
         <Style x:Key="ClickableLink" TargetType="Span">
-            <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
             <Setter Property="TextDecorations" Value="Underline" />
         </Style>
 
         <!-- Seperator View -->
         <Style x:Key="SeperatorView" TargetType="BoxView">
-            <Setter Property="BackgroundColor" Value="{StaticResource SecondaryTextColor}" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource SecondaryTextColor}" />
             <Setter Property="HeightRequest" Value="1" />
         </Style>
 
         <!-- Primary Text Style -->
         <Style x:Key="PrimaryText" TargetType="Label">
             <Setter Property="FontSize" Value="{StaticResource FontSize}" />
-            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource DTextColor}}" />
+            <Setter Property="TextColor" Value="{DynamicResource TextColor}" />
         </Style>
 
         <!-- Secondary Text Style -->
         <Style x:Key="SecondaryText" TargetType="Label">
             <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
-            <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+            <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
         </Style>
     </Application.Resources>
 </Application>

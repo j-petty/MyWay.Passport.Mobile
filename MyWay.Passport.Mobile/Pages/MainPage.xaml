@@ -17,8 +17,8 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshBalanceSelected}"
-            BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
-            <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
+            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+            <ScrollView BackgroundColor="{DynamicResource BackgroundColor}">
                 <RelativeLayout>
                     <StackLayout
                         x:Name="CarouselViewContainer"
@@ -55,7 +55,7 @@
                                             Grid.Column="1"
                                             Margin="25"
                                             HasShadow="True"
-                                            BackgroundColor="Red"
+                                            BackgroundColor="{Binding CardColour.BackgroundColour}"
                                             CornerRadius="15">
                                             <AbsoluteLayout>
                                                 <Label
@@ -64,7 +64,8 @@
                                                     HorizontalTextAlignment="Center"
                                                     VerticalTextAlignment="Center"
                                                     AbsoluteLayout.LayoutBounds="0,0,1,1"
-                                                    AbsoluteLayout.LayoutFlags="All">
+                                                    AbsoluteLayout.LayoutFlags="All"
+                                                    TextColor="{Binding CardColour.TextColour}">
                                                     <Label.Triggers>
                                                         <DataTrigger TargetType="Label" Value="True">
                                                             <DataTrigger.Binding>
@@ -77,7 +78,7 @@
                                                                 </Binding>
                                                             </DataTrigger.Binding>
 
-                                                            <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}"/> 
+                                                            <Setter Property="TextColor" Value="{DynamicResource ErrorTextColor}"/> 
                                                         </DataTrigger>
                                                     </Label.Triggers>
                                                 </Label>
@@ -92,22 +93,24 @@
                                                             FontSize="{StaticResource FontSizeSmall}"
                                                             TextTransform="Uppercase"
                                                             VerticalOptions="Start"
-                                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}" />
+                                                            IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}"
+                                                            TextColor="{Binding CardColour.TextColour}" />
 
                                                         <Label
                                                             Text="{Binding CardNumber}"
                                                             FontSize="{StaticResource FontSize}"
-                                                            VerticalOptions="End" />
+                                                            VerticalOptions="End"
+                                                            TextColor="{Binding CardColour.TextColour}" />
                                                     </StackLayout>
 
                                                     <Label
                                                         Text="History"
                                                         VerticalOptions="Start"
                                                         HorizontalOptions="EndAndExpand"
-                                                        TextColor="White"
                                                         FontSize="{StaticResource FontSizeSmall}"
                                                         IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}"
-                                                        Style="{StaticResource ClickableLink}">
+                                                        Style="{StaticResource ClickableLink}"
+                                                        TextColor="{Binding CardColour.TextColour}">
                                                         <Label.GestureRecognizers>
                                                             <TapGestureRecognizer
                                                                 Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}" />
@@ -132,7 +135,7 @@
                         Text="{Binding SelectedCard.LastUpdated, Converter={StaticResource TimeAgoDateConverter}, StringFormat='updated {0}'}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
-                        TextColor="{StaticResource SecondaryTextColor}"
+                        TextColor="{DynamicResource SecondaryTextColor}"
                         Margin="{StaticResource PageMargin}"
                         Opacity="1"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
@@ -148,7 +151,7 @@
                         Text="{Binding ErrorMessage}"
                         HorizontalTextAlignment="Center"
                         FontSize="{StaticResource FontSize}"
-                        TextColor="{StaticResource ErrorTextColor}"
+                        TextColor="{DynamicResource ErrorTextColor}"
                         Margin="{StaticResource PageMargin}"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}" />

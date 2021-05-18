@@ -20,6 +20,7 @@
     <PackageReference Include="Xam.Plugins.Notifier" Version="3.0.1" />
     <PackageReference Include="Matcha.BackgroundService" Version="1.0.5478" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.63" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -28,6 +29,7 @@
     <Folder Include="Services\" />
     <Folder Include="Behaviours\" />
     <Folder Include="Services\CrossPlatform\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\CardListPage.xaml.cs">

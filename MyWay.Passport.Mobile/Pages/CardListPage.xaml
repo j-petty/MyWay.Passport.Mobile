@@ -7,7 +7,7 @@
     x:Name="root"
     IsBusy="{Binding IsBusy}"
     Title="Cards"
-    BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
+    BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -70,7 +70,7 @@
                                     VerticalOptions="FillAndExpand"
                                     Padding="20"
                                     Orientation="Horizontal"
-                                    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
+                                    BackgroundColor="{DynamicResource BackgroundColor}">
                                     <StackLayout
                                         Spacing="5"
                                         VerticalOptions="Center">
@@ -107,7 +107,7 @@
 
                                 <StackLayout
                                     VerticalOptions="FillAndExpand"
-                                    BackgroundColor="#E5E5E5"
+                                    BackgroundColor="{DynamicResource BackgroundColor}"
                                     Padding="20"
                                     Orientation="Horizontal">
                                     <StackLayout
@@ -144,7 +144,7 @@
                             <StackLayout Spacing="0">
                                 <StackLayout
                                     VerticalOptions="FillAndExpand"
-                                    BackgroundColor="#E5E5E5"
+                                    BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
                                     Padding="20"
                                     Orientation="Horizontal">
                                     <StackLayout
@@ -181,7 +181,7 @@
                     Text="No cards found."
                     Margin="{StaticResource PageMargin}"
                     FontSize="{StaticResource FontSize}"
-                    TextColor="{StaticResource SecondaryTextColor}"
+                    TextColor="{DynamicResource SecondaryTextColor}"
                     VerticalTextAlignment="Center"
                     HorizontalTextAlignment="Center"
                     VerticalOptions="CenterAndExpand"

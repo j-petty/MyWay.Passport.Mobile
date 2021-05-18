@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Services;
 using Xamarin.Essentials;
@@ -14,6 +16,24 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             get { return cardDetails; }
             set { SetProperty(ref cardDetails, value); }
+        }
+
+        private ObservableCollection<CardColour> cardColours;
+        public ObservableCollection<CardColour> CardColours
+        {
+            get { return cardColours; }
+            private set { SetProperty(ref cardColours, value); }
+        }
+
+        private CardColour selectedCardColour;
+        public CardColour SelectedCardColour
+        {
+            get { return selectedCardColour; }
+            set
+            {
+                SetProperty(ref selectedCardColour, value);
+                CardDetails.CardColourName = selectedCardColour?.Name;
+            }
         }
 
         private bool cardNumberValid = true;
@@ -118,6 +138,7 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// </summary>
         public CardDetailsViewModel(INavigation navigation) : base(navigation)
         {
+            CardColours = new ObservableCollection<CardColour>(Constants.CardColours);
             CardDetails = new CardDetails();
         }
 
@@ -127,7 +148,9 @@ namespace MyWay.Passport.Mobile.ViewModels
         /// <param name="existingCard">Existing card to update.</param>
         public CardDetailsViewModel(INavigation navigation, CardDetails existingCard) : base(navigation)
         {
+            CardColours = new ObservableCollection<CardColour>(Constants.CardColours);
             CardDetails = existingCard ?? new CardDetails();
+            SelectedCardColour = CardColours.FirstOrDefault(colour => colour.Name == CardDetails.CardColourName);
         }
 
         private bool ValidateFields()
@@ -141,7 +164,8 @@ namespace MyWay.Passport.Mobile.ViewModels
             // Validate Date of Birth
             BirthDateValid = CardDetails.DateOfBirth != null && CardDetails.DateOfBirth <= DateTime.Today;
 
-            return CardNumberValid &&
+            return
+                CardNumberValid &&
                 CardPasswordValid &&
                 BirthDateValid;
         }

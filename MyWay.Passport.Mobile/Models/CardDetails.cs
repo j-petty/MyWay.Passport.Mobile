@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace MyWay.Passport.Mobile.Models
 {
@@ -25,7 +28,7 @@ namespace MyWay.Passport.Mobile.Models
             set { password = value; OnPropertyChanged(); }
         }
 
-        private DateTime? dateOfBirth;
+        private DateTime? dateOfBirth = new DateTime(1990, 1, 1);
         public DateTime? DateOfBirth
         {
             get { return dateOfBirth; }
@@ -46,9 +49,25 @@ namespace MyWay.Passport.Mobile.Models
             set { lastBalance = value; OnPropertyChanged(); }
         }
 
-        public CardDetails()
+        private ColourNames? cardColourName = null;
+        public ColourNames? CardColourName
         {
-            DateOfBirth = new DateTime(1990, 1, 1);
+            get { return cardColourName; }
+            set
+            {
+                cardColourName = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(CardColour));
+            }
+        }
+
+        [JsonIgnore]
+        public CardColour CardColour
+        {
+            get
+            {
+                return GetColour();
+            }
         }
 
         /// <summary>
@@ -58,6 +77,38 @@ namespace MyWay.Passport.Mobile.Models
         public bool CheckFilled()
         {
             return !string.IsNullOrEmpty(CardNumber) && !string.IsNullOrEmpty(Password) && DateOfBirth != null && DateOfBirth <= DateTime.Today;
+        }
+
+        /// <summary>
+        /// Returns a CardColour object which correlates to the provided CardColourName.
+        /// </summary>
+        /// <returns>Returns CardColour object if one exists.</returns>
+        private CardColour GetColour()
+        {
+            // Return null if CardColour isn't set (will default to dynamic colour)
+            if (CardColourName == null)
+            {
+                var resourceDictionary = App.Current.Resources.MergedDictionaries.FirstOrDefault();
+
+                // Return default CardColour
+                return new CardColour
+                {
+                    BackgroundColour = ((Color)resourceDictionary?["DefaultCardBackgroundColor"]).ToHex(),
+                    TextColour = ((Color)resourceDictionary?["DefaultCardTextColor"]).ToHex()
+                };
+            }
+
+            // Retrieve matching CardColour if it exists
+            var cardColour = Constants.CardColours.FirstOrDefault(card => card.Name == CardColourName);
+
+            // Throw error if CardColour hasn't been configured
+            if (cardColour == null)
+            {
+                throw new NotImplementedException($"Unknown CardColour '{CardColourName.Value}'");
+            }
+
+            // Return CardColour value corresponding to the CardColourName
+            return cardColour;
         }
     }
 }

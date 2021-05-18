@@ -71,6 +71,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
       <Version>19.1.0.59</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.Buttons">
+      <Version>19.1.0.63</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />

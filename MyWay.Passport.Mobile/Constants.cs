@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using MyWay.Passport.Mobile.Models;
 
 namespace MyWay.Passport.Mobile
 {
@@ -32,6 +35,42 @@ namespace MyWay.Passport.Mobile
         // Maximum number of RecentTrips to show
         public const int MaxRecentTrips = 25;
 
+        // Card Colours
+        public static readonly IEnumerable<CardColour> CardColours = new ReadOnlyCollection<CardColour>(
+            new List<CardColour>
+            {
+                new CardColour
+                {
+                    Name = ColourNames.Red,
+                    BackgroundColour = "#E71D36",
+                    TextColour = "White"
+                },
+                new CardColour
+                {
+                    Name = ColourNames.Green,
+                    BackgroundColour = "#06D6A0",
+                    TextColour = "White"
+                },
+                new CardColour
+                {
+                    Name = ColourNames.Blue,
+                    BackgroundColour = "#3A86FF",
+                    TextColour = "White"
+                },
+                new CardColour
+                {
+                    Name = ColourNames.Yellow,
+                    BackgroundColour = "#FEE440",
+                    TextColour = "Black"
+                },
+                new CardColour
+                {
+                    Name = ColourNames.Purple,
+                    BackgroundColour = "#8338EC",
+                    TextColour = "White"
+                }
+            });
+
         public static class SettingNames
         {
             [Obsolete("CardDetails should not be used. Reger to CardList instead.")]
@@ -63,5 +102,14 @@ namespace MyWay.Passport.Mobile
             public const string RecentTripRefreshSuccess = nameof(RecentTripRefreshSuccess);
             public const string RecentTripRefreshFailure = nameof(RecentTripRefreshFailure);
         }
+    }
+
+    public enum ColourNames
+    {
+        Red,
+        Green,
+        Blue,
+        Yellow,
+        Purple
     }
 }

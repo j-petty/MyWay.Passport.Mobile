@@ -9,17 +9,17 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshHistorySelected}"
-            BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryBackgroundColor}, Dark={StaticResource DSecondaryBackgroundColor}}">
+            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
             <ScrollView>
                 <StackLayout
                     VerticalOptions="FillAndExpand"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColor}, Dark={StaticResource DBackgroundColor}}">
+                    BackgroundColor="{DynamicResource BackgroundColor}">
                     <ListView
                         IsEnabled="False"
                         IsVisible="{Binding RecentTrips, Converter={StaticResource IsNotEmptyConverter}}"
                         ItemsSource="{Binding RecentTrips}"
                         SelectionMode="None"
-                        SeparatorColor="{StaticResource SecondaryTextColor}"
+                        SeparatorColor="{DynamicResource SecondaryTextColor}"
                         IsPullToRefreshEnabled="False"
                         RowHeight="115"
                         HasUnevenRows="False"
@@ -47,7 +47,7 @@
                                                     <Label
                                                         Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
                                                         FontSize="{StaticResource FontSize}"
-                                                        TextColor="{StaticResource SecondaryTextColor}"/>
+                                                        TextColor="{DynamicResource SecondaryTextColor}"/>
                                                 </StackLayout>
 
                                                 <Label
@@ -58,7 +58,7 @@
                                                 <Label
                                                     Text="{Binding From}"
                                                     FontSize="{StaticResource FontSize}"
-                                                    TextColor="{StaticResource SecondaryTextColor}"
+                                                    TextColor="{DynamicResource SecondaryTextColor}"
                                                     LineBreakMode="TailTruncation" />
                                             </StackLayout>
 
@@ -71,13 +71,13 @@
                                                 <Label.Triggers>
                                                     <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
                                                         <Setter Property="Text" Value="TRANSFER" />
-                                                        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                        <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
                                                         <Setter Property="FontSize" Value="15" />
                                                     </DataTrigger>
 
                                                     <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
                                                         <Setter Property="Text" Value="PENDING" />
-                                                        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+                                                        <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
                                                         <Setter Property="FontSize" Value="15" />
                                                     </DataTrigger>
                                                 </Label.Triggers>
@@ -95,7 +95,7 @@
                         Text="No recent trips found."
                         Margin="{StaticResource PageMargin}"
                         FontSize="{StaticResource FontSize}"
-                        TextColor="{StaticResource SecondaryTextColor}"
+                        TextColor="{DynamicResource SecondaryTextColor}"
                         VerticalTextAlignment="Center"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="CenterAndExpand"
@@ -107,7 +107,7 @@
 
                             <DataTrigger TargetType="Label" Binding="{Binding ErrorMessage, Converter={StaticResource IsNullConverter}}" Value="False">
                                 <Setter Property="Text" Value="{Binding ErrorMessage}" />
-                                <Setter Property="TextColor" Value="{StaticResource ErrorTextColor}" />
+                                <Setter Property="TextColor" Value="{DynamicResource ErrorTextColor}" />
                             </DataTrigger>
                         </Label.Triggers>
                     </Label>

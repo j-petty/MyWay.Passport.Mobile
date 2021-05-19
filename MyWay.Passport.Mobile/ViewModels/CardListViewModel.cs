@@ -103,16 +103,8 @@ namespace MyWay.Passport.Mobile.ViewModels
             // Retrieve CardsList from storage
             Cards = new ObservableCollection<CardDetails>(SettingsService.CardList);
 
-            if (!Cards.Any())
-            {
-                // Open AddCard if this is the first one
-                AddCardSelected.Execute(null);
-            }
-            else
-            {
-                // Set CardsLoaded
-                CardsLoaded = true;
-            }
+            // Set CardsLoaded
+            CardsLoaded = true;
 
             base.OnViewAppearing();
         }

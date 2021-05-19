@@ -106,7 +106,7 @@
 
                     <Frame Style="{StaticResource EntryContainer}">
                         <DatePicker
-                            Format="D"
+                            Format="dd MMM yyyy"
                             Date="{Binding CardDetails.DateOfBirth}"
                             MaximumDate="{x:Static sys:DateTime.Today}" />
 
@@ -131,12 +131,14 @@
                             TextColor="{DynamicResource SecondaryTextColor}" />
                     </StackLayout>
 
-                    <Entry
-                        Text="{Binding CardDetails.CardName}"
-                        FontSize="{StaticResource FontSize}"
-                        Placeholder="Card Name"
-                        ReturnType="Next"
-                        MaxLength="25" />
+                    <Frame Style="{StaticResource EntryContainer}">
+                        <Entry
+                            Text="{Binding CardDetails.CardName}"
+                            FontSize="{StaticResource FontSize}"
+                            Placeholder="Card Name"
+                            ReturnType="Next"
+                            MaxLength="25" />
+                    </Frame>
                 </StackLayout>
 
                 <StackLayout Style="{StaticResource FormFieldGroup}">
@@ -164,10 +166,13 @@
                         <buttons:SfChipGroup.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout
-                                    Padding="5,3"
+                                    Padding="10,3"
+                                    Spacing="5"
                                     VerticalOptions="Center"
                                     Orientation="Horizontal">
-                                    <AbsoluteLayout Padding="0">
+                                    <AbsoluteLayout
+                                        VerticalOptions="Center"
+                                        Padding="0">
                                         <Frame
                                             CornerRadius="5"
                                             HasShadow="False"

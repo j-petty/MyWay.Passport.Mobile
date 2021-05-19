@@ -77,6 +77,7 @@
     <Compile Include="Services\NotificationReceiver.cs" />
     <Compile Include="Services\FirebaseAnalyticsService.cs" />
     <Compile Include="Renderers\ExtendedEntryRenderer.cs" />
+    <Compile Include="Renderers\ExtendedDatePickerRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

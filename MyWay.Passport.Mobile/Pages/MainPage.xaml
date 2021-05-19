@@ -84,40 +84,44 @@
                                                 </Label>
 
                                                 <StackLayout
-                                                    Orientation="Horizontal"
+                                                    Orientation="Vertical"
                                                     AbsoluteLayout.LayoutBounds="0,0,1,1"
                                                     AbsoluteLayout.LayoutFlags="All">
-                                                    <StackLayout Spacing="3">
+                                                    <StackLayout Orientation="Horizontal">
                                                         <Label
                                                             Text="{Binding CardName}"
-                                                            FontSize="{StaticResource FontSizeSmall}"
+                                                            FontSize="{StaticResource FontSizeMedium}"
                                                             TextTransform="Uppercase"
                                                             VerticalOptions="Start"
                                                             IsVisible="{Binding CardName, Converter={StaticResource IsNotNullConverter}}"
                                                             TextColor="{Binding CardColour.TextColour}" />
 
-                                                        <Label
-                                                            Text="{Binding CardNumber}"
-                                                            FontSize="{StaticResource FontSize}"
-                                                            VerticalOptions="End"
-                                                            TextColor="{Binding CardColour.TextColour}" />
+                                                        <ImageButton
+                                                            WidthRequest="24"
+                                                            HeightRequest="24"
+                                                            Padding="0"
+                                                            VerticalOptions="Start"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            Source="ic_history_w.png"
+                                                            BackgroundColor="Transparent"
+                                                            Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}"                                                        
+                                                            IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}">
+                                                            <ImageButton.Triggers>
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColour.TextColour}" Value="Black">
+                                                                    <Setter Property="Source" Value="ic_history_b.png"/> 
+                                                                </DataTrigger>
+                                                            </ImageButton.Triggers>
+                                                        </ImageButton>
                                                     </StackLayout>
-
-                                                    <ImageButton
-                                                        WidthRequest="24"
-                                                        HeightRequest="24"
-                                                        Padding="0"
-                                                        VerticalOptions="Start"
-                                                        HorizontalOptions="EndAndExpand"
-                                                        Source="ic_history_w.png"
-                                                        Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}"                                                        
-                                                        IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}">
-                                                        <ImageButton.Triggers>
-                                                            <DataTrigger TargetType="ImageButton" Binding="{Binding CardColour.TextColour}" Value="Black">
-                                                                <Setter Property="Source" Value="ic_history_b.png"/> 
-                                                            </DataTrigger>
-                                                        </ImageButton.Triggers>
-                                                    </ImageButton>
+                                                    
+                                                    
+                                                    <Label
+                                                        Text="{Binding CardNumber}"
+                                                        FontSize="{StaticResource FontSizeSmall}"
+                                                        VerticalOptions="EndAndExpand"
+                                                        HorizontalOptions="Center"
+                                                        HorizontalTextAlignment="Center"
+                                                        TextColor="{DynamicResource SecondaryTextColor}" />
                                                 </StackLayout>
                                             </AbsoluteLayout>
                                         </Frame>
@@ -141,7 +145,7 @@
                         Margin="{StaticResource PageMargin}"
                         Opacity="1"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}">
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=300}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding SelectedCard.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="True">
                                 <Setter Property="Opacity" Value="0" /> 
@@ -157,7 +161,7 @@
                         Margin="{StaticResource PageMargin}"
                         Opacity="1"
                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=350}">
+                        RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView, ElementName=CarouselViewContainer, Property=Y, Factor=1, Constant=300}">
                         <Label.Triggers>
                             <DataTrigger TargetType="Label" Binding="{Binding SelectedCard.LastUpdated, Converter={StaticResource IsNullConverter}}" Value="False">
                                 <Setter Property="Opacity" Value="0" /> 

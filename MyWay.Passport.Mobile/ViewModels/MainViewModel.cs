@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using MyWay.Passport.Mobile.Models;
 using MyWay.Passport.Mobile.Pages;
@@ -136,6 +137,12 @@ namespace MyWay.Passport.Mobile.ViewModels
         {
             // Retrieve CardsList from storage
             Cards = new ObservableCollection<CardDetails>(SettingsService.CardList);
+
+            // Set the initial SelectedCard (happens automatically on iOS but not Android)
+            if (SelectedCard == null && Cards.Any())
+            {
+                SelectedCard = Cards.FirstOrDefault();
+            }
 
             UpdateCardSize();
 

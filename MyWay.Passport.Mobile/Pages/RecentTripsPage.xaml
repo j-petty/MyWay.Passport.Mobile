@@ -2,94 +2,105 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     x:Class="MyWay.Passport.Mobile.Pages.RecentTripsPage"
     IsBusy="{Binding IsBusy}"
     Title="Recent Trips">
     <ContentPage.Content>
+        <!-- NOTE: ListView had issue with only loading page height not futher on Android. It also doesn't support an EmptyView -->
+        <!-- NOTE: There is an issue with CollectionView not updating binded properties with DataTriggers due to caching -->
+        <!-- NOTE: SFListView allows control of CachingStratergy and fills the parent view as expected -->
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshHistorySelected}"
             BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
-            <ScrollView>
-                <StackLayout
-                    VerticalOptions="FillAndExpand"
-                    BackgroundColor="{DynamicResource BackgroundColor}">
-                    <ListView
-                        IsEnabled="False"
-                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsNotEmptyConverter}}"
+            <ScrollView VerticalScrollBarVisibility="Always">
+                <StackLayout Spacing="0">
+                    <syncfusion:SfListView
                         ItemsSource="{Binding RecentTrips}"
                         SelectionMode="None"
-                        SeparatorColor="{DynamicResource SecondaryTextColor}"
-                        IsPullToRefreshEnabled="False"
-                        RowHeight="115"
-                        HasUnevenRows="False"
-                        SeparatorVisibility="None">
-                        <ListView.Header>
-                            <BoxView Style="{StaticResource SeperatorView}" />
-                        </ListView.Header>
-                        <ListView.ItemTemplate>
+                        AllowSwiping="False"
+                        AutoFitMode="Height"
+                        ListViewCachingStrategy="CreateNewTemplate"
+                        IsScrollingEnabled="False"
+                        IsVisible="{Binding RecentTrips, Converter={StaticResource IsNotEmptyConverter}}">
+                        <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell IsEnabled="False">
-                                    <StackLayout Spacing="0">
+                                <StackLayout Spacing="0">
+                                    <StackLayout
+                                        Padding="20"
+                                        Orientation="Horizontal"
+                                        VerticalOptions="CenterAndExpand">
                                         <StackLayout
-                                            Padding="20"
-                                            Orientation="Horizontal"
-                                            VerticalOptions="CenterAndExpand">
-                                            <StackLayout
-                                                Orientation="Vertical"
-                                                HorizontalOptions="StartAndExpand">
-                                                <StackLayout Orientation="Horizontal">
-                                                    <Label
-                                                        Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
-                                                        FontSize="{StaticResource FontSize}"
-                                                        FontAttributes="Bold" />
-
-                                                    <Label
-                                                        Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
-                                                        FontSize="{StaticResource FontSize}"
-                                                        TextColor="{DynamicResource SecondaryTextColor}"/>
-                                                </StackLayout>
+                                            Orientation="Vertical"
+                                            HorizontalOptions="Start">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label
+                                                    Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                                    FontSize="{StaticResource FontSize}"
+                                                    FontAttributes="Bold" />
 
                                                 <Label
-                                                    Text="{Binding To}"
+                                                    Text="{Binding Date, Converter={StaticResource TimeAgoDateConverter}}"
                                                     FontSize="{StaticResource FontSize}"
-                                                    LineBreakMode="TailTruncation" />
-
-                                                <Label
-                                                    Text="{Binding From}"
-                                                    FontSize="{StaticResource FontSize}"
-                                                    TextColor="{DynamicResource SecondaryTextColor}"
-                                                    LineBreakMode="TailTruncation" />
+                                                    TextColor="{DynamicResource SecondaryTextColor}"/>
                                             </StackLayout>
 
                                             <Label
-                                                Text="{Binding Price, StringFormat='-${0:F2}'}"
-                                                FontAttributes="Bold"
-                                                FontSize="20"
-                                                Margin="10"
-                                                VerticalTextAlignment="Center">
-                                                <Label.Triggers>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
-                                                        <Setter Property="Text" Value="TRANSFER" />
-                                                        <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
-                                                        <Setter Property="FontSize" Value="15" />
-                                                    </DataTrigger>
+                                                Text="{Binding To}"
+                                                FontSize="{StaticResource FontSizeMedium}"
+                                                LineBreakMode="TailTruncation" />
 
-                                                    <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
-                                                        <Setter Property="Text" Value="PENDING" />
-                                                        <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
-                                                        <Setter Property="FontSize" Value="15" />
-                                                    </DataTrigger>
-                                                </Label.Triggers>
-                                            </Label>
+                                            <Label
+                                                Text="{Binding From}"
+                                                FontSize="{StaticResource FontSizeMedium}"
+                                                TextColor="{DynamicResource SecondaryTextColor}"
+                                                LineBreakMode="TailTruncation" />
                                         </StackLayout>
 
-                                        <BoxView Style="{StaticResource SeperatorView}" />
+                                        <Label
+                                            Text="{Binding Price, StringFormat='-${0:F2}'}"
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Margin="10"
+                                            VerticalTextAlignment="Center"
+                                            LineBreakMode="NoWrap"
+                                            HorizontalOptions="EndAndExpand">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Price}" Value="0.0">
+                                                    <Setter Property="Text" Value="TRANSFER" />
+                                                    <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
+                                                    <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+                                                </DataTrigger>
+
+                                                <DataTrigger TargetType="Label" Value="True">
+                                                    <DataTrigger.Binding>
+                                                        <Binding
+                                                            Path="Price"
+                                                            Converter="{StaticResource IsLessThanConverter}">
+                                                            <Binding.ConverterParameter>
+                                                                <sys:Double>0.0</sys:Double>
+                                                            </Binding.ConverterParameter>
+                                                        </Binding>
+                                                    </DataTrigger.Binding>
+                                                    <Setter Property="Text" Value="{Binding Price}" />
+                                                </DataTrigger>
+
+                                                <DataTrigger TargetType="Label" Value="True" Binding="{Binding Date, Converter={StaticResource IsTodayConverter}}">
+                                                    <Setter Property="Text" Value="PENDING" />
+                                                    <Setter Property="TextColor" Value="{DynamicResource SecondaryTextColor}" />
+                                                    <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
                                     </StackLayout>
-                                </ViewCell>
+
+                                    <BoxView Style="{StaticResource SeperatorView}" />
+                                </StackLayout>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
 
                     <Label
                         Text="No recent trips found."

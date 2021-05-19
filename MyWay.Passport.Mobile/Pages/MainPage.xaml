@@ -121,7 +121,7 @@
                                                         VerticalOptions="EndAndExpand"
                                                         HorizontalOptions="Center"
                                                         HorizontalTextAlignment="Center"
-                                                        TextColor="{DynamicResource SecondaryTextColor}" />
+                                                        TextColor="{Binding CardColour.TextColour}" />
                                                 </StackLayout>
                                             </AbsoluteLayout>
                                         </Frame>

@@ -165,14 +165,18 @@
                         SelectedChipBackgroundColor="{AppThemeBinding Light=Black, Dark=White}">
                         <buttons:SfChipGroup.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout
-                                    Padding="10,3"
-                                    Spacing="5"
-                                    VerticalOptions="Center"
-                                    Orientation="Horizontal">
+                                <Grid
+                                    Padding="5,3"
+                                    ColumnSpacing="5"
+                                    VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
                                     <AbsoluteLayout
                                         VerticalOptions="Center"
-                                        Padding="0">
+                                        Padding="0"
+                                        Grid.Column="0">
                                         <Frame
                                             CornerRadius="5"
                                             HasShadow="False"
@@ -182,11 +186,12 @@
                                     </AbsoluteLayout>
 
                                     <Label
+                                        Grid.Column="1"
                                         VerticalTextAlignment="Center"
                                         Text="{Binding Name}"
                                         FontSize="{StaticResource FontSize}"
                                         TextColor="{DynamicResource SecondaryTextColor}" />
-                                </StackLayout>
+                                </Grid>
                             </DataTemplate>
                         </buttons:SfChipGroup.ItemTemplate>
 

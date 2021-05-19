@@ -28,7 +28,6 @@
                     AllowSwiping="True"
                     AutoFitMode="None"
                     ItemSize="90"
-                    HeaderSize="1"
                     SwipeOffset="120"
                     IsScrollingEnabled="False"
                     SelectionChangedCommand="{Binding ListItemSelected}"
@@ -36,12 +35,6 @@
                     <syncfusion:SfListView.DragDropController>
                         <syncfusion:DragDropController UpdateSource="True" />
                     </syncfusion:SfListView.DragDropController>
-
-                    <syncfusion:SfListView.HeaderTemplate>
-                        <DataTemplate>
-                            <BoxView Style="{StaticResource SeperatorView}" />
-                        </DataTemplate>
-                    </syncfusion:SfListView.HeaderTemplate>
 
                     <syncfusion:SfListView.RightSwipeTemplate>
                         <DataTemplate>

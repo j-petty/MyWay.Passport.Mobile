@@ -24,7 +24,14 @@
                         AutoFitMode="Height"
                         ListViewCachingStrategy="CreateNewTemplate"
                         IsScrollingEnabled="False"
+                        HeaderSize="1"
                         IsVisible="{Binding RecentTrips, Converter={StaticResource IsNotEmptyConverter}}">
+                        <syncfusion:SfListView.HeaderTemplate>
+                            <DataTemplate>
+                                <BoxView Style="{StaticResource SeperatorView}" />
+                            </DataTemplate>
+                        </syncfusion:SfListView.HeaderTemplate>
+
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Spacing="0">

@@ -86,6 +86,20 @@ namespace MyWay.Passport.Mobile.ViewModels
                 });
             }
         }
+
+        /// <summary>
+        /// Refresh listener.
+        /// </summary>
+        public Command RefreshSelected
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    IsBusy = false;
+                });
+            }
+        }
         #endregion
 
         /// <summary>

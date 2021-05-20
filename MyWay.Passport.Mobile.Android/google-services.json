@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:145439119360:android:a013a07e084b4e77ea20e5",
+        "mobilesdk_app_id": "1:145439119360:android:5267129331ee985cea20e5",
         "android_client_info": {
-          "package_name": "com.jamespetty.demo"
+          "package_name": "com.jamespetty.myway.balance"
         }
       },
       "oauth_client": [

@@ -1,4 +1,5 @@
 ﻿using System;
+using Firebase.Analytics;
 using Foundation;
 using Matcha.BackgroundService.iOS;
 using MyWay.Passport.Mobile.iOS.Services;
@@ -32,15 +33,9 @@ namespace MyWay.Passport.Mobile.iOS
 
             LoadApplication(new App());
 
-#pragma warning disable CS0162 // Unreachable code detected
-            if (Constants.EnableAnalytics)
-            {
-                // Init Firebase Analytics
-                Firebase.Core.App.Configure();
-                // Required for Firebase. Remove this line after issue is resolved: https://github.com/xamarin/GoogleApisForiOSComponents/issues/443
-                var instance = Firebase.Installations.Installations.DefaultInstance;
-            }
-#pragma warning restore CS0162 // Unreachable code detected
+            // Init Firebase Analytics
+            Firebase.Core.App.Configure();
+            Analytics.SetAnalyticsCollectionEnabled(Constants.EnableAnalytics);
 
             return base.FinishedLaunching(application, options);
         }

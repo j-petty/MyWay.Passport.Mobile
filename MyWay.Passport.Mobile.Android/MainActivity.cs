@@ -5,10 +5,11 @@ using Android.OS;
 using Matcha.BackgroundService.Droid;
 using Plugin.CurrentActivity;
 using Xamarin.Essentials;
+using Firebase.Analytics;
 
 namespace MyWay.Passport.Mobile.Droid
 {
-    [Activity(Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    [Activity(Icon = "@mipmap/icon", Theme = "@style/MainTheme", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -26,6 +27,9 @@ namespace MyWay.Passport.Mobile.Droid
 
             // Apply correct theme
             ApplyTheme();
+
+            // Disable Analytics in Debug mode
+            FirebaseAnalytics.GetInstance(this).SetAnalyticsCollectionEnabled(Constants.EnableAnalytics);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());

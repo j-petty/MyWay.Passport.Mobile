@@ -107,13 +107,13 @@
                                                             Padding="0"
                                                             VerticalOptions="Start"
                                                             HorizontalOptions="EndAndExpand"
-                                                            Source="ic_history_w.png"
+                                                            Source="{AppThemeBinding Light=ic_history_w.png, Dark=ic_history_b.png}"
                                                             BackgroundColor="Transparent"
                                                             Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}"                                                        
                                                             IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}">
                                                             <ImageButton.Triggers>
-                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColour.TextColour}" Value="Black">
-                                                                    <Setter Property="Source" Value="ic_history_b.png"/> 
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Yellow">
+                                                                    <Setter Property="Source" Value="ic_history_b.png"/>
                                                                 </DataTrigger>
                                                             </ImageButton.Triggers>
                                                         </ImageButton>

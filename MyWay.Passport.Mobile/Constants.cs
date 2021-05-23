@@ -43,31 +43,31 @@ namespace MyWay.Passport.Mobile
                 {
                     Name = ColourNames.Red,
                     BackgroundColour = "#E71D36",
-                    TextColour = "White"
+                    TextColour = "#FFFFFF"
                 },
                 new CardColour
                 {
                     Name = ColourNames.Green,
                     BackgroundColour = "#06D6A0",
-                    TextColour = "White"
+                    TextColour = "#FFFFFF"
                 },
                 new CardColour
                 {
                     Name = ColourNames.Blue,
                     BackgroundColour = "#3A86FF",
-                    TextColour = "White"
+                    TextColour = "#FFFFFF"
                 },
                 new CardColour
                 {
                     Name = ColourNames.Yellow,
                     BackgroundColour = "#FEE440",
-                    TextColour = "Black"
+                    TextColour = "#000000"
                 },
                 new CardColour
                 {
                     Name = ColourNames.Purple,
                     BackgroundColour = "#8338EC",
-                    TextColour = "White"
+                    TextColour = "#FFFFFF"
                 }
             });
 

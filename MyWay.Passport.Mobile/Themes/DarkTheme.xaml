@@ -6,7 +6,7 @@
     <Color x:Key="BackgroundColor">Black</Color>
     <Color x:Key="SecondaryBackgroundColor">#0b0b0b</Color>
     <Color x:Key="DefaultCardBackgroundColor">White</Color>
-    <Color x:Key="DefaultCardTextColor">Black</Color>
+    <Color x:Key="DefaultCardTextColor">#000000</Color>
     <Color x:Key="TextColor">White</Color>
     <Color x:Key="SecondaryTextColor">Gray</Color>
     <Color x:Key="ErrorTextColor">Red</Color>

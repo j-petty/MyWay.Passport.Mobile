@@ -155,9 +155,11 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         private bool ValidateFields()
         {
+            var cardsList = SettingsService.CardList;
+
             // Validate CardNumber
             CardNumberValid = !string.IsNullOrWhiteSpace(CardDetails.CardNumber) &&
-                !SettingsService.CardList.Any(card => card.CardNumber == CardDetails.CardNumber);
+                (!cardsList.Any(card => card.CardNumber == CardDetails.CardNumber && card.CardId != CardDetails.CardId));
 
             // Validate Password
             CardPasswordValid = !string.IsNullOrWhiteSpace(CardDetails.Password);

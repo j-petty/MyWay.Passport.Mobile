@@ -26,16 +26,21 @@
                         RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-250}">
                         <!-- NOTE: using insets causes issues on larger screen sizes -->
                         <!-- NOTE: there is a knowm XF bug with carousel view sizing: https://github.com/xamarin/Xamarin.Forms/issues/8640 -->
-                        <!-- NOTE: there is another known XF bug with carousel views across multiple pages: https://github.com/xamarin/Xamarin.Forms/issues/12873 -->
+                        <!-- NOTE: there is another known XF bug with carousel views across multiple pages, enabling loop fixes this: https://github.com/xamarin/Xamarin.Forms/issues/12873 -->
                         <CarouselView
                             PeekAreaInsets="0"
-                            Loop="False"
                             IndicatorView="IndicatorView"
-                            CurrentItem="{Binding SelectedCard}"
-                            PositionChangedCommand="{Binding SelectedCardChanged}"
+                            CurrentItem="{Binding SelectedCard, Mode=TwoWay}"
+                            CurrentItemChangedCommand="{Binding SelectedCardChanged}"
                             ItemsSource="{Binding Cards}"
                             HorizontalScrollBarVisibility="Never"
                             HeightRequest="{Binding CardHeight}">
+                            <CarouselView.Loop>
+                                <OnPlatform x:TypeArguments="sys:Boolean">
+                                    <On Platform="iOS" Value="False" />
+                                    <On Platform="Android" Value="True" />
+                                </OnPlatform>
+                            </CarouselView.Loop>
                             <CarouselView.ItemsLayout>
                                 <LinearItemsLayout
                                     Orientation="Horizontal"

@@ -240,7 +240,7 @@ namespace MyWay.Passport.Mobile.Services
 
                 return recentTrips;
             }
-            catch
+            catch (Exception ex)
             {
                 Console.WriteLine("Failed to parse response HTML");
                 throw;

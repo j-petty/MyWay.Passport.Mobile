@@ -94,7 +94,7 @@ namespace MyWay.Passport.Mobile.ViewModels
                 return new Command(async () =>
                 {
                     // Don't load balance if card details aren't filled
-                    if (SelectedCard == null || !SelectedCard.CheckFilled())
+                    if (SelectedCard == null || !SelectedCard.CheckFilled() || !Cards.Any())
                     {
                         IsBusy = false;
                         return;

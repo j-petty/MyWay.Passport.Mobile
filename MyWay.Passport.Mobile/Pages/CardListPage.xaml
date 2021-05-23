@@ -16,10 +16,15 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <!-- RefreshView enables overscroll on iOS -->
+        <!-- Transparent RefreshView enables overscroll on iOS -->
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
             Command="{Binding RefreshSelected}">
+            <RefreshView.RefreshColor>
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS" Value="Transparent" />
+                </OnPlatform>
+            </RefreshView.RefreshColor>
             <ScrollView>
                 <StackLayout Spacing="0">
                     <!-- Using SfListView to allow simple drag and drop ordering -->

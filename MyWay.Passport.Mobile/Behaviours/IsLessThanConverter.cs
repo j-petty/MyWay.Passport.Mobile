@@ -22,6 +22,10 @@ namespace MyWay.Passport.Mobile.Behaviours
             {
                 return (double)value < cutoff;
             }
+            else if (value.GetType() == typeof(int))
+            {
+                return (int)value < cutoff;
+            }
             else
             {
                 throw new NotImplementedException($"Value of type {value.GetType()} is not supported");

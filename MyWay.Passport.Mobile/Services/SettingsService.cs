@@ -12,6 +12,7 @@ namespace MyWay.Passport.Mobile.Services
         /// <summary>
         /// Retrieves list of stored Cards.
         /// </summary>
+#pragma warning disable CS0618 // Type or member is obsolete
         public static List<CardDetails> CardList
         {
             get
@@ -50,6 +51,7 @@ namespace MyWay.Passport.Mobile.Services
                 Console.WriteLine("Saved Cards: " + value?.Count);
             }
         }
+#pragma warning restore CS0618 // Type or member is obsolete
 
         /// <summary>
         /// Replaces a Card if it exists or adds a new one.

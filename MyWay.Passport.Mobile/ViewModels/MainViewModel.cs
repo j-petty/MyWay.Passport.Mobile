@@ -205,20 +205,23 @@ namespace MyWay.Passport.Mobile.ViewModels
 
             IsBusy = true;
 
+            // Retrieve SelectedItem
+            var selectedIndex = Cards.IndexOf(SelectedCard);
+
             try
             {
                 // Retrieve updated Card details
-                SelectedCard = await App.VendorService.GetBalanceAsync(SelectedCard);
+                Cards[selectedIndex] = await App.VendorService.GetBalanceAsync(SelectedCard);
 
                 // Reset error on successful balance update
                 ErrorMessage = null;
             }
             catch
             {
-                if (SelectedCard != null)
+                if (selectedIndex > 0 && Cards.Count > selectedIndex)
                 {
                     // Clear LastUpdated
-                    SelectedCard.LastUpdated = null;
+                    Cards[selectedIndex].LastUpdated = null;
                 }
 
                 // Display error if refresh failed

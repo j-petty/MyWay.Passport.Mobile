@@ -25,7 +25,9 @@ namespace MyWay.Passport.Mobile.Services
             try
             {
                 // Try to fetch lastest balance details
-                var cardTasks = SettingsService.CardList.Select(card => App.VendorService.GetBalanceAsync(card));
+                var cardTasks = SettingsService.CardList
+                    .Where(card => card.LastUpdated == null || card.LastUpdated < DateTime.Now.AddHours(-1))
+                    .Select(card => App.VendorService.GetBalanceAsync(card));
 
                 // Loop through each Card after all requests return
                 foreach (var card in await Task.WhenAll(cardTasks))

@@ -14,7 +14,8 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshHistorySelected}"
-            BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
+            BackgroundColor="{DynamicResource SecondaryBackgroundColor}"
+            RefreshColor="{AppThemeBinding Light=Black, Dark=White}">
             <ScrollView VerticalScrollBarVisibility="Always">
                 <StackLayout Spacing="0">
                     <syncfusion:SfListView
@@ -34,7 +35,9 @@
 
                         <syncfusion:SfListView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout Spacing="0">
+                                <StackLayout
+                                    BackgroundColor="{DynamicResource BackgroundColor}"
+                                    Spacing="0">
                                     <StackLayout
                                         Padding="20"
                                         Orientation="Horizontal"

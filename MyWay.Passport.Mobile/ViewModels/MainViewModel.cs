@@ -153,7 +153,7 @@ namespace MyWay.Passport.Mobile.ViewModels
 
         public override void OnViewResuming()
         {
-            base.OnViewAppearing();
+            base.OnViewResuming();
 
             TryRefreshBalance();
         }
@@ -211,14 +211,20 @@ namespace MyWay.Passport.Mobile.ViewModels
             try
             {
                 // Retrieve updated Card details
-                Cards[selectedIndex] = await App.VendorService.GetBalanceAsync(SelectedCard);
+                var returnedCard = await App.VendorService.GetBalanceAsync(SelectedCard);
+
+                if (selectedIndex >= 0 && Cards.Count > selectedIndex)
+                {
+                    // Update selected item
+                    Cards[selectedIndex] = returnedCard;
+                }
 
                 // Reset error on successful balance update
                 ErrorMessage = null;
             }
-            catch
+            catch (Exception ex)
             {
-                if (selectedIndex > 0 && Cards.Count > selectedIndex)
+                if (selectedIndex >= 0 && Cards.Count > selectedIndex)
                 {
                     // Clear LastUpdated
                     Cards[selectedIndex].LastUpdated = null;

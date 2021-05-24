@@ -17,6 +17,7 @@
         <RefreshView
             IsRefreshing="{Binding IsBusy, Mode=OneWay}"
             Command="{Binding RefreshBalanceSelected}"
+            RefreshColor="{AppThemeBinding Light=Black, Dark=White}"
             BackgroundColor="{DynamicResource SecondaryBackgroundColor}">
             <ScrollView BackgroundColor="{DynamicResource BackgroundColor}">
                 <RelativeLayout>
@@ -112,13 +113,25 @@
                                                             Command="{Binding BindingContext.OpenRecentTripsSelected, Source={x:Reference root}}"                                                        
                                                             IsVisible="{Binding LastUpdated, Converter={StaticResource IsNotNullConverter}}">
                                                             <ImageButton.Triggers>
+                                                                <!-- NOTE: binding to CardColour.TextColour didn't work -->
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Red">
+                                                                    <Setter Property="Source" Value="ic_history_w.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Green">
+                                                                    <Setter Property="Source" Value="ic_history_w.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Blue">
+                                                                    <Setter Property="Source" Value="ic_history_w.png"/>
+                                                                </DataTrigger>
                                                                 <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Yellow">
                                                                     <Setter Property="Source" Value="ic_history_b.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger TargetType="ImageButton" Binding="{Binding CardColourName}" Value="Purple">
+                                                                    <Setter Property="Source" Value="ic_history_w.png"/>
                                                                 </DataTrigger>
                                                             </ImageButton.Triggers>
                                                         </ImageButton>
                                                     </StackLayout>
-                                                    
                                                     
                                                     <Label
                                                         Text="{Binding CardNumber}"

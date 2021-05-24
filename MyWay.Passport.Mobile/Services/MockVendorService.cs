@@ -10,14 +10,20 @@ namespace MyWay.Passport.Mobile.Services
     {
         public Task<CardDetails> GetBalanceAsync(CardDetails cardDetails)
         {
-            return Task.FromResult(new CardDetails
+            var returnedCard = new CardDetails
             {
-                CardNumber = "123456789",
+                CardId = cardDetails.CardId,
+                CardNumber = cardDetails.CardNumber,
                 Password = "Password",
                 DateOfBirth = new DateTime(1990, 1, 1),
                 LastBalance = 13.44,
                 LastUpdated = DateTime.Now
-            });
+            };
+
+            // Save updated CardDetails
+            SettingsService.AddOrReplaceCard(returnedCard);
+
+            return Task.FromResult(returnedCard);
         }
 
         public Task<IEnumerable<RecentTrip>> GetRecentTripsAsync(CardDetails cardDetails)

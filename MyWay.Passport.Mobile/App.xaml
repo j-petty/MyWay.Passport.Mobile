@@ -45,6 +45,7 @@
             <Setter Property="BorderColor" Value="Transparent" />
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="Padding" Value="10" />
+            <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}" />
         </Style>
 
         <!-- Clickable Link -->

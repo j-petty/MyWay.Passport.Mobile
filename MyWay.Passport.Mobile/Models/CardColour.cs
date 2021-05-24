@@ -1,11 +1,38 @@
 ﻿namespace MyWay.Passport.Mobile.Models
 {
-    public class CardColour
+    public class CardColour : BaseModel
     {
-        public ColourNames Name { get; set; }
+        private ColourNames name;
+        public ColourNames Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string BackgroundColour { get; set; }
+        private string backgroundColour;
+        public string BackgroundColour
+        {
+            get { return backgroundColour; }
+            set
+            {
+                backgroundColour = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public string TextColour { get; set; }
+        private string textColour;
+        public string TextColour
+        {
+            get { return textColour; }
+            set
+            {
+                textColour = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

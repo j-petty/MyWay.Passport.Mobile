@@ -1,4 +1,6 @@
-﻿using Matcha.BackgroundService;
+﻿using System;
+using Matcha.BackgroundService;
+using Microsoft.Extensions.Configuration;
 using MyWay.Passport.Mobile.Pages;
 using MyWay.Passport.Mobile.Services;
 using MyWay.Passport.Mobile.Themes;
@@ -17,14 +19,21 @@ namespace MyWay.Passport.Mobile
 
         public static RequestService RequestService { get; private set; }
         public static IVendorService VendorService { get; private set; }
+        public static IConfiguration Configuration { get; private set; }
 
         private Color _barBackgroundColor;
         private Color _barTextColor;
 
-        public App()
+        public App(Action<ConfigurationBuilder> configuration)
         {
+            // Setup configuration (note appsettings is required but not included in source control)
+            Configuration = Setup.Configuration
+               .ConfigureSharedProject()
+               .ConfigurePlatformProject(configuration)
+               .Build();
+
             // Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Constants.SysfusionLicenceKey);
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Configuration[Constants.SysfusionLicenceKeyName]);
 
             InitializeComponent();
 

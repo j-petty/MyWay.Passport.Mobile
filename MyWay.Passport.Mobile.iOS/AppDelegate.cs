@@ -31,7 +31,7 @@ namespace MyWay.Passport.Mobile.iOS
             SfChipGroupRenderer.Init();
             SfChipRenderer.Init();
 
-            LoadApplication(new App());
+            LoadApplication(new App(Setup.Configuration));
 
             // Init Firebase Analytics
             Firebase.Core.App.Configure();

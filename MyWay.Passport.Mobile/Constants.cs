@@ -21,7 +21,7 @@ namespace MyWay.Passport.Mobile
         public const string PasswordHelpUrl = "https://" + TransportCanberraDomain + "/tickets-and-myway/check-myway-balance#Protect";
 
         // Susfusion Licence
-        public const string SysfusionLicenceKey = "NDQzNzIxQDMxMzkyZTMxMmUzMG0wRTFBcTBKVkkxbXlwbmJUSmZYbFMxRWpJa0REbHVjTDJzdzVDU0ZRdkU9";
+        public const string SysfusionLicenceKeyName = "SysfusionLicenceKey";
 
         // Internal URLs
         public const string PrivacyPolicyUrl = "https://www.jamespetty.com.au/privacy.html";

@@ -32,7 +32,7 @@ namespace MyWay.Passport.Mobile.Droid
             FirebaseAnalytics.GetInstance(this).SetAnalyticsCollectionEnabled(Constants.EnableAnalytics);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            LoadApplication(new App());
+            LoadApplication(new App(Android.Setup.Configuration));
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)

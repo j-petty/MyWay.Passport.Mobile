@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -21,6 +21,8 @@
     <PackageReference Include="Matcha.BackgroundService" Version="1.0.5478" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.1.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.1.0.63" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -36,5 +38,14 @@
       <DependentUpon>CardListPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Microsoft.Extensions.Configuration.Json" />
+    <None Remove="Microsoft.Extensions.FileProviders.Embedded" />
+    <None Remove="Microsoft.Extensions.Configuration.UserSecrets" />
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="appsettings.json" />
   </ItemGroup>
 </Project>
